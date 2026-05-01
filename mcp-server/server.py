@@ -22,6 +22,7 @@ Tools:
     - generate_schematic_skidl : generate a KiCad netlist/schematic from a declarative parts+nets spec
     - render_interactive_bom : generate interactive HTML BOM from a .kicad_pcb
     - annotate_jlc_bom      : annotate schematic with LCSC #s via kicad-jlcpcb-tools plugin (graceful fallback if not installed)
+    - design_pcb_from_spec  : end-to-end pipeline: parse spec → source parts → generate schematic → ERC → BOM
 
 Run:
     python3 ~/electronics-stack/mcp-server/server.py
@@ -137,15 +138,15 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="lookup_part",
-            description="Search Digikey, Mouser, Octopart, LCSC (via local jlcparts SQLite), and/or Farnell for an MPN. Returns availability, lifecycle status, pricing, datasheet URL.",
+            description="Search Digikey, Mouser, and/or Octopart for an MPN. Returns availability, lifecycle status, pricing, datasheet URL.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "mpn": {"type": "string"},
                     "providers": {
                         "type": "array",
-                        "items": {"type": "string", "enum": ["digikey", "mouser", "octopart", "lcsc", "farnell"]},
-                        "default": ["digikey", "mouser", "octopart", "lcsc"]
+                        "items": {"type": "string", "enum": ["digikey", "mouser", "octopart"]},
+                        "default": ["digikey", "mouser", "octopart"]
                     }
                 },
                 "required": ["mpn"]
@@ -332,6 +333,35 @@ async def list_tools() -> list[Tool]:
                 "required": ["pcb_path"],
             },
         ),
+        Tool(
+            name="design_pcb_from_spec",
+            description=(
+                "End-to-end PCB design pipeline from a plain-English spec. "
+                "Parses the spec into parts, sources cheapest in-stock components, "
+                "generates a KiCad schematic via skidl, runs ERC, and writes "
+                "parts.json + bom.xlsx + schematic.kicad_sch + verify_report.json to out_dir. "
+                "Returns success bool, parts_count, erc_errors, and known_limitations list."
+            ),
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "spec": {
+                        "type": "string",
+                        "description": "Plain-English circuit description, e.g. '555 timer LED blinker, 9V battery, 1Hz'",
+                    },
+                    "out_dir": {
+                        "type": "string",
+                        "description": "Absolute path to output directory (will be created if needed)",
+                    },
+                    "providers": {
+                        "type": "array",
+                        "items": {"type": "string", "enum": ["digikey", "lcsc", "mouser", "farnell"]},
+                        "description": "Part sourcing providers to query in order. Default: ['digikey', 'lcsc']",
+                    },
+                },
+                "required": ["spec", "out_dir"],
+            },
+        ),
     ]
 
 
@@ -404,19 +434,6 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                     results["octopart"] = OctopartClient.from_env().search_mpn(mpn, limit=3)
                 except Exception as e:
                     results["octopart"] = {"error": str(e)}
-            if "lcsc" in providers:
-                try:
-                    from lcsc_client import LcscClient
-                    results["lcsc"] = LcscClient.from_env().keyword_search(mpn, limit=5)
-                except Exception as e:
-                    results["lcsc"] = {"error": str(e)}
-            if "farnell" in providers:
-                try:
-                    from farnell_client import FarnellClient
-                    results["farnell"] = FarnellClient.from_env().keyword_search(mpn, limit=3)
-                except Exception as e:
-                    # Gracefully report missing key without crashing
-                    results["farnell"] = {"error": str(e)}
             return [TextContent(type="text", text=json.dumps(results, indent=2)[:8000])]
 
         if name == "pin_match_datasheet":
@@ -527,6 +544,16 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             out = arguments.get("out_dir") or str(Path(pcb).parent / "ibom-out")
             extra = arguments.get("extra_args") or []
             result = IbomWrapper.from_env().render_interactive_bom(pcb, out, extra)
+            return [TextContent(type="text", text=json.dumps(result, indent=2))]
+
+        if name == "design_pcb_from_spec":
+            from design_pipeline import DesignPipeline
+            providers = arguments.get("providers") or ["digikey", "lcsc"]
+            pipeline = DesignPipeline(providers=providers)
+            result = pipeline.design(
+                spec=arguments["spec"],
+                out_dir=Path(arguments["out_dir"]),
+            )
             return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
