@@ -311,10 +311,14 @@ def extract_pins_from_pdf(
 
     pins = [c._asdict() for c in best_by_num.values()]
 
-    # Sanity-check: drop pin numbers far beyond expected count
+    # Sanity-check: drop pin number 0 (always junk) and numbers far beyond
+    # the expected count (page numbers, footnote refs, etc.)
     if expected_pin_count is not None:
         cutoff = expected_pin_count + 4
-        pins = [p for p in pins if int(p["number"]) <= cutoff]
+        pins = [p for p in pins if 1 <= int(p["number"]) <= cutoff]
+    else:
+        # Always drop pin 0 regardless
+        pins = [p for p in pins if int(p["number"]) >= 1]
 
     # Summary counters
     by_extractor: dict[str, int] = {"table": 0, "spatial": 0, "regex_fallback": 0}
