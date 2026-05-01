@@ -1,0 +1,157 @@
+# Pin alias groups for datasheet_pinmatch.
+# Each group is a list of signal names considered functionally equivalent.
+# Names are matched case-insensitively after stripping non-alphanumeric chars.
+
+power:
+  - VCC
+  - VDD
+  - V+
+  - AVCC
+  - AVDD
+  - DVCC
+  - DVDD
+  - IOVDD
+  - VBAT
+  - VIN
+  - VDDA
+  - VDDD
+  - VDDIO
+  - VCC3V3
+  - VCC5V
+  - VCC33
+  - VCCA
+  - VCCD
+  - VCCIO
+  - VPP
+
+ground:
+  - GND
+  - VSS
+  - AVSS
+  - DVSS
+  - GNDA
+  - GNDD
+  - AGND
+  - DGND
+  - PGND
+  - SGND
+  - VSSA
+  - COM
+  - EP
+  - EPAD
+
+clock_serial:
+  - SCL
+  - SCLK
+  - SCK
+  - CLK
+  - CLOCK
+  - I2C_CLK
+  - SPI_CLK
+  - SPCLK
+  - SPICLK
+  - SCKL
+  - BCLK
+  - MCLK
+  - DCLK
+  - SCLK1
+  - SCL1
+
+data_serial_mosi:
+  - MOSI
+  - SDI
+  - DIN
+  - SDIN
+  - SI
+  - SDA_MOSI
+  - MOSI1
+
+data_serial_miso:
+  - MISO
+  - SDO
+  - DOUT
+  - SDOUT
+  - SO
+  - MISO1
+
+i2c_data:
+  - SDA
+  - I2C_SDA
+  - SDA1
+
+chip_select:
+  - CS
+  - CSN
+  - CSB
+  - SS
+  - NSS
+  - CE
+  - NCS
+  - SPI_CS
+  - SPICS
+  - SSEL
+
+reset:
+  - RESET
+  - RST
+  - NRST
+  - RESET_N
+  - N_RESET
+  - NRESET
+  - RST_N
+  - XRESET
+  - RSTN
+
+enable:
+  - EN
+  - ENABLE
+  - ENB
+  - EN_N
+  - N_EN
+  - OE
+  - OEB
+  - CE
+
+interrupt:
+  - INT
+  - IRQ
+  - INTR
+  - INT_N
+  - IRQ_N
+  - N_INT
+  - NIRQ
+  - NINT
+  - ALERT
+
+boot:
+  - BOOT0
+  - BOOT
+  - BOOT_SEL
+  - BOOTMODE
+
+wakeup:
+  - WAKE
+  - WAKEUP
+  - WAKE_UP
+  - WU
+
+done_signal:
+  - DONE
+  - READY
+  - RDY
+  - DRDY
+  - DATA_RDY
+
+tx_uart:
+  - TX
+  - TXD
+  - UART_TX
+  - TXD1
+  - UTXD
+
+rx_uart:
+  - RX
+  - RXD
+  - UART_RX
+  - RXD1
+  - URXD
