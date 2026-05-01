@@ -115,6 +115,18 @@ def http_check(url: str, timeout: float = 10.0) -> dict:
         return {"status": "slow", "code": None, "via": "head",
                 "escalated": False, "actionable": False,
                 "note": f"HEAD timed out after {timeout}s"}
+    except requests.TooManyRedirects:
+        # Redirect loops are an anti-scrape pattern, not real link rot
+        return {"status": "status_redirect_loop", "code": None, "via": "head",
+                "escalated": False, "actionable": None, "_needs_escalation": True}
+    except requests.ConnectionError as exc:
+        msg = str(exc)
+        # Connection resets / SSL errors on AliExpress/eBay are anti-scrape blocks
+        if any(s in msg for s in ("Max retries exceeded", "Connection reset", "RemoteDisconnected")):
+            return {"status": "status_connection_block", "code": None, "via": "head",
+                    "escalated": False, "actionable": None, "_needs_escalation": True}
+        return {"status": "error", "code": None, "via": "head",
+                "escalated": False, "actionable": True, "note": msg[:120]}
     except requests.RequestException as exc:
         return {"status": "error", "code": None, "via": "head",
                 "escalated": False, "actionable": True, "note": str(exc)[:120]}
@@ -141,11 +153,21 @@ def browserbase_fetch(url: str) -> dict:
         if proc.returncode == 0 and proc.stdout.strip():
             return {"status": "ok", "code": 200, "via": "browserbase",
                     "escalated": True, "actionable": False}
-        err = (proc.stderr or "").strip()[:120]
+        # Strip node deprecation warnings from stderr to get real error
+        err_lines = [l for l in (proc.stderr or "").splitlines()
+                     if "DeprecationWarning" not in l and "Use `node --trace" not in l
+                     and "(node:" not in l]
+        err = " ".join(err_lines).strip()[:120]
         if "401" in err or "unauthorized" in err.lower() or "api key" in err.lower():
-            return {"status": "error", "code": None, "via": "browserbase",
-                    "escalated": True, "actionable": True,
-                    "note": f"Browserbase auth failure: {err}"}
+            # Auth failure — bb not configured; don't flag URL as dead
+            return {"status": "unchecked_anti_scrape", "code": None, "via": "browserbase",
+                    "escalated": True, "actionable": False,
+                    "note": f"Browserbase auth failure (bb not configured): {err}"}
+        if not err:
+            # Only node warnings in stderr, no real error message
+            return {"status": "unchecked_anti_scrape", "code": None, "via": "browserbase",
+                    "escalated": True, "actionable": False,
+                    "note": "bb fetch failed with no error message (check bb auth)"}
         return {"status": "error", "code": None, "via": "browserbase",
                 "escalated": True, "actionable": True,
                 "note": f"bb fetch failed (exit {proc.returncode}): {err}"}
