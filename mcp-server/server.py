@@ -16,6 +16,7 @@ Tools:
     - parse_schematic       : structural dump of a kicad_sch
     - nexar_render          : render an Altium 365 PCB via Nexar Design API
     - nexar_list_projects   : list projects in an Altium 365 workspace
+    - generate_schematic_skidl : generate a KiCad netlist/schematic from a declarative parts+nets spec
 
 Run:
     python3 ~/electronics-stack/mcp-server/server.py
@@ -211,6 +212,53 @@ async def list_tools() -> list[Tool]:
                 }
             }
         ),
+        Tool(
+            name="generate_schematic_skidl",
+            description="Generate a KiCad netlist (.net) and optional schematic (.kicad_sch) from a declarative parts+nets spec using skidl. Falls back to netlist-only on KiCad 9 compatibility issues.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "parts": {
+                        "type": "array",
+                        "description": "List of parts: [{lib, name, refdes, footprint?}]",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "lib": {"type": "string"},
+                                "name": {"type": "string"},
+                                "refdes": {"type": "string"},
+                                "footprint": {"type": "string"},
+                            },
+                            "required": ["lib", "name", "refdes"],
+                        },
+                    },
+                    "nets": {
+                        "type": "array",
+                        "description": "List of nets: [{name, connections: [{refdes, pin}]}]",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "name": {"type": "string"},
+                                "connections": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "refdes": {"type": "string"},
+                                            "pin": {"type": "string"},
+                                        },
+                                        "required": ["refdes", "pin"],
+                                    },
+                                },
+                            },
+                            "required": ["name"],
+                        },
+                    },
+                    "out_dir": {"type": "string", "description": "Output directory for generated files"},
+                },
+                "required": ["parts", "nets", "out_dir"],
+            },
+        ),
     ]
 
 
@@ -345,6 +393,15 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 "no_connect_count": len(sch.no_connects),
                 "refdes": sorted(i.refdes for i in sch.instances),
             }, indent=2))]
+
+        if name == "generate_schematic_skidl":
+            from skidl_wrapper import SkidlWrapper
+            result = SkidlWrapper.from_env().generate_schematic(
+                parts=arguments["parts"],
+                nets=arguments["nets"],
+                out_dir=arguments["out_dir"],
+            )
+            return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
     except Exception as e:
