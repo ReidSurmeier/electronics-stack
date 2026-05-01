@@ -1,0 +1,26 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.env
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.kicad_sch-bak
+*.kicad_pro-bak
+*.bak
+*-backups/
+fp-info-cache
+kibot-out/
+verify-out/
+.DS_Store
+node_modules/
+# Large artifacts and corpus runs
+test-corpus/*/
+corpus-results/raw_logs/
+*.glb
+*.pcb.json
+.gitnexus

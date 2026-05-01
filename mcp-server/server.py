@@ -137,15 +137,15 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="lookup_part",
-            description="Search Digikey, Mouser, and/or Octopart for an MPN. Returns availability, lifecycle status, pricing, datasheet URL.",
+            description="Search Digikey, Mouser, Octopart, LCSC (via local jlcparts SQLite), and/or Farnell for an MPN. Returns availability, lifecycle status, pricing, datasheet URL.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "mpn": {"type": "string"},
                     "providers": {
                         "type": "array",
-                        "items": {"type": "string", "enum": ["digikey", "mouser", "octopart"]},
-                        "default": ["digikey", "mouser", "octopart"]
+                        "items": {"type": "string", "enum": ["digikey", "mouser", "octopart", "lcsc", "farnell"]},
+                        "default": ["digikey", "mouser", "octopart", "lcsc"]
                     }
                 },
                 "required": ["mpn"]
@@ -404,6 +404,19 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                     results["octopart"] = OctopartClient.from_env().search_mpn(mpn, limit=3)
                 except Exception as e:
                     results["octopart"] = {"error": str(e)}
+            if "lcsc" in providers:
+                try:
+                    from lcsc_client import LcscClient
+                    results["lcsc"] = LcscClient.from_env().keyword_search(mpn, limit=5)
+                except Exception as e:
+                    results["lcsc"] = {"error": str(e)}
+            if "farnell" in providers:
+                try:
+                    from farnell_client import FarnellClient
+                    results["farnell"] = FarnellClient.from_env().keyword_search(mpn, limit=3)
+                except Exception as e:
+                    # Gracefully report missing key without crashing
+                    results["farnell"] = {"error": str(e)}
             return [TextContent(type="text", text=json.dumps(results, indent=2)[:8000])]
 
         if name == "pin_match_datasheet":
