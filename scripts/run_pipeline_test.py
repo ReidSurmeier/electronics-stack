@@ -102,9 +102,20 @@ class ProjectResult:
 # ---------------------------------------------------------------------------
 def _status_cell(check_name: str, results: list[dict]) -> str:
     """Map a verify.py JSON result entry to PASS / FAIL / SKIP."""
+    # Use longer anchor strings to avoid substring collisions.
+    # Without this, "pi" matches "passive-pin floats" in the connectivity
+    # check name, producing a spurious PI FAIL on every CONN FAIL project.
+    _ANCHORS: dict[str, str] = {
+        "erc":      "kicad-cli erc",
+        "conn":     "connectivity audit",
+        "power":    "power budget",
+        "sourcing": "bom sourcing",
+        "pi":       "pi dts",
+    }
+    anchor = _ANCHORS.get(check_name, check_name)
     for r in results:
-        # match by check key name inside the 'check' string
-        if check_name in r.get("check", "").lower() or r.get("_key") == check_name:
+        check_lower = r.get("check", "").lower()
+        if anchor in check_lower or r.get("_key") == check_name:
             s = r.get("status", "").lower()
             if s in ("pass",):
                 return "PASS"
@@ -135,6 +146,12 @@ def _top_error(raw: list[dict]) -> str:
     """First error/fail message found across all check results."""
     for r in raw:
         if r.get("status") in ("fail", "error"):
+            # For ERC results, surface the actual error rule descriptions
+            if "erc" in r.get("check", "").lower():
+                first_errors = r.get("first_errors", [])
+                if first_errors:
+                    n = r.get("errors_design", len(first_errors))
+                    return f"{n} ERC error(s): {first_errors[0]}"[:120]
             # prefer a short reason string
             for key in ("error", "reason", "details"):
                 val = r.get(key)

@@ -75,11 +75,27 @@ def run_kicad_erc(sch_path: Path, out_dir: Path) -> dict:
         capture_output=True, text=True
     )
     text = rpt.read_text() if rpt.exists() else ""
+    lines = text.split("\n")
     errors = text.count("; error")
     # filter footprint_link_issues — environmental, not design issues
-    real_errors = sum(1 for line in text.split("\n") if "; error" in line and "footprint_link_issues" not in line)
+    real_errors = sum(1 for line in lines if "; error" in line and "footprint_link_issues" not in line)
     warnings = text.count("; warning")
-    real_warnings = warnings - sum(1 for line in text.split("\n") if "; warning" in line and "footprint_link_issues" in line)
+    real_warnings = warnings - sum(1 for line in lines if "; warning" in line and "footprint_link_issues" in line)
+    # Collect first 3 real error descriptions for surfacing in top_error
+    # ERC report format: "[rule_id]: description\n    ; error"
+    first_errors: list[str] = []
+    for i, line in enumerate(lines):
+        if len(first_errors) >= 3:
+            break
+        if "; error" in line and "footprint_link_issues" not in line:
+            # Walk back to find the rule description line (skipping "@" location lines)
+            desc_idx = i - 1
+            while desc_idx >= 0 and lines[desc_idx].strip().startswith("@"):
+                desc_idx -= 1
+            if desc_idx >= 0:
+                desc = lines[desc_idx].strip()
+                if desc and desc not in first_errors:
+                    first_errors.append(desc[:120])
     return {
         "check": "kicad-cli ERC",
         "status": "fail" if real_errors else "pass",
@@ -87,6 +103,7 @@ def run_kicad_erc(sch_path: Path, out_dir: Path) -> dict:
         "errors_design": real_errors,
         "warnings_total": warnings,
         "warnings_design": real_warnings,
+        "first_errors": first_errors,
         "report": str(rpt),
     }
 
