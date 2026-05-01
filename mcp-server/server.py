@@ -21,6 +21,7 @@ Tools:
     - run_kikit_present     : generate KiKit project presentation webpage
     - generate_schematic_skidl : generate a KiCad netlist/schematic from a declarative parts+nets spec
     - render_interactive_bom : generate interactive HTML BOM from a .kicad_pcb
+    - annotate_jlc_bom      : annotate schematic with LCSC #s via kicad-jlcpcb-tools plugin (graceful fallback if not installed)
 
 Run:
     python3 ~/electronics-stack/mcp-server/server.py
@@ -181,6 +182,18 @@ async def list_tools() -> list[Tool]:
             inputSchema={
                 "type": "object",
                 "properties": {"schematic_path": {"type": "string"}},
+                "required": ["schematic_path"]
+            }
+        ),
+        Tool(
+            name="annotate_jlc_bom",
+            description="Annotate a KiCad schematic with LCSC part numbers via the kicad-jlcpcb-tools action plugin. Returns BOM + CPL paths. If plugin not installed, returns MISSING_PLUGIN error and points to run_kikit_fab as alternative.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "schematic_path": {"type": "string", "description": "Absolute path to a .kicad_sch file."},
+                    "out_dir": {"type": "string", "description": "Optional output directory for BOM/CPL. Defaults to schematic parent."}
+                },
                 "required": ["schematic_path"]
             }
         ),
@@ -414,6 +427,14 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 "stderr_tail": r.stderr[-2000:],
                 "out": str(out_dir)
             }, indent=2))]
+
+        if name == "annotate_jlc_bom":
+            from jlcpcb_wrapper import JlcpcbWrapper
+            r = JlcpcbWrapper.from_env().annotate(
+                schematic_path=arguments["schematic_path"],
+                out_dir=arguments.get("out_dir"),
+            )
+            return [TextContent(type="text", text=json.dumps(r, indent=2))]
 
         if name == "nexar_render":
             from nexar_render import render as _nexar_render
