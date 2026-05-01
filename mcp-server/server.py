@@ -16,6 +16,9 @@ Tools:
     - parse_schematic       : structural dump of a kicad_sch
     - nexar_render          : render an Altium 365 PCB via Nexar Design API
     - nexar_list_projects   : list projects in an Altium 365 workspace
+    - run_kikit_panelize    : panelize a .kicad_pcb via KiKit
+    - run_kikit_fab         : generate JLCPCB fab package via KiKit
+    - run_kikit_present     : generate KiKit project presentation webpage
 
 Run:
     python3 ~/electronics-stack/mcp-server/server.py
@@ -201,6 +204,45 @@ async def list_tools() -> list[Tool]:
             }
         ),
         Tool(
+            name="run_kikit_panelize",
+            description="Panelize a .kicad_pcb file using a KiKit preset. Produces a panel-ready .kicad_pcb in out_dir.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "board_path": {"type": "string", "description": "Absolute path to source .kicad_pcb"},
+                    "out_dir": {"type": "string", "description": "Output directory (default: same dir as board)"},
+                    "preset": {"type": "string", "description": "KiKit panelization preset (default: tightgrid-2x2)"},
+                },
+                "required": ["board_path"],
+            },
+        ),
+        Tool(
+            name="run_kikit_fab",
+            description="Generate a JLCPCB-ready fabrication package (Gerbers, BOM, CPL) from a .kicad_pcb.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "board_path": {"type": "string", "description": "Absolute path to source .kicad_pcb"},
+                    "out_dir": {"type": "string", "description": "Output directory for fab package"},
+                    "no_drc": {"type": "boolean", "description": "Skip DRC before generating (default: true)", "default": True},
+                },
+                "required": ["board_path"],
+            },
+        ),
+        Tool(
+            name="run_kikit_present",
+            description="Generate a KiKit project presentation webpage with PCB renders. Requires X display for renders.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "board_path": {"type": "string", "description": "Absolute path to source .kicad_pcb"},
+                    "out_dir": {"type": "string", "description": "Output directory for HTML assets"},
+                    "description": {"type": "string", "description": "Short project description for the page"},
+                },
+                "required": ["board_path"],
+            },
+        ),
+        Tool(
             name="nexar_list_projects",
             description="List visible Nexar Design projects (Altium 365 workspaces and projects). Requires `design.domain` scope.",
             inputSchema={
@@ -358,6 +400,30 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 "no_connect_count": len(sch.no_connects),
                 "refdes": sorted(i.refdes for i in sch.instances),
             }, indent=2))]
+
+        if name == "run_kikit_panelize":
+            from kikit_wrapper import KikitWrapper
+            board = arguments["board_path"]
+            out = arguments.get("out_dir") or str(Path(board).parent / "kikit-panel")
+            preset = arguments.get("preset", "tightgrid-2x2")
+            result = KikitWrapper.from_env().panelize(board, out, preset)
+            return [TextContent(type="text", text=json.dumps(result, indent=2))]
+
+        if name == "run_kikit_fab":
+            from kikit_wrapper import KikitWrapper
+            board = arguments["board_path"]
+            out = arguments.get("out_dir") or str(Path(board).parent / "kikit-fab")
+            no_drc = arguments.get("no_drc", True)
+            result = KikitWrapper.from_env().fab_jlcpcb(board, out, no_drc)
+            return [TextContent(type="text", text=json.dumps(result, indent=2))]
+
+        if name == "run_kikit_present":
+            from kikit_wrapper import KikitWrapper
+            board = arguments["board_path"]
+            out = arguments.get("out_dir") or str(Path(board).parent / "kikit-present")
+            desc = arguments.get("description", "PCB project")
+            result = KikitWrapper.from_env().present(board, out, desc)
+            return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
     except Exception as e:
