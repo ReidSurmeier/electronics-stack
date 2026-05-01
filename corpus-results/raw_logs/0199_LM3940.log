@@ -1,0 +1,32 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 3,
+    "errors_design": 3,
+    "warnings_total": 14,
+    "warnings_design": 14,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/Vespin2Hardware/old/LM3940/verify-out/LM3940-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 8,
+    "high": 4,
+    "details": [
+      "JP2 pin 1 'A' (passive) at (66.04, 83.82) has no label, wire, or no_connect.",
+      "JP1 pin 1 'A' (passive) at (66.04, 60.96) has no label, wire, or no_connect.",
+      "#FLG0101 pin 1 'pwr' (power_out) at (185.42, 78.74) has no label, wire, or no_connect.",
+      "#FLG01 pin 1 'pwr' (power_out) at (66.04, 60.96) has no label, wire, or no_connect.",
+      "#FLG0102 pin 1 'pwr' (power_out) at (185.42, 60.96) has no label, wire, or no_connect.",
+      "JP4 pin 2 'B' (passive) at (185.42000000000002, 78.74) has no label, wire, or no_connect.",
+      "JP3 pin 2 'B' (passive) at (185.42000000000002, 60.96) has no label, wire, or no_connect.",
+      "#FLG02 pin 1 'pwr' (power_out) at (66.04, 83.82) has no label, wire, or no_connect."
+    ]
+  }
+]
+

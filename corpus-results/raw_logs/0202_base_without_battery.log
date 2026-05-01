@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 36,
+    "errors_design": 36,
+    "warnings_total": 44,
+    "warnings_design": 44,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/drone-uwb/base/base_without_battery/verify-out/base-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 35,
+    "high": 5,
+    "details": [
+      "U1 pin 10 'IO25' (bidirectional) at (76.2, 101.60000000000001) has no label, wire, or no_connect.",
+      "U1 pin 11 'IO26' (bidirectional) at (76.2, 104.14) has no label, wire, or no_connect.",
+      "U1 pin 12 'IO27' (bidirectional) at (76.2, 106.68) has no label, wire, or no_connect.",
+      "U1 pin 14 'IO12' (bidirectional) at (76.2, 73.66000000000001) has no label, wire, or no_connect.",
+      "U1 pin 16 'IO13' (bidirectional) at (76.2, 76.2) has no label, wire, or no_connect.",
+      "U1 pin 17 'SHD/SD2' (bidirectional) at (45.72, 93.98) has no label, wire, or no_connect.",
+      "U1 pin 18 'SWP/SD3' (bidirectional) at (45.72, 96.52000000000001) has no label, wire, or no_connect.",
+      "U1 pin 19 'SCS/CMD' (bidirectional) at (45.72, 101.60000000000001) has no label, wire, or no_connect.",
+      "U1 pin 20 'SCK/CLK' (bidirectional) at (45.72, 99.06) has no label, wire, or no_connect.",
+      "U1 pin 21 'SDO/SD0' (bidirectional) at (45.72, 88.9) has no label, wire, or no_connect."
+    ]
+  }
+]
+

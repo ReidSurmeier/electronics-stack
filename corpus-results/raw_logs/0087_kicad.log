@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 86,
+    "errors_design": 86,
+    "warnings_total": 64,
+    "warnings_design": 64,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/arduinoX86/shields/808x/kicad/verify-out/arduino_808x_v3-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 62,
+    "high": 22,
+    "details": [
+      "C2 pin 2 '~' (passive) at (214.63, 194.31) has no label, wire, or no_connect.",
+      "XA1 pin D0 'D0_RX0' (bidirectional) at (45.71999999999999, 43.18000000000001) has no label, wire, or no_connect.",
+      "XA1 pin D1 'D1_TX0' (bidirectional) at (45.71999999999999, 45.720000000000006) has no label, wire, or no_connect.",
+      "XA1 pin D20 'D20_SDA' (bidirectional) at (45.71999999999999, 63.50000000000001) has no label, wire, or no_connect.",
+      "XA1 pin D21 'D21_SCL' (bidirectional) at (45.71999999999999, 66.04) has no label, wire, or no_connect.",
+      "XA1 pin SDA 'SDA' (bidirectional) at (45.71999999999999, 68.58000000000001) has no label, wire, or no_connect.",
+      "XA1 pin SCL 'SCL' (bidirectional) at (45.71999999999999, 71.12) has no label, wire, or no_connect.",
+      "XA1 pin A2 'A2' (bidirectional) at (45.71999999999999, 81.28) has no label, wire, or no_connect.",
+      "XA1 pin A3 'A3' (bidirectional) at (45.71999999999999, 83.82000000000001) has no label, wire, or no_connect.",
+      "XA1 pin A4 'A4' (bidirectional) at (45.71999999999999, 86.36000000000001) has no label, wire, or no_connect."
+    ]
+  }
+]
+

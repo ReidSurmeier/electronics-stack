@@ -1,0 +1,27 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 1,
+    "errors_design": 1,
+    "warnings_total": 27,
+    "warnings_design": 27,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/vna/hardware/mm_reflectometer/evalboards/maam_011101/verify-out/maam_011101-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 3,
+    "high": 0,
+    "details": [
+      "C2 pin 1 '~' (passive) at (153.67, 59.69) has no label, wire, or no_connect.",
+      "C2 pin 2 '~' (passive) at (153.67, 64.77) has no label, wire, or no_connect.",
+      "J2 pin 1 'In' (passive) at (88.9, 62.23) has no label, wire, or no_connect."
+    ]
+  }
+]
+

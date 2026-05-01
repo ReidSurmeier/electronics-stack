@@ -1,0 +1,30 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 66,
+    "warnings_design": 66,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/power/PierogiNixie-PSU/V1.2/verify-out/PierogiNixiePSU-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 6,
+    "high": 0,
+    "details": [
+      "C5 pin 1 '~' (passive) at (72.39, 46.989999999999995) has no label, wire, or no_connect.",
+      "C5 pin 2 '~' (passive) at (72.39, 54.61) has no label, wire, or no_connect.",
+      "J1 pin 1 'Pin_1' (passive) at (22.86, 50.8) has no label, wire, or no_connect.",
+      "J1 pin 2 'Pin_2' (passive) at (22.86, 53.339999999999996) has no label, wire, or no_connect.",
+      "L1 pin 1 '1' (passive) at (99.06, 33.019999999999996) has no label, wire, or no_connect.",
+      "L1 pin 2 '2' (passive) at (99.06, 40.64) has no label, wire, or no_connect."
+    ]
+  }
+]
+

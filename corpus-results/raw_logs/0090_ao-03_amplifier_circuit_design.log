@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 34,
+    "warnings_design": 34,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/pslab-scripts/docs/ao-03_amplifier_circuit_design/verify-out/AO-03_signal_amplifier-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 22,
+    "high": 5,
+    "details": [
+      "R3 pin 1 '~' (passive) at (149.86, 81.27999999999999) has no label, wire, or no_connect.",
+      "R3 pin 2 '~' (passive) at (149.86, 86.36) has no label, wire, or no_connect.",
+      "R5 pin 1 '~' (passive) at (182.88, 78.74) has no label, wire, or no_connect.",
+      "R5 pin 2 '~' (passive) at (182.88, 83.82000000000001) has no label, wire, or no_connect.",
+      "C2 pin 1 '~' (passive) at (165.1, 101.6) has no label, wire, or no_connect.",
+      "C2 pin 2 '~' (passive) at (165.1, 106.68) has no label, wire, or no_connect.",
+      "R4 pin 1 '~' (passive) at (165.1, 93.97999999999999) has no label, wire, or no_connect.",
+      "R4 pin 2 '~' (passive) at (165.1, 99.06) has no label, wire, or no_connect.",
+      "R2 pin 1 '~' (passive) at (144.78, 76.19999999999999) has no label, wire, or no_connect.",
+      "R2 pin 2 '~' (passive) at (144.78, 81.28) has no label, wire, or no_connect."
+    ]
+  }
+]
+

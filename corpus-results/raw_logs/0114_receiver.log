@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 27,
+    "errors_design": 27,
+    "warnings_total": 92,
+    "warnings_design": 92,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/ergo-snm-keyboard/ErgoSNM_Keyboard/rev3/receiver/verify-out/receiver-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 47,
+    "high": 5,
+    "details": [
+      "#PWR03 pin 1 'GND' (power_in) at (48.26, 182.88) has no label, wire, or no_connect.",
+      "C3 pin 2 '~' (passive) at (86.36, 45.72) has no label, wire, or no_connect.",
+      "#PWR09 pin 1 'GND' (power_in) at (105.41, 45.72) has no label, wire, or no_connect.",
+      "#PWR02 pin 1 '+3.3V' (power_in) at (48.26, 162.56) has no label, wire, or no_connect.",
+      "U1 pin 18 'P0.04' (bidirectional) at (111.76, 81.28) has no label, wire, or no_connect.",
+      "U1 pin 20 'P0.12' (bidirectional) at (111.76, 99.06) has no label, wire, or no_connect.",
+      "U1 pin 22 'P0.07' (bidirectional) at (111.76, 88.9) has no label, wire, or no_connect.",
+      "U1 pin 28 'P0.15' (bidirectional) at (111.76, 104.14) has no label, wire, or no_connect.",
+      "U1 pin 3 'P0.03' (bidirectional) at (111.76, 78.74000000000001) has no label, wire, or no_connect.",
+      "U1 pin 30 'P0.17' (bidirectional) at (111.76, 106.68) has no label, wire, or no_connect."
+    ]
+  }
+]
+

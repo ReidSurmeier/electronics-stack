@@ -1,0 +1,1485 @@
+(kicad_symbol_lib
+	(version 20241209)
+	(generator "reverse-engineer")
+	(generator_version "1.0")
+	(symbol "Pi_Header_40pin"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 -30.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Pi zero2w 40-pin header"
+			(at 0 30.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://datasheets.raspberrypi.com/rpizero2/raspberry-pi-zero-2-w-product-brief.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Raspberry Pi zero2w 40-pin GPIO header. Standard Raspberry Pi pinout. 5V (pins 2, 4) sources up to ~2A from the SBC's USB power input — verify your SBC's PMIC budget. 3V3 (pins 1, 17) is rail-limited to ~50mA total. ID_SD/ID_SC reserved for HAT EEPROM (avoid use unless you are intentionally implementing a HAT)."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "Pi_Header_40pin_1_1"
+			(rectangle
+				(start -20.32 26.67)
+				(end 20.32 -26.67)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "RPi zero2w\n40-pin\nGPIO header"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 24.13 0)
+				(length 3.81)
+				(name "3V3_PIN1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 21.59 0)
+				(length 3.81)
+				(name "5V_PIN2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 19.05 0)
+				(length 3.81)
+				(name "GPIO2_SDA1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 16.51 0)
+				(length 3.81)
+				(name "5V_PIN4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 13.97 0)
+				(length 3.81)
+				(name "GPIO3_SCL1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 11.43 0)
+				(length 3.81)
+				(name "GND_PIN6"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 8.89 0)
+				(length 3.81)
+				(name "GPIO4_GPCLK0"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 6.35 0)
+				(length 3.81)
+				(name "GPIO14_TXD"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 3.81 0)
+				(length 3.81)
+				(name "GND_PIN9"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "9"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 1.27 0)
+				(length 3.81)
+				(name "GPIO15_RXD"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "10"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -1.27 0)
+				(length 3.81)
+				(name "GPIO17"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "11"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -3.81 0)
+				(length 3.81)
+				(name "GPIO18_PCM_CLK"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "12"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -6.35 0)
+				(length 3.81)
+				(name "GPIO27"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "13"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -8.89 0)
+				(length 3.81)
+				(name "GND_PIN14"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "14"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -11.43 0)
+				(length 3.81)
+				(name "GPIO22"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "15"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -13.97 0)
+				(length 3.81)
+				(name "GPIO23"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "16"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -16.51 0)
+				(length 3.81)
+				(name "3V3_PIN17"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "17"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -19.05 0)
+				(length 3.81)
+				(name "GPIO24"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "18"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -21.59 0)
+				(length 3.81)
+				(name "GPIO10_SPI_MOSI"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "19"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -24.13 -24.13 0)
+				(length 3.81)
+				(name "GND_PIN20"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "20"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 24.13 180)
+				(length 3.81)
+				(name "GPIO9_SPI_MISO"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "21"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 21.59 180)
+				(length 3.81)
+				(name "GPIO25"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "22"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 19.05 180)
+				(length 3.81)
+				(name "GPIO11_SPI_SCLK"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "23"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 16.51 180)
+				(length 3.81)
+				(name "GPIO8_SPI_CE0"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "24"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 13.97 180)
+				(length 3.81)
+				(name "GND_PIN25"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "25"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 11.43 180)
+				(length 3.81)
+				(name "GPIO7_SPI_CE1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "26"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 8.89 180)
+				(length 3.81)
+				(name "ID_SD"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "27"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 6.35 180)
+				(length 3.81)
+				(name "ID_SC"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "28"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 3.81 180)
+				(length 3.81)
+				(name "GND_PIN30"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "29"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 1.27 180)
+				(length 3.81)
+				(name "GPIO5"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "30"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -1.27 180)
+				(length 3.81)
+				(name "GPIO6"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "31"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -3.81 180)
+				(length 3.81)
+				(name "GPIO12_PWM0"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "32"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -6.35 180)
+				(length 3.81)
+				(name "GPIO13_PWM1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "33"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -8.89 180)
+				(length 3.81)
+				(name "GND_PIN34"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "34"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -11.43 180)
+				(length 3.81)
+				(name "GPIO19_PCM_FS"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "35"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -13.97 180)
+				(length 3.81)
+				(name "GPIO16"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "36"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -16.51 180)
+				(length 3.81)
+				(name "GPIO26"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "37"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -19.05 180)
+				(length 3.81)
+				(name "GPIO20_PCM_DIN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "38"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -21.59 180)
+				(length 3.81)
+				(name "GND_PIN39"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "39"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 24.13 -24.13 180)
+				(length 3.81)
+				(name "GPIO21_PCM_DOUT"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "40"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "WM8960_Codec"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 -19.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "WM8960 codec (slave, spk amp)"
+			(at 0 19.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://statics.cirrus.com/pubs/proDatasheet/WM8960_v4.4.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "WM8960 stereo audio codec. AVDD/DCVDD = 3.3V (separate rails recommended), each with 10uF + 100nF decoupling. REFGND requires a 1uF cap to GND (handled internally to this block). I2C address 0x1A. I2S in slave mode. On-board class-D bridge-tied speaker amp drives SPK_LP/LN and SPK_RP/RN to 4-8 ohm speakers; do not common any output. MIC_BIAS supplies 0.65*AVDD to electret microphones."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "WM8960_Codec_1_1"
+			(rectangle
+				(start -22.86 15.24)
+				(end 22.86 -15.24)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "WM8960\nstereo codec\nI2S + I2C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 10.16 0)
+				(length 3.81)
+				(name "AVDD_3V3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 7.62 0)
+				(length 3.81)
+				(name "DCVDD_3V3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 5.08 0)
+				(length 3.81)
+				(name "GND"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 2.54 0)
+				(length 3.81)
+				(name "I2C_SDA"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 0 0)
+				(length 3.81)
+				(name "I2C_SCL"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 -2.54 0)
+				(length 3.81)
+				(name "I2S_BCLK"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 -5.08 0)
+				(length 3.81)
+				(name "I2S_LRCLK"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 -7.62 0)
+				(length 3.81)
+				(name "I2S_DIN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -26.67 -10.16 0)
+				(length 3.81)
+				(name "I2S_DOUT"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "9"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 12.7 180)
+				(length 3.81)
+				(name "MIC_BIAS"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "10"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 10.16 180)
+				(length 3.81)
+				(name "MIC_LP"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "11"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 7.62 180)
+				(length 3.81)
+				(name "MIC_LN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "12"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 5.08 180)
+				(length 3.81)
+				(name "MIC_RP"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "13"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 2.54 180)
+				(length 3.81)
+				(name "MIC_RN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "14"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 0 180)
+				(length 3.81)
+				(name "HP_L"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "15"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 -2.54 180)
+				(length 3.81)
+				(name "HP_R"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "16"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 -5.08 180)
+				(length 3.81)
+				(name "SPK_LP"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "17"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 -7.62 180)
+				(length 3.81)
+				(name "SPK_LN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "18"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 -10.16 180)
+				(length 3.81)
+				(name "SPK_RP"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "19"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 26.67 -12.7 180)
+				(length 3.81)
+				(name "SPK_RN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "20"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "SSD1306_OLED"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 -11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SSD1306 OLED 128x64 I2C @0x3C"
+			(at 0 11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SSD1306 128x64 OLED on I2C at 0x3C. On-board 4.7k pull-ups on SDA/SCL. VCC = 3.3V (some modules accept 5V via on-board LDO; verify silkscreen)."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "SSD1306_OLED_1_1"
+			(rectangle
+				(start -17.78 7.62)
+				(end 17.78 -7.62)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "SSD1306\nI2C OLED\n0x3C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 3.81 0)
+				(length 3.81)
+				(name "VCC"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 1.27 0)
+				(length 3.81)
+				(name "GND"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 -1.27 0)
+				(length 3.81)
+				(name "SDA"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 -3.81 0)
+				(length 3.81)
+				(name "SCL"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Decap_Network"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "C"
+			(at 0 -11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Decap 3V3: 4x100nF + 10uF"
+			(at 0 11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Decoupling network on 3V3: 4 x 100nF MLCC ceramic (one per IC supply pin), one 10uF bulk capacitor. All return to GND. Place 100nF caps directly at IC power pins; place bulk near the regulator output / supply entry. Net name on RAIL pin is \"3V3\"."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "Decap_Network_1_1"
+			(rectangle
+				(start -15.24 7.62)
+				(end 15.24 -7.62)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "Decap\n3V3\n4x100nF\n+ 10uF"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -19.05 1.27 0)
+				(length 3.81)
+				(name "RAIL"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -19.05 -1.27 0)
+				(length 3.81)
+				(name "GND"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+)

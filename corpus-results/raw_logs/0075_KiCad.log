@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 4,
+    "errors_design": 4,
+    "warnings_total": 441,
+    "warnings_design": 441,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/PicoBerry/source files/KiCad/verify-out/PicoBerry_V1.0-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

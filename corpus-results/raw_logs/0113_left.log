@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 8,
+    "errors_design": 8,
+    "warnings_total": 230,
+    "warnings_design": 230,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/ergo-snm-keyboard/ErgoSNM_Keyboard/rev3/left/verify-out/ErgoSNM_v3_left-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 47,
+    "high": 14,
+    "details": [
+      "SW1 pin 1 'A' (passive) at (212.09, 64.77) has no label, wire, or no_connect.",
+      "SW1 pin 2 'B' (passive) at (201.92999999999998, 67.31) has no label, wire, or no_connect.",
+      "SW1 pin 4 'A' (passive) at (212.09, 64.77) has no label, wire, or no_connect.",
+      "SW1 pin 5 'B' (passive) at (201.92999999999998, 67.31) has no label, wire, or no_connect.",
+      "#PWR01 pin 1 'GND' (power_in) at (31.75, 68.58) has no label, wire, or no_connect.",
+      "#PWR011 pin 1 'GND' (power_in) at (173.99, 49.53) has no label, wire, or no_connect.",
+      "R4 pin 2 '~' (passive) at (254.0, 50.800000000000004) has no label, wire, or no_connect.",
+      "C1 pin 2 '~' (passive) at (99.06, 49.53) has no label, wire, or no_connect.",
+      "#PWR018 pin 1 'GND' (power_in) at (220.98, 41.91) has no label, wire, or no_connect.",
+      "U2 pin 3 'GND' (power_in) at (238.76, 41.91) has no label, wire, or no_connect."
+    ]
+  }
+]
+

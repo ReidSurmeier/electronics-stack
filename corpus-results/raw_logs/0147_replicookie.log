@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 260,
+    "errors_design": 260,
+    "warnings_total": 393,
+    "warnings_design": 393,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/makertools/replicookie/verify-out/replicookie-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

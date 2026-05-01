@@ -1,0 +1,30 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 18,
+    "warnings_design": 18,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/makertools/drawbot/drawbot_gantry_hub/verify-out/drawbot_gantry_hub-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 6,
+    "high": 0,
+    "details": [
+      "J6 pin 1 'Pin_1' (passive) at (82.55, 59.69) has no label, wire, or no_connect.",
+      "J6 pin 2 'Pin_2' (passive) at (82.55, 62.23) has no label, wire, or no_connect.",
+      "J4 pin 1 'Pin_1' (passive) at (88.9, 93.98) has no label, wire, or no_connect.",
+      "J4 pin 2 'Pin_2' (passive) at (88.9, 96.52000000000001) has no label, wire, or no_connect.",
+      "J1 pin 1 'Pin_1' (passive) at (80.01, 105.41) has no label, wire, or no_connect.",
+      "J1 pin 2 'Pin_2' (passive) at (80.01, 107.95) has no label, wire, or no_connect."
+    ]
+  }
+]
+

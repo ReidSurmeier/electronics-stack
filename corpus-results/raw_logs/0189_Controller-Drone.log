@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 1,
+    "errors_design": 1,
+    "warnings_total": 365,
+    "warnings_design": 365,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/Controller-Drone/Controller-Drone/verify-out/flight_computer_rocketry-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 25,
+    "high": 4,
+    "details": [
+      "U2 pin 14 'NC' (no_connect) at (189.23000000000002, 154.305) has no label, wire, or no_connect.",
+      "U2 pin 15 'NC' (no_connect) at (214.63, 131.44500000000002) has no label, wire, or no_connect.",
+      "U2 pin 16 'NC' (no_connect) at (214.63, 133.985) has no label, wire, or no_connect.",
+      "U2 pin 17 'NC' (no_connect) at (214.63, 139.065) has no label, wire, or no_connect.",
+      "U2 pin 19 'NC' (no_connect) at (214.63, 154.305) has no label, wire, or no_connect.",
+      "U2 pin 2 'NC' (no_connect) at (189.23000000000002, 131.44500000000002) has no label, wire, or no_connect.",
+      "U2 pin 21 'NC' (no_connect) at (214.63, 146.685) has no label, wire, or no_connect.",
+      "U2 pin 22 'NC' (no_connect) at (214.63, 156.845) has no label, wire, or no_connect.",
+      "U2 pin 3 'NC' (no_connect) at (189.23000000000002, 133.985) has no label, wire, or no_connect.",
+      "U2 pin 4 'NC' (no_connect) at (189.23000000000002, 144.145) has no label, wire, or no_connect."
+    ]
+  }
+]
+

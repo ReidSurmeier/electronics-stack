@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 3,
+    "errors_design": 3,
+    "warnings_total": 126,
+    "warnings_design": 126,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/bancouver40/kowgary16/pcb/kowgary16_cfx/verify-out/kowgary16_cfx-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 68,
+    "high": 0,
+    "details": [
+      "R5 pin 1 '~' (passive) at (27.94, 54.61) has no label, wire, or no_connect.",
+      "R5 pin 2 '~' (passive) at (27.94, 59.69) has no label, wire, or no_connect.",
+      "SW31 pin 1 '1' (passive) at (176.53, 146.05) has no label, wire, or no_connect.",
+      "D1 pin 1 'K' (passive) at (173.99, 83.82) has no label, wire, or no_connect.",
+      "D1 pin 2 'A' (passive) at (179.07, 83.82) has no label, wire, or no_connect.",
+      "SW5 pin A 'A' (passive) at (223.51999999999998, 53.34) has no label, wire, or no_connect.",
+      "SW5 pin B 'B' (passive) at (223.51999999999998, 58.42) has no label, wire, or no_connect.",
+      "SW5 pin C 'C' (passive) at (223.51999999999998, 55.88) has no label, wire, or no_connect.",
+      "SW5 pin S1 'S1' (passive) at (238.76, 53.34) has no label, wire, or no_connect.",
+      "SW5 pin S2 'S2' (passive) at (238.76, 58.42) has no label, wire, or no_connect."
+    ]
+  }
+]
+

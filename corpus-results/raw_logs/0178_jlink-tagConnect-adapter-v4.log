@@ -1,0 +1,26 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 36,
+    "warnings_design": 36,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/power/universal-jlink-adapter/hardware/jlink-tagConnect-adapter-v4/verify-out/jlink-tagConnect-adapter-v4-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 2,
+    "high": 0,
+    "details": [
+      "R1 pin 1 '~' (passive) at (154.94, 130.81) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (154.94, 135.89) has no label, wire, or no_connect."
+    ]
+  }
+]
+

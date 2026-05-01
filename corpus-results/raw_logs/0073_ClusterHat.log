@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 112,
+    "errors_design": 112,
+    "warnings_total": 661,
+    "warnings_design": 661,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/Miniature-CM4-Cluster/ClusterHat/verify-out/CM4ClusterHat-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 460,
+    "high": 102,
+    "details": [
+      "#PWR0240 pin 1 '+3V3' (power_in) at (201.93, 312.42) has no label, wire, or no_connect.",
+      "#PWR0205 pin 1 '+1V1' (power_in) at (207.01, 170.18) has no label, wire, or no_connect.",
+      "#PWR0244 pin 1 '+3V3' (power_in) at (212.09, 248.92) has no label, wire, or no_connect.",
+      "#PWR0203 pin 1 '+1V1_ANALOG' (power_in) at (214.63, 170.18) has no label, wire, or no_connect.",
+      "#PWR0245 pin 1 '+3V3' (power_in) at (220.98, 248.92) has no label, wire, or no_connect.",
+      "#PWR0236 pin 1 '+3V3' (power_in) at (229.87, 248.92) has no label, wire, or no_connect.",
+      "#PWR0253 pin 1 '+3V3' (power_in) at (229.87, 312.42) has no label, wire, or no_connect.",
+      "#PWR0198 pin 1 '+3V3' (power_in) at (234.95, 170.18) has no label, wire, or no_connect.",
+      "#PWR0237 pin 1 '+3V3' (power_in) at (238.76, 248.92) has no label, wire, or no_connect.",
+      "#PWR0196 pin 1 '+3V3_ANALOG' (power_in) at (242.57, 170.18) has no label, wire, or no_connect."
+    ]
+  }
+]
+

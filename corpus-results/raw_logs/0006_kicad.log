@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 7,
+    "errors_design": 7,
+    "warnings_total": 894,
+    "warnings_design": 894,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/Voltage_Processor/kicad/verify-out/voltage_processor-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 128,
+    "high": 32,
+    "details": [
+      "#PWR018 pin 1 'GND' (power_in) at (64.135, 142.24) has no label, wire, or no_connect.",
+      "#PWR019 pin 1 'GND' (power_in) at (64.135, 160.02) has no label, wire, or no_connect.",
+      "#PWR0105 pin 1 'GND' (power_in) at (84.455, 142.24) has no label, wire, or no_connect.",
+      "#PWR0106 pin 1 'GND' (power_in) at (84.455, 160.02) has no label, wire, or no_connect.",
+      "U1 pin 1 '~' (output) at (83.185, 151.13) has no label, wire, or no_connect.",
+      "U1 pin 2 '-' (input) at (67.945, 153.67) has no label, wire, or no_connect.",
+      "U1 pin 3 '+' (input) at (67.945, 148.59) has no label, wire, or no_connect.",
+      "U1 pin 5 '+' (input) at (67.945, 148.59) has no label, wire, or no_connect.",
+      "U1 pin 6 '-' (input) at (67.945, 153.67) has no label, wire, or no_connect.",
+      "U1 pin 7 '~' (output) at (83.185, 151.13) has no label, wire, or no_connect."
+    ]
+  }
+]
+

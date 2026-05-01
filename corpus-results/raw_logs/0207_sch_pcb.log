@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 8,
+    "errors_design": 8,
+    "warnings_total": 248,
+    "warnings_design": 248,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/sensors/ISM01/hw/sch_pcb/verify-out/ISM01-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 79,
+    "high": 10,
+    "details": [
+      "M1 pin 1 '~' (input) at (256.54, 48.26) has no label, wire, or no_connect.",
+      "M2 pin 1 '~' (input) at (261.62, 48.26) has no label, wire, or no_connect.",
+      "M3 pin 1 '~' (input) at (266.7, 48.26) has no label, wire, or no_connect.",
+      "M4 pin 1 '~' (input) at (271.78, 48.26) has no label, wire, or no_connect.",
+      "D1 pin 1 'K' (passive) at (252.73, 29.21) has no label, wire, or no_connect.",
+      "D1 pin 2 'A' (passive) at (262.89, 29.21) has no label, wire, or no_connect.",
+      "U2 pin 32 'NC' (bidirectional) at (119.38, 91.44) has no label, wire, or no_connect.",
+      "U2 pin 34 'NC' (bidirectional) at (119.38, 92.71) has no label, wire, or no_connect.",
+      "U2 pin 35 'NC' (bidirectional) at (119.38, 93.97999999999999) has no label, wire, or no_connect.",
+      "J2 pin 1 '~' (unspecified) at (21.59, 121.92) has no label, wire, or no_connect."
+    ]
+  }
+]
+

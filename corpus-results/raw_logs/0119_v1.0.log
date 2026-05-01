@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 6,
+    "errors_design": 6,
+    "warnings_total": 366,
+    "warnings_design": 366,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/keyboards/Ghoul/v1.0/verify-out/ghoul-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 217,
+    "high": 96,
+    "details": [
+      "L12 pin 1 '~' (passive) at (67.31, 394.96999999999997) has no label, wire, or no_connect.",
+      "L12 pin 2 '~' (passive) at (67.31, 400.05) has no label, wire, or no_connect.",
+      "H5 pin 1 '1' (input) at (54.61, 384.81) has no label, wire, or no_connect.",
+      "RN3 pin 2 'R2.1' (passive) at (147.32000000000002, 171.45000000000002) has no label, wire, or no_connect.",
+      "RN3 pin 3 'R3.1' (passive) at (149.86, 171.45000000000002) has no label, wire, or no_connect.",
+      "RN3 pin 4 'R4.1' (passive) at (152.4, 171.45000000000002) has no label, wire, or no_connect.",
+      "RN3 pin 5 'R4.2' (passive) at (152.4, 161.29) has no label, wire, or no_connect.",
+      "RN3 pin 6 'R3.2' (passive) at (149.86, 161.29) has no label, wire, or no_connect.",
+      "RN3 pin 7 'R2.2' (passive) at (147.32000000000002, 161.29) has no label, wire, or no_connect.",
+      "RN3 pin 8 'R1.2' (passive) at (144.78, 161.29) has no label, wire, or no_connect."
+    ]
+  }
+]
+

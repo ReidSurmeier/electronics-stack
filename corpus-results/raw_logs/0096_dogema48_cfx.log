@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 3,
+    "errors_design": 3,
+    "warnings_total": 264,
+    "warnings_design": 264,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/bancouver40/minipeg48/pcb/dogema48_cfx/verify-out/dogema48_cfx-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 158,
+    "high": 0,
+    "details": [
+      "SW16 pin 1 '1' (passive) at (259.08000000000004, 102.87) has no label, wire, or no_connect.",
+      "D29 pin 1 'K' (passive) at (306.07, 127.0) has no label, wire, or no_connect.",
+      "D29 pin 2 'A' (passive) at (311.15000000000003, 127.0) has no label, wire, or no_connect.",
+      "D26 pin 1 'K' (passive) at (256.53999999999996, 127.0) has no label, wire, or no_connect.",
+      "D26 pin 2 'A' (passive) at (261.62, 127.0) has no label, wire, or no_connect.",
+      "R5 pin 1 '~' (passive) at (27.94, 54.61) has no label, wire, or no_connect.",
+      "R5 pin 2 '~' (passive) at (27.94, 59.69) has no label, wire, or no_connect.",
+      "SW9 pin 1 '1' (passive) at (308.61, 81.28) has no label, wire, or no_connect.",
+      "SW41 pin 1 '1' (passive) at (341.63, 81.28) has no label, wire, or no_connect.",
+      "SW31 pin 1 '1' (passive) at (176.53, 146.05) has no label, wire, or no_connect."
+    ]
+  }
+]
+

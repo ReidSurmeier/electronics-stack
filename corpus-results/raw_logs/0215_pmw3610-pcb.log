@@ -1,0 +1,27 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 8,
+    "errors_design": 8,
+    "warnings_total": 61,
+    "warnings_design": 61,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/sensors/pmw3610-pcb/verify-out/pmw3610_pcb-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 3,
+    "high": 1,
+    "details": [
+      "U1 pin 4 'NC' (no_connect) at (85.09, 86.36) has no label, wire, or no_connect.",
+      "#PWR04 pin 1 'GND' (power_in) at (66.04, 74.93) has no label, wire, or no_connect.",
+      "C5 pin 2 '~' (passive) at (66.04, 74.93) has no label, wire, or no_connect."
+    ]
+  }
+]
+

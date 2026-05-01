@@ -1,0 +1,29 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 64,
+    "warnings_design": 64,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/openDTU-BreakoutBoard/KiCad/verify-out/openDTU-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 5,
+    "high": 0,
+    "details": [
+      "U1 pin 16 'SD2' (no_connect) at (86.995, 115.443) has no label, wire, or no_connect.",
+      "U1 pin 17 'SD3' (no_connect) at (86.995, 117.983) has no label, wire, or no_connect.",
+      "U1 pin 20 'CLK' (no_connect) at (117.47500000000001, 123.063) has no label, wire, or no_connect.",
+      "U1 pin 21 'SD0' (no_connect) at (117.47500000000001, 120.523) has no label, wire, or no_connect.",
+      "U1 pin 22 'SD1' (no_connect) at (117.47500000000001, 117.983) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,33 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 38,
+    "warnings_design": 38,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/Vespin2Hardware/old/tutorial_youtube/verify-out/tutorial_youtube-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 9,
+    "high": 5,
+    "details": [
+      "#PWR? pin 1 'GND' (power_in) at (95.25, 99.06) has no label, wire, or no_connect.",
+      "J1 pin 1 'Pin_1' (passive) at (55.88, 54.61) has no label, wire, or no_connect.",
+      "J1 pin 2 'Pin_2' (passive) at (55.88, 57.15) has no label, wire, or no_connect.",
+      "#PWR? pin 1 'GND' (power_in) at (85.09, 96.52) has no label, wire, or no_connect.",
+      "U2 pin 14 'VCC' (power_in) at (193.04, 17.78) has no label, wire, or no_connect.",
+      "U2 pin 7 'GND' (power_in) at (193.04, 43.18) has no label, wire, or no_connect.",
+      "R1 pin 1 '~' (passive) at (194.31, 41.91) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (194.31, 49.53) has no label, wire, or no_connect.",
+      "#PWR? pin 1 'GND' (power_in) at (95.25, 99.06) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,28 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 34,
+    "warnings_design": 34,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/Vespin2Hardware/learn/udemy/verify-out/udemy-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 4,
+    "high": 0,
+    "details": [
+      "D2 pin 1 'K' (passive) at (110.49, 102.87) has no label, wire, or no_connect.",
+      "D2 pin 2 'A' (passive) at (118.11, 102.87) has no label, wire, or no_connect.",
+      "D1 pin 1 'K' (passive) at (99.06, 102.87) has no label, wire, or no_connect.",
+      "D1 pin 2 'A' (passive) at (106.68, 102.87) has no label, wire, or no_connect."
+    ]
+  }
+]
+

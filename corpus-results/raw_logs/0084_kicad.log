@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 112,
+    "errors_design": 112,
+    "warnings_total": 92,
+    "warnings_design": 92,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/arduinoX86/shields/486/kicad/verify-out/arduinox86_486_shield-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 874,
+    "high": 521,
+    "details": [
+      "U1 pin C17 'BS16#' (input) at (309.88, 256.54) has no label, wire, or no_connect.",
+      "U1 pin D15 'A20M#' (input) at (309.88, 261.62) has no label, wire, or no_connect.",
+      "U1 pin D16 'BS8#' (input) at (309.88, 254.0) has no label, wire, or no_connect.",
+      "U1 pin F17 'BE3#' (output) at (309.88, 170.18) has no label, wire, or no_connect.",
+      "U1 pin J15 'BE2#' (output) at (309.88, 167.64) has no label, wire, or no_connect.",
+      "U1 pin J16 'BE1#' (output) at (309.88, 165.1) has no label, wire, or no_connect.",
+      "U1 pin K15 'BE0#' (output) at (309.88, 162.56) has no label, wire, or no_connect.",
+      "U1 pin P2 'A29' (bidirectional) at (309.88, 243.84) has no label, wire, or no_connect.",
+      "U1 pin P3 'A30' (bidirectional) at (309.88, 246.38) has no label, wire, or no_connect.",
+      "U1 pin Q1 'A31' (bidirectional) at (309.88, 248.92000000000002) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 118,
+    "warnings_design": 118,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/power/bms-buck-boost/verify-out/BMS_Buck-Boost-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 25,
+    "high": 1,
+    "details": [
+      "Q1 pin 1 '~' (passive) at (173.99, 57.15) has no label, wire, or no_connect.",
+      "Q1 pin 2 '~' (passive) at (168.91, 67.31) has no label, wire, or no_connect.",
+      "Q1 pin 3 '~' (passive) at (168.91, 67.31) has no label, wire, or no_connect.",
+      "Q1 pin 4 '~' (passive) at (163.82999999999998, 64.77) has no label, wire, or no_connect.",
+      "Q1 pin 5 '~' (passive) at (163.82999999999998, 54.61) has no label, wire, or no_connect.",
+      "Q1 pin 6 '~' (passive) at (168.91, 46.989999999999995) has no label, wire, or no_connect.",
+      "Q1 pin 7 '~' (passive) at (168.91, 46.989999999999995) has no label, wire, or no_connect.",
+      "Q1 pin 8 '~' (passive) at (173.99, 57.15) has no label, wire, or no_connect.",
+      "D4 pin 1 'K' (passive) at (242.57, 33.02) has no label, wire, or no_connect.",
+      "D4 pin 2 'A' (passive) at (250.19, 33.02) has no label, wire, or no_connect."
+    ]
+  }
+]
+

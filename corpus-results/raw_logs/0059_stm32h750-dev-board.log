@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 4,
+    "errors_design": 4,
+    "warnings_total": 200,
+    "warnings_design": 200,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/stm32h750-dev-board/verify-out/pcb-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 92,
+    "high": 7,
+    "details": [
+      "L1 pin 1 '1' (passive) at (19.685, 72.39) has no label, wire, or no_connect.",
+      "L1 pin 2 '2' (passive) at (19.685, 80.01) has no label, wire, or no_connect.",
+      "U2 pin 1 'I/O1' (passive) at (210.82, 36.83) has no label, wire, or no_connect.",
+      "U2 pin 2 'GND' (passive) at (220.98, 44.45) has no label, wire, or no_connect.",
+      "U2 pin 3 'I/O2' (passive) at (231.14, 36.83) has no label, wire, or no_connect.",
+      "U2 pin 4 'I/O2' (passive) at (231.14, 31.75) has no label, wire, or no_connect.",
+      "U2 pin 5 'VBUS' (passive) at (220.98, 24.13) has no label, wire, or no_connect.",
+      "U2 pin 6 'I/O1' (passive) at (210.82, 31.75) has no label, wire, or no_connect.",
+      "#PWR027 pin 1 'Earth' (power_in) at (91.44, 71.12) has no label, wire, or no_connect.",
+      "R10 pin 1 '~' (passive) at (187.325, 151.13) has no label, wire, or no_connect."
+    ]
+  }
+]
+

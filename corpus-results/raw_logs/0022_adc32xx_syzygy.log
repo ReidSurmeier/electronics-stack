@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 8,
+    "errors_design": 8,
+    "warnings_total": 218,
+    "warnings_design": 218,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/vna/breakouts/adc32xx_syzygy/adc32xx_syzygy/verify-out/adc32xx_syzygy-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

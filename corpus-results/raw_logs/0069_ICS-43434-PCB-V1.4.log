@@ -1,0 +1,28 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 16,
+    "warnings_design": 16,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/DNMS/PCBs/ICS-43434 microphone PCB/ICS-43434-PCB-V1.4/verify-out/ICS-43434-PCB-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 4,
+    "high": 4,
+    "details": [
+      "#PWR0104 pin 1 '+3V3' (power_in) at (100.33, 120.65) has no label, wire, or no_connect.",
+      "#FLG0101 pin 1 'pwr' (power_out) at (100.33, 120.65) has no label, wire, or no_connect.",
+      "#FLG0102 pin 1 'pwr' (power_out) at (111.76, 120.65) has no label, wire, or no_connect.",
+      "#PWR0105 pin 1 'GND' (power_in) at (111.76, 120.65) has no label, wire, or no_connect."
+    ]
+  }
+]
+

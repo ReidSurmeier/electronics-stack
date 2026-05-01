@@ -1,0 +1,33 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 18,
+    "warnings_design": 18,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/makertools/grblpanel_encoder_breakout/verify-out/RotaryEncoder-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 9,
+    "high": 0,
+    "details": [
+      "REF1 pin 1 '1' (passive) at (67.31, 50.8) has no label, wire, or no_connect.",
+      "REF1 pin A1 'A' (passive) at (67.31, 76.2) has no label, wire, or no_connect.",
+      "REF1 pin B1 'B' (passive) at (72.39, 76.2) has no label, wire, or no_connect.",
+      "REF1 pin C1 'C' (passive) at (69.85, 76.2) has no label, wire, or no_connect.",
+      "REF1 pin MH2 'MH2' (passive) at (82.55, 63.5) has no label, wire, or no_connect.",
+      "R2 pin 1 '~' (passive) at (72.39, 127.0) has no label, wire, or no_connect.",
+      "R2 pin 2 '~' (passive) at (72.39, 139.7) has no label, wire, or no_connect.",
+      "R4 pin 1 '~' (passive) at (143.51, 127.0) has no label, wire, or no_connect.",
+      "R4 pin 2 '~' (passive) at (143.51, 139.7) has no label, wire, or no_connect."
+    ]
+  }
+]
+

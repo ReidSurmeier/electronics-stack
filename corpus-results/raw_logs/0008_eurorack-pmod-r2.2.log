@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 728,
+    "warnings_design": 728,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/eurorack-pmod/hardware/eurorack-pmod-r2.2/verify-out/eurorack-pmod-pcb-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 72,
+    "high": 31,
+    "details": [
+      "C10 pin 1 '~' (passive) at (128.143, 76.19999999999999) has no label, wire, or no_connect.",
+      "C10 pin 2 '~' (passive) at (128.143, 81.28) has no label, wire, or no_connect.",
+      "#FLG04 pin 1 'pwr' (power_out) at (225.044, 22.098) has no label, wire, or no_connect.",
+      "#PWR025 pin 1 'GND' (power_in) at (46.99, 76.2) has no label, wire, or no_connect.",
+      "U2 pin 4 'V-' (power_in) at (208.7372, 94.488) has no label, wire, or no_connect.",
+      "U2 pin 8 'V+' (power_in) at (208.7372, 79.24799999999999) has no label, wire, or no_connect.",
+      "C11 pin 1 '~' (passive) at (122.428, 78.74) has no label, wire, or no_connect.",
+      "C11 pin 2 '~' (passive) at (122.428, 83.82000000000001) has no label, wire, or no_connect.",
+      "C7 pin 2 '~' (passive) at (270.51, 61.595) has no label, wire, or no_connect.",
+      "U2 pin 2 '-' (input) at (230.3272, 91.94800000000001) has no label, wire, or no_connect."
+    ]
+  }
+]
+

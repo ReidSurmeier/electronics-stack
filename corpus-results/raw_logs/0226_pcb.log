@@ -1,0 +1,32 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 29,
+    "warnings_design": 29,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/wearables/hardware-watchdog/pcb/verify-out/pcb-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 8,
+    "high": 0,
+    "details": [
+      "J1 pin 1 'Pin_1' (passive) at (52.07, 67.31) has no label, wire, or no_connect.",
+      "J1 pin 2 'Pin_2' (passive) at (52.07, 69.85) has no label, wire, or no_connect.",
+      "J1 pin 3 'Pin_3' (passive) at (52.07, 72.39) has no label, wire, or no_connect.",
+      "J1 pin 4 'Pin_4' (passive) at (52.07, 74.93) has no label, wire, or no_connect.",
+      "J1 pin 5 'Pin_5' (passive) at (52.07, 77.47) has no label, wire, or no_connect.",
+      "J1 pin 6 'Pin_6' (passive) at (52.07, 80.01) has no label, wire, or no_connect.",
+      "SW1 pin 1 '1' (passive) at (91.44, 62.23) has no label, wire, or no_connect.",
+      "SW1 pin 2 '2' (passive) at (101.6, 62.23) has no label, wire, or no_connect."
+    ]
+  }
+]
+

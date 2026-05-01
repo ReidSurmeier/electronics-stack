@@ -1,0 +1,27 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 50,
+    "warnings_design": 50,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/pi-parport/hardware/v5/verify-out/hat-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 3,
+    "high": 0,
+    "details": [
+      "J4 pin 1 'Pin_1' (passive) at (142.23999999999998, 44.45) has no label, wire, or no_connect.",
+      "J4 pin 2 'Pin_2' (passive) at (142.23999999999998, 46.99) has no label, wire, or no_connect.",
+      "J4 pin 3 'Pin_3' (passive) at (142.23999999999998, 49.53) has no label, wire, or no_connect."
+    ]
+  }
+]
+

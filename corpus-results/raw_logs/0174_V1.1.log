@@ -1,0 +1,25 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 1,
+    "errors_design": 1,
+    "warnings_total": 119,
+    "warnings_design": 119,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/power/PierogiNixie-PSU/V1.1/verify-out/PierogiNixiePSU-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 1,
+    "high": 0,
+    "details": [
+      "J1 pin 2 '2' (passive) at (64.77, 81.28) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 60,
+    "errors_design": 60,
+    "warnings_total": 171,
+    "warnings_design": 171,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/Oxikit-Brainboard/kicadProject/verify-out/OxiKit-Brainboard_v1-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 141,
+    "high": 60,
+    "details": [
+      "#PWR09 pin 1 '+5V' (power_in) at (72.39, 134.62) has no label, wire, or no_connect.",
+      "#PWR018 pin 1 '+5V' (power_in) at (118.11, 170.18) has no label, wire, or no_connect.",
+      "#PWR019 pin 1 '+5VP' (power_in) at (118.11, 185.42) has no label, wire, or no_connect.",
+      "#PWR010 pin 1 'GND' (power_in) at (72.39, 149.86) has no label, wire, or no_connect.",
+      "#PWR022 pin 1 'GND' (power_in) at (129.54, 184.15) has no label, wire, or no_connect.",
+      "#PWR025 pin 1 'GND' (power_in) at (199.39, 60.96) has no label, wire, or no_connect.",
+      "R1 pin 1 '~' (passive) at (31.75, 142.24) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (31.75, 147.32) has no label, wire, or no_connect.",
+      "R9 pin 1 '~' (passive) at (39.37, 85.08999999999999) has no label, wire, or no_connect.",
+      "R9 pin 2 '~' (passive) at (39.37, 90.17) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,28 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 812,
+    "warnings_design": 812,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/rf/LoRaDongle/PCB/LoRaDongle_iCE40_USB/verify-out/LoRaDongle_iCE40-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 4,
+    "high": 0,
+    "details": [
+      "R1 pin 1 '~' (passive) at (50.8, 93.98) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (50.8, 101.60000000000001) has no label, wire, or no_connect.",
+      "R2 pin 1 '~' (passive) at (50.8, 96.52) has no label, wire, or no_connect.",
+      "R2 pin 2 '~' (passive) at (50.8, 104.14) has no label, wire, or no_connect."
+    ]
+  }
+]
+

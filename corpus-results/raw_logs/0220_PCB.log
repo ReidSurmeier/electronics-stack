@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 8,
+    "errors_design": 8,
+    "warnings_total": 128,
+    "warnings_design": 128,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/wearables/CFWatch/PCB/verify-out/Watch-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 112,
+    "high": 28,
+    "details": [
+      "#PWR021 pin 1 '~' (power_in) at (143.51, 95.25) has no label, wire, or no_connect.",
+      "SW1 pin 1 '1' (passive) at (143.51, 148.59) has no label, wire, or no_connect.",
+      "SW1 pin 2 '2' (passive) at (153.67000000000002, 148.59) has no label, wire, or no_connect.",
+      "R14 pin 2 '~' (passive) at (238.76, 148.59) has no label, wire, or no_connect.",
+      "SW4 pin 1 '1' (passive) at (231.14, 207.01) has no label, wire, or no_connect.",
+      "D3 pin 1 'K' (passive) at (102.87, 248.92) has no label, wire, or no_connect.",
+      "D3 pin 2 'A' (passive) at (110.49000000000001, 248.92) has no label, wire, or no_connect.",
+      "R9 pin 2 '~' (passive) at (233.68, 148.59) has no label, wire, or no_connect.",
+      "C9 pin 1 '~' (passive) at (166.37, 194.31) has no label, wire, or no_connect.",
+      "C9 pin 2 '~' (passive) at (166.37, 201.93) has no label, wire, or no_connect."
+    ]
+  }
+]
+

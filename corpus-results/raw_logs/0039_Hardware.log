@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 4,
+    "errors_design": 4,
+    "warnings_total": 328,
+    "warnings_design": 328,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/ProtoConn/Hardware/verify-out/ProtoConn-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

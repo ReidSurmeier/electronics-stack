@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 42,
+    "errors_design": 42,
+    "warnings_total": 85,
+    "warnings_design": 85,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/urchin/verify-out/main-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 122,
+    "high": 19,
+    "details": [
+      "D21 pin 1 'K' (passive) at (137.16, 135.89) has no label, wire, or no_connect.",
+      "D21 pin 2 'A' (passive) at (142.23999999999998, 135.89) has no label, wire, or no_connect.",
+      "SW14 pin 2 'ROW' (passive) at (60.959999999999994, 68.58) has no label, wire, or no_connect.",
+      "SW32 pin 2 'ROW' (passive) at (148.59, 166.37) has no label, wire, or no_connect.",
+      "#PWR0103 pin 1 'GND' (power_in) at (120.65, 82.55) has no label, wire, or no_connect.",
+      "D4 pin 1 'K' (passive) at (58.42, 38.1) has no label, wire, or no_connect.",
+      "D4 pin 2 'A' (passive) at (63.5, 38.1) has no label, wire, or no_connect.",
+      "SW33 pin 2 'ROW' (passive) at (113.03, 182.88) has no label, wire, or no_connect.",
+      "SW19 pin 2 'ROW' (passive) at (121.92, 133.35) has no label, wire, or no_connect.",
+      "D3 pin 1 'K' (passive) at (49.53, 38.1) has no label, wire, or no_connect."
+    ]
+  }
+]
+

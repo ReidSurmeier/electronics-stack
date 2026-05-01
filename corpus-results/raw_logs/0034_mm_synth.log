@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 11,
+    "errors_design": 11,
+    "warnings_total": 2099,
+    "warnings_design": 2099,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/vna/hardware/mm_reflectometer/synth/mm_synth/verify-out/mm_synth-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

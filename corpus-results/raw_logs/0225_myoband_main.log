@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 6,
+    "errors_design": 6,
+    "warnings_total": 302,
+    "warnings_design": 302,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/wearables/EMGBand-HandBionic/hardware/myoband_main/verify-out/myoband_main-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 62,
+    "high": 12,
+    "details": [
+      "R29 pin 1 '~' (passive) at (245.11, 234.95) has no label, wire, or no_connect.",
+      "R29 pin 2 '~' (passive) at (245.11, 242.57) has no label, wire, or no_connect.",
+      "C35 pin 1 '~' (passive) at (375.92, 203.2) has no label, wire, or no_connect.",
+      "C35 pin 2 '~' (passive) at (375.92, 210.82) has no label, wire, or no_connect.",
+      "U7 pin 1 '1' (bidirectional) at (163.83, 163.82999999999998) has no label, wire, or no_connect.",
+      "U7 pin 2 '2' (bidirectional) at (163.83, 166.37) has no label, wire, or no_connect.",
+      "U7 pin 3 '3' (bidirectional) at (163.83, 168.91) has no label, wire, or no_connect.",
+      "U7 pin 4 '4' (bidirectional) at (163.83, 171.45) has no label, wire, or no_connect.",
+      "U7 pin 5 '5' (bidirectional) at (163.83, 173.99) has no label, wire, or no_connect.",
+      "U5 pin 4 'NC' (no_connect) at (331.47, 87.63000000000001) has no label, wire, or no_connect."
+    ]
+  }
+]
+

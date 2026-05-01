@@ -1,0 +1,3 @@
+(sym_lib_table
+	(lib (name "PiAudioOLED_blocks") (type "KiCad") (uri "${KIPRJMOD}/PiAudioOLED_blocks.kicad_sym") (options "") (descr "Block library for reverse-engineer compiled project"))
+)

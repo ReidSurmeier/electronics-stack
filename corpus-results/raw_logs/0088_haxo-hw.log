@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 169,
+    "warnings_design": 169,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/haxo-hw/verify-out/haxophone001-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 95,
+    "high": 19,
+    "details": [
+      "J3 pin 13 'GPIO27' (bidirectional) at (222.25, 140.97) has no label, wire, or no_connect.",
+      "J3 pin 18 'GPIO24' (bidirectional) at (222.25, 133.35) has no label, wire, or no_connect.",
+      "J3 pin 21 'MISO0/GPIO9' (bidirectional) at (262.89, 130.81) has no label, wire, or no_connect.",
+      "J3 pin 25 'GND' (power_in) at (242.57, 156.21) has no label, wire, or no_connect.",
+      "J3 pin 27 'ID_SD/GPIO0' (bidirectional) at (262.89, 100.33) has no label, wire, or no_connect.",
+      "J3 pin 28 'ID_SC/GPIO1' (bidirectional) at (262.89, 102.87) has no label, wire, or no_connect.",
+      "J3 pin 31 'GCLK2/GPIO6' (bidirectional) at (262.89, 120.64999999999999) has no label, wire, or no_connect.",
+      "J3 pin 32 'PWM0/GPIO12' (bidirectional) at (262.89, 140.97) has no label, wire, or no_connect.",
+      "J3 pin 36 'GPIO16' (bidirectional) at (222.25, 107.95) has no label, wire, or no_connect.",
+      "J3 pin 39 'GND' (power_in) at (250.19, 156.21) has no label, wire, or no_connect."
+    ]
+  }
+]
+

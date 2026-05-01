@@ -1,0 +1,28 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 3,
+    "errors_design": 3,
+    "warnings_total": 20,
+    "warnings_design": 20,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/makertools/KiCAD_StepperAdapter/verify-out/KiCAD_StepperAdapter-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 4,
+    "high": 0,
+    "details": [
+      "J1 pin 1 'Pin_1' (passive) at (50.800000000000004, 63.50000000000001) has no label, wire, or no_connect.",
+      "J1 pin 2 'Pin_2' (passive) at (50.800000000000004, 66.04) has no label, wire, or no_connect.",
+      "J1 pin 3 'Pin_3' (passive) at (50.800000000000004, 68.58000000000001) has no label, wire, or no_connect.",
+      "J1 pin 4 'Pin_4' (passive) at (50.800000000000004, 71.12) has no label, wire, or no_connect."
+    ]
+  }
+]
+

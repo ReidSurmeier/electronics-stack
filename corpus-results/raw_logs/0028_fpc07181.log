@@ -1,0 +1,27 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 1,
+    "errors_design": 1,
+    "warnings_total": 15,
+    "warnings_design": 15,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/vna/hardware/mm_reflectometer/evalboards/fpc07181/verify-out/fpc07181-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 3,
+    "high": 1,
+    "details": [
+      "#PWR0101 pin 1 'GND' (power_in) at (101.6, 67.31) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (101.6, 67.31) has no label, wire, or no_connect.",
+      "J1 pin 1 'In' (passive) at (87.63, 55.88) has no label, wire, or no_connect."
+    ]
+  }
+]
+

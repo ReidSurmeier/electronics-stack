@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 4,
+    "errors_design": 4,
+    "warnings_total": 80,
+    "warnings_design": 80,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/motor/DRV10987V01/hw/sch_pcb/verify-out/DRV10987V01-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 28,
+    "high": 7,
+    "details": [
+      "M1 pin 1 '~' (input) at (256.54, 54.61) has no label, wire, or no_connect.",
+      "M2 pin 1 '~' (input) at (261.62, 54.61) has no label, wire, or no_connect.",
+      "M3 pin 1 '~' (input) at (266.7, 54.61) has no label, wire, or no_connect.",
+      "M4 pin 1 '~' (input) at (271.78, 54.61) has no label, wire, or no_connect.",
+      "#PWR03 pin 1 'GND' (power_in) at (106.68, 115.57) has no label, wire, or no_connect.",
+      "D2 pin 2 'A' (passive) at (262.89, 81.28) has no label, wire, or no_connect.",
+      "L1 pin 1 '1' (passive) at (78.74, 73.66) has no label, wire, or no_connect.",
+      "L1 pin 2 '2' (passive) at (78.74, 81.28) has no label, wire, or no_connect.",
+      "C2 pin 1 '~' (passive) at (76.2, 69.85) has no label, wire, or no_connect.",
+      "C2 pin 2 '~' (passive) at (76.2, 74.93) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 46,
+    "errors_design": 46,
+    "warnings_total": 288,
+    "warnings_design": 288,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/CyberKeeb2040/PCB/MainBoard/verify-out/MainBoard-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 53,
+    "high": 9,
+    "details": [
+      "J4 pin 5 'Pin_5' (passive) at (44.323, 99.568) has no label, wire, or no_connect.",
+      "#PWR012 pin 1 '+5V' (power_in) at (44.323, 116.078) has no label, wire, or no_connect.",
+      "J3 pin 2 'Pin_2' (passive) at (44.323, 75.311) has no label, wire, or no_connect.",
+      "R3 pin 1 '~' (passive) at (100.584, 157.734) has no label, wire, or no_connect.",
+      "R3 pin 2 '~' (passive) at (100.584, 165.354) has no label, wire, or no_connect.",
+      "J1 pin 1 'Pin_1' (passive) at (129.286, 28.956000000000003) has no label, wire, or no_connect.",
+      "J1 pin 10 'Pin_10' (passive) at (141.98600000000002, 39.116) has no label, wire, or no_connect.",
+      "J1 pin 11 'Pin_11' (passive) at (129.286, 41.656000000000006) has no label, wire, or no_connect.",
+      "J1 pin 12 'Pin_12' (passive) at (141.98600000000002, 41.656000000000006) has no label, wire, or no_connect.",
+      "J1 pin 13 'Pin_13' (passive) at (129.286, 44.196000000000005) has no label, wire, or no_connect."
+    ]
+  }
+]
+

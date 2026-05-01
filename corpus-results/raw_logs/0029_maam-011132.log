@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 5,
+    "errors_design": 5,
+    "warnings_total": 133,
+    "warnings_design": 133,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/vna/hardware/mm_reflectometer/evalboards/maam-011132/verify-out/maam-011132-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 10,
+    "high": 1,
+    "details": [
+      "R6 pin 1 '~' (passive) at (128.27, 27.94) has no label, wire, or no_connect.",
+      "R6 pin 2 '~' (passive) at (128.27, 33.02) has no label, wire, or no_connect.",
+      "R7 pin 1 '~' (passive) at (129.54, 77.47) has no label, wire, or no_connect.",
+      "R7 pin 2 '~' (passive) at (129.54, 82.55000000000001) has no label, wire, or no_connect.",
+      "J1 pin 1 'Pin_1' (passive) at (17.78, 82.55) has no label, wire, or no_connect.",
+      "J1 pin 2 'Pin_2' (passive) at (17.78, 85.09) has no label, wire, or no_connect.",
+      "J3 pin 1 'In' (passive) at (270.51, 165.1) has no label, wire, or no_connect.",
+      "Q1 pin 1 'G' (input) at (45.72, 82.55) has no label, wire, or no_connect.",
+      "Q1 pin 2 'S' (passive) at (53.339999999999996, 87.63) has no label, wire, or no_connect.",
+      "Q1 pin 3 'D' (passive) at (53.339999999999996, 77.47) has no label, wire, or no_connect."
+    ]
+  }
+]
+

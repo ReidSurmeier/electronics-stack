@@ -1,0 +1,33 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 38,
+    "warnings_design": 38,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/power/dw3005t/pcb/power-board/verify-out/power-board-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 9,
+    "high": 0,
+    "details": [
+      "J12 pin 2 'Pin_2' (passive) at (170.17999999999998, 66.04) has no label, wire, or no_connect.",
+      "J11 pin 1 'Pin_1' (passive) at (43.18, 71.11999999999999) has no label, wire, or no_connect.",
+      "J11 pin 2 'Pin_2' (passive) at (43.18, 73.66) has no label, wire, or no_connect.",
+      "J11 pin 3 'Pin_3' (passive) at (43.18, 76.2) has no label, wire, or no_connect.",
+      "J11 pin 4 'Pin_4' (passive) at (43.18, 78.74) has no label, wire, or no_connect.",
+      "J10 pin 1 'Pin_1' (passive) at (43.18, 53.34) has no label, wire, or no_connect.",
+      "J10 pin 2 'Pin_2' (passive) at (43.18, 55.88) has no label, wire, or no_connect.",
+      "J10 pin 3 'Pin_3' (passive) at (43.18, 58.42) has no label, wire, or no_connect.",
+      "J10 pin 4 'Pin_4' (passive) at (43.18, 60.96) has no label, wire, or no_connect."
+    ]
+  }
+]
+

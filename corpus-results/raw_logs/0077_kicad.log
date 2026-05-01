@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 69,
+    "errors_design": 69,
+    "warnings_total": 165,
+    "warnings_design": 165,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/arduinoX86/shields/286_5V/kicad/verify-out/arduino_286_5V-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 168,
+    "high": 43,
+    "details": [
+      "U13 pin 14 'NC' (no_connect) at (369.57, 60.96000000000001) has no label, wire, or no_connect.",
+      "D5 pin 1 'K' (passive) at (383.54, 176.53) has no label, wire, or no_connect.",
+      "D5 pin 2 'A' (passive) at (391.16, 176.53) has no label, wire, or no_connect.",
+      "D6 pin 1 'K' (passive) at (397.51, 176.53) has no label, wire, or no_connect.",
+      "D6 pin 2 'A' (passive) at (405.13, 176.53) has no label, wire, or no_connect.",
+      "C5 pin 1 '~' (passive) at (367.03, 234.95) has no label, wire, or no_connect.",
+      "XA1 pin D0 'D0_RX0' (bidirectional) at (49.529999999999994, 12.700000000000003) has no label, wire, or no_connect.",
+      "XA1 pin D1 'D1_TX0' (bidirectional) at (49.529999999999994, 15.240000000000002) has no label, wire, or no_connect.",
+      "XA1 pin D19 'D19_RX1' (bidirectional) at (49.529999999999994, 17.78) has no label, wire, or no_connect.",
+      "XA1 pin D18 'D18_TX1' (bidirectional) at (49.529999999999994, 20.32) has no label, wire, or no_connect."
+    ]
+  }
+]
+

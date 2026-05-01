@@ -1,0 +1,8 @@
+Ref,Description,Part,Qty,Notes
+J1,USB-C receptacle 5V/3A input,GCT USB4135-GF-A,1,front panel
+U1,AMS1117-3.3 LDO 1A,AMS1117-3.3,1,SOT-223
+U2,ESP32-WROOM-32 module,ESP32-WROOM-32E,1,onboard antenna
+U3,SSD1306 OLED 0.96in I2C @0x3C,Adafruit 938,1,front panel
+U4,BME280 sensor module,BME280-3.3,1,I2C addr 0x76
+C1,Decoupling 100nF,CL10B104KB8NNNC,8,
+C2,Bulk 22uF MLCC,GRM188R60J226MEA0,2,

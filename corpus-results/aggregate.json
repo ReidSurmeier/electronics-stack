@@ -1,0 +1,26 @@
+{
+  "total": 228,
+  "pass": 29,
+  "fail": 199,
+  "error": 0,
+  "check_status": {
+    "kicad-cli ERC": {
+      "pass": 58,
+      "fail": 147
+    },
+    "Connectivity audit (passive-pin floats)": {
+      "pass": 61,
+      "fail": 144
+    }
+  },
+  "failure_modes": [
+    [
+      "erc_design_errors",
+      147
+    ],
+    [
+      "connectivity_high",
+      144
+    ]
+  ]
+}

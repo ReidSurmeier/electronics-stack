@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 23,
+    "errors_design": 23,
+    "warnings_total": 9,
+    "warnings_design": 9,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/sensors/trackball/PCB-dual/verify-out/trackball-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 15,
+    "high": 12,
+    "details": [
+      "U1 pin 2 'A1' (input) at (130.81, 102.87) has no label, wire, or no_connect.",
+      "U1 pin 3 'A2' (input) at (130.81, 105.41) has no label, wire, or no_connect.",
+      "U1 pin 5 'SDA' (input) at (130.81, 110.49000000000001) has no label, wire, or no_connect.",
+      "U1 pin 6 'SCL' (input) at (130.81, 113.03) has no label, wire, or no_connect.",
+      "U1 pin 8 '5V' (power_out) at (148.58999999999997, 100.33) has no label, wire, or no_connect.",
+      "Q1 pin 1 'B' (input) at (119.38, 68.58) has no label, wire, or no_connect.",
+      "Q1 pin 2 'E' (passive) at (119.38, 73.66) has no label, wire, or no_connect.",
+      "Q1 pin 3 'C' (output) at (154.94, 68.58) has no label, wire, or no_connect.",
+      "J2 pin 1 'Pin_1' (passive) at (209.55, 62.23) has no label, wire, or no_connect.",
+      "H1 pin 1 '1' (input) at (191.77, 90.17) has no label, wire, or no_connect."
+    ]
+  }
+]
+

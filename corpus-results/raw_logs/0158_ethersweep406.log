@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 56,
+    "errors_design": 56,
+    "warnings_total": 883,
+    "warnings_design": 883,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/motor/ethersweep/electronic_design/development/ethersweep406/verify-out/ethersweep-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 134,
+    "high": 17,
+    "details": [
+      "Y3 pin 1 '1' (passive) at (47.244, 67.818) has no label, wire, or no_connect.",
+      "Y3 pin 2 '2' (passive) at (54.864000000000004, 67.818) has no label, wire, or no_connect.",
+      "U6 pin 12 'NC' (no_connect) at (245.618, 88.392) has no label, wire, or no_connect.",
+      "U6 pin 13 'NC' (no_connect) at (245.618, 90.932) has no label, wire, or no_connect.",
+      "U6 pin 18 'VBG' (passive) at (248.15800000000002, 116.332) has no label, wire, or no_connect.",
+      "U6 pin 23 'RSVD' (input) at (217.678, 121.412) has no label, wire, or no_connect.",
+      "U6 pin 38 'RSVD' (input) at (217.678, 106.172) has no label, wire, or no_connect.",
+      "U6 pin 39 'RSVD' (input) at (217.678, 108.712) has no label, wire, or no_connect.",
+      "U6 pin 40 'RSVD' (input) at (217.678, 111.252) has no label, wire, or no_connect.",
+      "U6 pin 41 'RSVD' (input) at (217.678, 113.792) has no label, wire, or no_connect."
+    ]
+  }
+]
+

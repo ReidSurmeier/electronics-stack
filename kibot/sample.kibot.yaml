@@ -1,0 +1,25 @@
+# Minimal kibot smoke-test config (KiCad 9 schematic-only).
+# Uses kicad-cli-driven outputs to avoid kibot's internal SCH parser
+# (which trips on KiCad 9 multi-line `(pin ... (name ...))` symbols).
+# DRC + gerbers + 3D need a PCB — omitted.
+# Usage:
+#   cd <project-dir>
+#   kibot -c ~/electronics-stack/kibot/sample.kibot.yaml -d /tmp/kibot-test
+
+kibot:
+  version: 1
+
+preflight:
+  erc: true                 # KiCad 8+ preflight (uses kicad-cli sch erc)
+
+outputs:
+  - name: schematic_pdf
+    comment: "Schematic PDF via kicad-cli"
+    type: pdf_sch_print
+    dir: docs
+
+  - name: schematic_svg
+    comment: "Schematic SVG via kicad-cli"
+    type: svg_sch_print
+    dir: docs
+

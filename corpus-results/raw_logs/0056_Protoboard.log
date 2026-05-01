@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 3,
+    "errors_design": 3,
+    "warnings_total": 45,
+    "warnings_design": 45,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/flipper-zero-backpacks/pcb/Protoboard/verify-out/Protoboard-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

@@ -1,0 +1,23 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 0,
+    "warnings_design": 0,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/eurorack-pmod/hardware/panel-r3.1/verify-out/eurorack-pmod-panel-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

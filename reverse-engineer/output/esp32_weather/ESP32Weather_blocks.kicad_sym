@@ -1,0 +1,1288 @@
+(kicad_symbol_lib
+	(version 20241209)
+	(generator "reverse-engineer")
+	(generator_version "1.0")
+	(symbol "USB_C_Input_5V"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "J"
+			(at 0 -12.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "USB-C 5V input (3A, 22uF)"
+			(at 0 12.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.usb.org/document-library/usb-type-cr-cable-and-connector-specification-revision-22"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "USB-C 5V input front-end. Includes USB-C receptacle, USBLC6-2SC6 ESD protection on USB_DP/USB_DM, and 22uF bulk cap across 5V_OUT and GND. Sized for 3A continuous draw. CC1/CC2 are pulled to the receptacle's CC pins; for sink-only operation tie 5.1k to GND on each (handled at the block-instance level if requested)."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "USB_C_Input_5V_1_1"
+			(rectangle
+				(start -19.05 8.89)
+				(end 19.05 -8.89)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "USB-C\n5V/3A\n+ ESD + bulk"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at 22.86 6.35 180)
+				(length 3.81)
+				(name "5V_OUT"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 22.86 3.81 180)
+				(length 3.81)
+				(name "GND"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 22.86 1.27 180)
+				(length 3.81)
+				(name "USB_DP"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 22.86 -1.27 180)
+				(length 3.81)
+				(name "USB_DM"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 22.86 -3.81 180)
+				(length 3.81)
+				(name "CC1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 22.86 -6.35 180)
+				(length 3.81)
+				(name "CC2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "Regulator_3V3"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 -11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "AMS1117-3.3 5V→3.3V 1A"
+			(at 0 11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.advanced-monolithic.com/pdf/ds1117.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "5V-to-3.3V regulator implemented as a linear converter using AMS1117-3.3. Input capacitor 10uF on VIN, output capacitor 22uF on 3V3_OUT, both referenced to GND. EN may be tied to VIN for always-on operation."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "Regulator_3V3_1_1"
+			(rectangle
+				(start -17.78 7.62)
+				(end 17.78 -7.62)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "AMS1117-3.3\n5V → 3V3\n1A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 2.54 0)
+				(length 3.81)
+				(name "VIN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 0 0)
+				(length 3.81)
+				(name "EN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 -2.54 0)
+				(length 3.81)
+				(name "GND_IN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 21.59 1.27 180)
+				(length 3.81)
+				(name "3V3_OUT"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 21.59 -1.27 180)
+				(length 3.81)
+				(name "GND_OUT"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "ESP32_WROOM_32"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 -38.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "ESP32-WROOM-32 (UART: cp2102)"
+			(at 0 38.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "ESP32-WROOM-32 module. VCC = 3.3V (350mA peak during WiFi TX). EN has a 10k pull-up + 0.1uF cap. GPIO0/GPIO2/GPIO12/GPIO15 are strapping pins — leave floating during boot or use the dedicated programming circuit. On-board CP2102 USB-UART brings USB_DP/USB_DM in and exposes serial via GPIO1_TX/GPIO3_RX. BOOT button between GPIO0 and GND. 10uF + 100nF decoupling on VCC."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "ESP32_WROOM_32_1_1"
+			(rectangle
+				(start -25.4 34.29)
+				(end 25.4 -34.29)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "ESP32-WROOM-32\n+ strapping\n+ USB-UART"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -29.21 6.35 0)
+				(length 3.81)
+				(name "VCC"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -29.21 3.81 0)
+				(length 3.81)
+				(name "GND"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -29.21 1.27 0)
+				(length 3.81)
+				(name "EN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -29.21 -1.27 0)
+				(length 3.81)
+				(name "BOOT"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -29.21 -3.81 0)
+				(length 3.81)
+				(name "USB_DP"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "5"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -29.21 -6.35 0)
+				(length 3.81)
+				(name "USB_DM"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "6"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 31.75 180)
+				(length 3.81)
+				(name "GPIO0"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "7"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 29.21 180)
+				(length 3.81)
+				(name "GPIO1_TX"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "8"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 26.67 180)
+				(length 3.81)
+				(name "GPIO2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "9"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 24.13 180)
+				(length 3.81)
+				(name "GPIO3_RX"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "10"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 21.59 180)
+				(length 3.81)
+				(name "GPIO4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "11"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 19.05 180)
+				(length 3.81)
+				(name "GPIO5"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "12"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 16.51 180)
+				(length 3.81)
+				(name "GPIO12"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "13"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 13.97 180)
+				(length 3.81)
+				(name "GPIO13"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "14"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 11.43 180)
+				(length 3.81)
+				(name "GPIO14"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "15"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 8.89 180)
+				(length 3.81)
+				(name "GPIO15"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "16"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 6.35 180)
+				(length 3.81)
+				(name "GPIO16"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "17"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 3.81 180)
+				(length 3.81)
+				(name "GPIO17"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "18"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 1.27 180)
+				(length 3.81)
+				(name "GPIO18_SCK"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "19"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -1.27 180)
+				(length 3.81)
+				(name "GPIO19"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "20"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -3.81 180)
+				(length 3.81)
+				(name "GPIO21_SDA"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "21"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -6.35 180)
+				(length 3.81)
+				(name "GPIO22_SCL"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "22"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -8.89 180)
+				(length 3.81)
+				(name "GPIO23_MOSI"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "23"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -11.43 180)
+				(length 3.81)
+				(name "GPIO25_DAC1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "24"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -13.97 180)
+				(length 3.81)
+				(name "GPIO26_DAC2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "25"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -16.51 180)
+				(length 3.81)
+				(name "GPIO27"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "26"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -19.05 180)
+				(length 3.81)
+				(name "GPIO32"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "27"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -21.59 180)
+				(length 3.81)
+				(name "GPIO33"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "28"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -24.13 180)
+				(length 3.81)
+				(name "GPIO34_IN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "29"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -26.67 180)
+				(length 3.81)
+				(name "GPIO35_IN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "30"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -29.21 180)
+				(length 3.81)
+				(name "GPIO36_VP"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "31"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 29.21 -31.75 180)
+				(length 3.81)
+				(name "GPIO39_VN"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "32"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "SSD1306_OLED"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 -11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SSD1306 OLED 128x64 I2C @0x3C"
+			(at 0 11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "SSD1306 128x64 OLED on I2C at 0x3C. On-board 4.7k pull-ups on SDA/SCL. VCC = 3.3V (some modules accept 5V via on-board LDO; verify silkscreen)."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "SSD1306_OLED_1_1"
+			(rectangle
+				(start -17.78 7.62)
+				(end 17.78 -7.62)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "SSD1306\nI2C OLED\n0x3C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 3.81 0)
+				(length 3.81)
+				(name "VCC"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 1.27 0)
+				(length 3.81)
+				(name "GND"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 -1.27 0)
+				(length 3.81)
+				(name "SDA"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -21.59 -3.81 0)
+				(length 3.81)
+				(name "SCL"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+	(symbol "BME280_I2C"
+		(pin_names
+			(offset 1.016)
+		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(property "Reference" "U"
+			(at 0 -11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "BME280 @0x76"
+			(at 0 11.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.bosch-sensortec.com/products/environmental-sensors/humidity-sensors-bme280/"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Bosch BME280 combined temperature, humidity, and pressure sensor on I2C at 0x76. VDD = 1.71-3.6V (use 3.3V). 100nF decoupling on VDD. SDO pin pulled low (GND) inside the block."
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(symbol "BME280_I2C_1_1"
+			(rectangle
+				(start -15.24 7.62)
+				(end 15.24 -7.62)
+				(stroke
+					(width 0.254)
+					(type default)
+				)
+				(fill
+					(type background)
+				)
+			)
+			(text "BME280\nI2C T/H/P\n0x76"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(pin passive line
+				(at -19.05 3.81 0)
+				(length 3.81)
+				(name "VDD"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -19.05 1.27 0)
+				(length 3.81)
+				(name "GND"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -19.05 -1.27 0)
+				(length 3.81)
+				(name "SDA"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at -19.05 -3.81 0)
+				(length 3.81)
+				(name "SCL"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 0.9 0.9)
+						)
+					)
+				)
+			)
+		)
+		(embedded_fonts no)
+	)
+)

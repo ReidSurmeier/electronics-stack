@@ -1,0 +1,30 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 24,
+    "warnings_design": 24,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/motor/pcb-motor/pcb-stator-radial/verify-out/pcb-stator-radial-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 6,
+    "high": 0,
+    "details": [
+      "J6 pin 1 'Pin_1' (passive) at (134.61999999999998, 55.88) has no label, wire, or no_connect.",
+      "J2 pin 1 'Pin_1' (passive) at (93.98, 55.88) has no label, wire, or no_connect.",
+      "J1 pin 1 'Pin_1' (passive) at (93.98, 49.53) has no label, wire, or no_connect.",
+      "J3 pin 1 'Pin_1' (passive) at (115.57000000000001, 49.53) has no label, wire, or no_connect.",
+      "J5 pin 1 'Pin_1' (passive) at (134.61999999999998, 49.53) has no label, wire, or no_connect.",
+      "J4 pin 1 'Pin_1' (passive) at (115.57000000000001, 55.88) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 191,
+    "warnings_design": 191,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/banime40/pcb/banime40/verify-out/banime40-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 126,
+    "high": 0,
+    "details": [
+      "D1 pin 1 'K' (passive) at (81.28, 36.83) has no label, wire, or no_connect.",
+      "D1 pin 2 'A' (passive) at (88.9, 36.83) has no label, wire, or no_connect.",
+      "SW1 pin 1 'A' (passive) at (85.09, 33.02) has no label, wire, or no_connect.",
+      "D2 pin 1 'K' (passive) at (96.52, 36.83) has no label, wire, or no_connect.",
+      "D2 pin 2 'A' (passive) at (104.14, 36.83) has no label, wire, or no_connect.",
+      "SW2 pin 1 'A' (passive) at (100.33, 33.02) has no label, wire, or no_connect.",
+      "D3 pin 1 'K' (passive) at (111.75999999999999, 36.83) has no label, wire, or no_connect.",
+      "D3 pin 2 'A' (passive) at (119.38, 36.83) has no label, wire, or no_connect.",
+      "SW3 pin 1 'A' (passive) at (115.57000000000001, 33.02) has no label, wire, or no_connect.",
+      "D4 pin 1 'K' (passive) at (127.0, 36.83) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 18,
+    "errors_design": 18,
+    "warnings_total": 237,
+    "warnings_design": 237,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/motor/moco/hardware/moco-pg4/verify-out/moco-pg4-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 148,
+    "high": 44,
+    "details": [
+      "#PWR? pin 1 'GND' (power_in) at (143.51, 179.07) has no label, wire, or no_connect.",
+      "D? pin 1 'K' (passive) at (83.82, 176.53) has no label, wire, or no_connect.",
+      "D? pin 2 'A' (passive) at (91.44, 176.53) has no label, wire, or no_connect.",
+      "LD? pin 1 'K' (passive) at (161.29, 175.26) has no label, wire, or no_connect.",
+      "LD? pin 2 'A' (passive) at (168.91, 175.26) has no label, wire, or no_connect.",
+      "LD? pin 1 'K' (passive) at (139.7, 175.26) has no label, wire, or no_connect.",
+      "LD? pin 2 'A' (passive) at (147.32, 175.26) has no label, wire, or no_connect.",
+      "R? pin 2 '~' (passive) at (120.65, 134.62) has no label, wire, or no_connect.",
+      "C? pin 1 '~' (passive) at (90.17, 139.7) has no label, wire, or no_connect.",
+      "C? pin 2 '~' (passive) at (90.17, 147.32) has no label, wire, or no_connect."
+    ]
+  }
+]
+

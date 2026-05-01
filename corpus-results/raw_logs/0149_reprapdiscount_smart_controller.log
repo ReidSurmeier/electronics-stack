@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 21,
+    "warnings_design": 21,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/makertools/reprapdiscount_smart_controller/verify-out/reprapdiscount_ramps_controller_adapter-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 10,
+    "high": 0,
+    "details": [
+      "EXP1 pin 1 '1' (passive) at (105.41, 58.42) has no label, wire, or no_connect.",
+      "EXP1 pin 10 '10' (passive) at (85.09, 48.260000000000005) has no label, wire, or no_connect.",
+      "EXP1 pin 2 '2' (passive) at (85.09, 58.42) has no label, wire, or no_connect.",
+      "EXP1 pin 3 '3' (passive) at (105.41, 55.88) has no label, wire, or no_connect.",
+      "EXP1 pin 4 '4' (passive) at (85.09, 55.88) has no label, wire, or no_connect.",
+      "EXP1 pin 5 '5' (passive) at (105.41, 53.34) has no label, wire, or no_connect.",
+      "EXP1 pin 6 '6' (passive) at (85.09, 53.34) has no label, wire, or no_connect.",
+      "EXP1 pin 7 '7' (passive) at (105.41, 50.8) has no label, wire, or no_connect.",
+      "EXP1 pin 8 '8' (passive) at (85.09, 50.8) has no label, wire, or no_connect.",
+      "EXP1 pin 9 '9' (passive) at (105.41, 48.260000000000005) has no label, wire, or no_connect."
+    ]
+  }
+]
+

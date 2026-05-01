@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 90,
+    "errors_design": 90,
+    "warnings_total": 90,
+    "warnings_design": 90,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/arduinoX86/shields/386EX/kicad/verify-out/arduino_386-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 243,
+    "high": 75,
+    "details": [
+      "C8 pin 1 '~' (passive) at (142.24, 177.8) has no label, wire, or no_connect.",
+      "C8 pin 2 '~' (passive) at (142.24, 185.42000000000002) has no label, wire, or no_connect.",
+      "C4 pin 1 '~' (passive) at (142.24, 142.24) has no label, wire, or no_connect.",
+      "C4 pin 2 '~' (passive) at (142.24, 149.86) has no label, wire, or no_connect.",
+      "XA1 pin 3V3 '3.3V' (power_out) at (49.529999999999994, 111.76) has no label, wire, or no_connect.",
+      "XA1 pin 5V1 '5V' (power_in) at (49.529999999999994, 114.30000000000001) has no label, wire, or no_connect.",
+      "XA1 pin 5V2 'SPI_5V' (power_in) at (83.82, 1.269999999999996) has no label, wire, or no_connect.",
+      "XA1 pin 5V3 '5V' (power_in) at (49.529999999999994, 116.84) has no label, wire, or no_connect.",
+      "XA1 pin 5V4 '5V' (power_in) at (49.529999999999994, 119.38) has no label, wire, or no_connect.",
+      "XA1 pin A0 'A0' (bidirectional) at (49.529999999999994, 45.72) has no label, wire, or no_connect."
+    ]
+  }
+]
+

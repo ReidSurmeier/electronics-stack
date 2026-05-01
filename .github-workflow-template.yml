@@ -1,0 +1,45 @@
+# Template GitHub Actions workflow for KiCad project verification.
+# Copy to your project's .github/workflows/kicad-verify.yml and adjust project paths.
+
+name: KiCad verify
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install KiCad 9
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-9.0-releases
+          sudo apt update
+          sudo apt install -y --no-install-recommends kicad ngspice
+
+      - name: Install Python deps
+        run: |
+          python3 -m pip install --user openpyxl pdfplumber sexpdata pyyaml requests rapidfuzz kibot kiauto
+
+      - name: Run verify on each project
+        run: |
+          for proj in projects/*/; do
+            python3 ~/electronics-stack/scripts/verify.py "$proj" --erc --conn --power --pi
+          done
+
+      - name: Run KiBot pipeline
+        run: |
+          for proj in projects/*/; do
+            if [ -f "$proj/.kibot.yaml" ]; then
+              kibot -c "$proj/.kibot.yaml" -d "$proj/kibot-out"
+            fi
+          done
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: kibot-output
+          path: projects/*/kibot-out

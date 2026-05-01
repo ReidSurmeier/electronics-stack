@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 30,
+    "warnings_design": 30,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/boardsmith/examples/output/08_stm32_can_bus/verify-out/boardsmith-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 54,
+    "high": 27,
+    "details": [
+      "C1 pin 1 '~' (passive) at (148.59, 50.8) has no label, wire, or no_connect.",
+      "C1 pin 2 '~' (passive) at (151.13000000000002, 50.8) has no label, wire, or no_connect.",
+      "C2 pin 1 '~' (passive) at (148.59, 60.96) has no label, wire, or no_connect.",
+      "C2 pin 2 '~' (passive) at (151.13000000000002, 60.96) has no label, wire, or no_connect.",
+      "C3 pin 1 '~' (passive) at (148.59, 71.12) has no label, wire, or no_connect.",
+      "C3 pin 2 '~' (passive) at (151.13000000000002, 71.12) has no label, wire, or no_connect.",
+      "C4 pin 1 '~' (passive) at (148.59, 82.55) has no label, wire, or no_connect.",
+      "C4 pin 2 '~' (passive) at (151.13000000000002, 82.55) has no label, wire, or no_connect.",
+      "C5 pin 1 '~' (passive) at (148.59, 92.71) has no label, wire, or no_connect.",
+      "C5 pin 2 '~' (passive) at (151.13000000000002, 92.71) has no label, wire, or no_connect."
+    ]
+  }
+]
+

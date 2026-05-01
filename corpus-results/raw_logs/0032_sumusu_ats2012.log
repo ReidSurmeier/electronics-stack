@@ -1,0 +1,25 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 1,
+    "errors_design": 1,
+    "warnings_total": 9,
+    "warnings_design": 9,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/vna/hardware/mm_reflectometer/evalboards/sumusu_ats2012/verify-out/sumusu_ats2012-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 1,
+    "high": 0,
+    "details": [
+      "J1 pin 1 'In' (passive) at (93.98, 86.36) has no label, wire, or no_connect."
+    ]
+  }
+]
+

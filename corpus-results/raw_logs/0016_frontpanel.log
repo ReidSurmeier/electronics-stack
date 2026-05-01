@@ -1,0 +1,27 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 3,
+    "warnings_design": 3,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/polykit-x-monosynth/frontpanel/verify-out/frontpanel-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 3,
+    "high": 1,
+    "details": [
+      "#PWR0101 pin 1 'GND' (power_in) at (124.46, 90.17) has no label, wire, or no_connect.",
+      "R1 pin 1 '~' (passive) at (124.46, 82.55) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (124.46, 90.17) has no label, wire, or no_connect."
+    ]
+  }
+]
+

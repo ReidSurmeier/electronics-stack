@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 235,
+    "warnings_design": 235,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/keyboards/Kobold/R1/verify-out/Kobold-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 65,
+    "high": 23,
+    "details": [
+      "#PWR04 pin 1 '~' (power_in) at (264.16, 58.42) has no label, wire, or no_connect.",
+      "#PWR070 pin 1 '~' (power_in) at (382.27, 36.83) has no label, wire, or no_connect.",
+      "#PWR056 pin 1 '~' (power_in) at (180.34, 187.96) has no label, wire, or no_connect.",
+      "#PWR071 pin 1 '~' (power_in) at (393.7, 36.83) has no label, wire, or no_connect.",
+      "R3 pin 1 '~' (passive) at (97.79, 120.64999999999999) has no label, wire, or no_connect.",
+      "R3 pin 2 '~' (passive) at (97.79, 128.26999999999998) has no label, wire, or no_connect.",
+      "#PWR069 pin 1 '~' (power_in) at (370.84, 36.83) has no label, wire, or no_connect.",
+      "C10 pin 1 '~' (passive) at (118.11, 127.0) has no label, wire, or no_connect.",
+      "C10 pin 2 '~' (passive) at (118.11, 134.62) has no label, wire, or no_connect.",
+      "R13 pin 1 '~' (passive) at (215.9, 259.08) has no label, wire, or no_connect."
+    ]
+  }
+]
+

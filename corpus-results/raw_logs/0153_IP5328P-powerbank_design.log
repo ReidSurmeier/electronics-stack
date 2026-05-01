@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 4,
+    "errors_design": 4,
+    "warnings_total": 110,
+    "warnings_design": 110,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/motor/IP5328P-powerbank_design/verify-out/usbpd_powerbank-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 45,
+    "high": 16,
+    "details": [
+      "#PWR0118 pin 1 'GND' (power_in) at (43.18, 36.83) has no label, wire, or no_connect.",
+      "#PWR0116 pin 1 'GND' (power_in) at (43.18, 63.5) has no label, wire, or no_connect.",
+      "#PWR0115 pin 1 'GND' (power_in) at (54.61, 90.17) has no label, wire, or no_connect.",
+      "#PWR0114 pin 1 'GND' (power_in) at (73.66, 116.84) has no label, wire, or no_connect.",
+      "#PWR0117 pin 1 'GND' (power_in) at (78.74, 38.1) has no label, wire, or no_connect.",
+      "#PWR0119 pin 1 'GND' (power_in) at (81.28, 67.31) has no label, wire, or no_connect.",
+      "#PWR0103 pin 1 'GND' (power_in) at (110.49, 80.01) has no label, wire, or no_connect.",
+      "#PWR0101 pin 1 'GND' (power_in) at (175.26, 54.61) has no label, wire, or no_connect.",
+      "#PWR0105 pin 1 'GND' (power_in) at (176.53, 90.17) has no label, wire, or no_connect.",
+      "R1 pin 1 '~' (passive) at (59.69, 113.03) has no label, wire, or no_connect."
+    ]
+  }
+]
+

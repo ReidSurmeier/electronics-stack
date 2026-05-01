@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 6,
+    "errors_design": 6,
+    "warnings_total": 195,
+    "warnings_design": 195,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/flipper-zero-backpacks/pcb/ESP32/verify-out/ESP32-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 67,
+    "high": 18,
+    "details": [
+      "R12 pin 1 '~' (passive) at (191.77, 189.23) has no label, wire, or no_connect.",
+      "R12 pin 2 '~' (passive) at (191.77, 196.85) has no label, wire, or no_connect.",
+      "R8 pin 1 '~' (passive) at (81.28, 154.94) has no label, wire, or no_connect.",
+      "R8 pin 2 '~' (passive) at (81.28, 162.56) has no label, wire, or no_connect.",
+      "Q8 pin 2 'B1' (input) at (377.19, 43.18) has no label, wire, or no_connect.",
+      "Q8 pin 6 'C1' (passive) at (384.81, 38.1) has no label, wire, or no_connect.",
+      "Q8 pin 1 'E1' (passive) at (384.81, 48.26) has no label, wire, or no_connect.",
+      "Q8 pin 5 'B2' (input) at (377.19, 43.18) has no label, wire, or no_connect.",
+      "Q8 pin 3 'C2' (passive) at (384.81, 38.1) has no label, wire, or no_connect.",
+      "Q8 pin 4 'E2' (passive) at (384.81, 48.26) has no label, wire, or no_connect."
+    ]
+  }
+]
+

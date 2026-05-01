@@ -1,0 +1,23 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 81,
+    "warnings_design": 81,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/sensors/BeeLight/hardware/verify-out/BeeLight-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

@@ -1,0 +1,26 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 14,
+    "warnings_design": 14,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/DNMS/PCBs/IM72D128 microphone PCB/IM72D128-PCB-V1.0/verify-out/IM72D128-PCB-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 2,
+    "high": 0,
+    "details": [
+      "R1 pin 1 '~' (passive) at (100.33, 107.95) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (100.33, 115.57000000000001) has no label, wire, or no_connect."
+    ]
+  }
+]
+

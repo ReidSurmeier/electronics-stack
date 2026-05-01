@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 152,
+    "errors_design": 152,
+    "warnings_total": 184,
+    "warnings_design": 184,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/Miniature-CM4-Cluster/CM4Card/verify-out/CM4Card-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 457,
+    "high": 220,
+    "details": [
+      "#PWR0148 pin 1 '+3V3' (power_in) at (76.2, 147.32) has no label, wire, or no_connect.",
+      "#PWR0159 pin 1 '+3V3' (power_in) at (128.27, 43.18) has no label, wire, or no_connect.",
+      "#PWR0116 pin 1 '+3V3' (power_in) at (139.7, 87.63) has no label, wire, or no_connect.",
+      "#PWR0118 pin 1 '+3V3' (power_in) at (168.91, 43.18) has no label, wire, or no_connect.",
+      "#PWR0144 pin 1 '+3V3' (power_in) at (171.45, 43.18) has no label, wire, or no_connect.",
+      "#PWR0158 pin 1 '+3V3' (power_in) at (179.07, 85.09) has no label, wire, or no_connect.",
+      "#PWR0131 pin 1 '+3V3' (power_in) at (271.78, 99.06) has no label, wire, or no_connect.",
+      "#PWR0141 pin 1 '+3.3VA' (power_in) at (368.3, 67.31) has no label, wire, or no_connect.",
+      "#PWR0126 pin 1 '+12P' (power_in) at (445.77, 67.31) has no label, wire, or no_connect.",
+      "TP6 pin 1 '1' (passive) at (205.74, 345.44) has no label, wire, or no_connect."
+    ]
+  }
+]
+

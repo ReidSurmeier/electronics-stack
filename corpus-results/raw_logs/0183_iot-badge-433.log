@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 4,
+    "errors_design": 4,
+    "warnings_total": 192,
+    "warnings_design": 192,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/rf/iot-badge-legacy/old/iot-badge-433/verify-out/iot-badge-433-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 65,
+    "high": 4,
+    "details": [
+      "SW9 pin 1 'A' (passive) at (264.15999999999997, 29.209999999999997) has no label, wire, or no_connect.",
+      "SW9 pin 2 'B' (passive) at (253.99999999999997, 31.75) has no label, wire, or no_connect.",
+      "SW9 pin 3 'C' (passive) at (264.15999999999997, 34.29) has no label, wire, or no_connect.",
+      "SW9 pin 4 'A' (passive) at (264.15999999999997, 39.37) has no label, wire, or no_connect.",
+      "SW9 pin 5 'B' (passive) at (253.99999999999997, 41.91) has no label, wire, or no_connect.",
+      "SW9 pin 6 'C' (passive) at (264.15999999999997, 44.449999999999996) has no label, wire, or no_connect.",
+      "R10 pin 1 '~' (passive) at (156.21, 86.36) has no label, wire, or no_connect.",
+      "R10 pin 2 '~' (passive) at (156.21, 93.98) has no label, wire, or no_connect.",
+      "C9 pin 1 '~' (passive) at (175.26, 73.66) has no label, wire, or no_connect.",
+      "C9 pin 2 '~' (passive) at (175.26, 81.28) has no label, wire, or no_connect."
+    ]
+  }
+]
+

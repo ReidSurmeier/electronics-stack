@@ -1,0 +1,33 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 5,
+    "errors_design": 5,
+    "warnings_total": 72,
+    "warnings_design": 72,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/flipper-zero-backpacks/pcb/Raspberry/verify-out/Raspberry-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 9,
+    "high": 0,
+    "details": [
+      "J22 pin 1 'Pin_1' (passive) at (212.08999999999997, 91.44) has no label, wire, or no_connect.",
+      "J25 pin 1 'Pin_1' (passive) at (107.95, 125.73) has no label, wire, or no_connect.",
+      "J20 pin 1 'Pin_1' (passive) at (107.95, 100.33) has no label, wire, or no_connect.",
+      "J21 pin 1 'Pin_1' (passive) at (223.51999999999998, 101.6) has no label, wire, or no_connect.",
+      "J23 pin 1 'Pin_1' (passive) at (212.08999999999997, 88.9) has no label, wire, or no_connect.",
+      "R1 pin 1 '~' (passive) at (124.46, 96.52) has no label, wire, or no_connect.",
+      "R1 pin 2 '~' (passive) at (124.46, 104.14) has no label, wire, or no_connect.",
+      "J24 pin 1 'Pin_1' (passive) at (107.95, 123.19) has no label, wire, or no_connect.",
+      "J19 pin 1 'Pin_1' (passive) at (212.08999999999997, 160.02) has no label, wire, or no_connect."
+    ]
+  }
+]
+

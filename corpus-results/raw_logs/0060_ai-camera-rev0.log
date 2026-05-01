@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 439,
+    "warnings_design": 439,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/tokay-lite-pcb/ai-camera-rev0/verify-out/ai-camera-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 240,
+    "high": 101,
+    "details": [
+      "U9 pin 1 'GND' (power_in) at (260.35, 168.91) has no label, wire, or no_connect.",
+      "TP30 pin 1 '1' (passive) at (285.75, 248.92) has no label, wire, or no_connect.",
+      "#PWR079 pin 1 'GND' (power_in) at (264.16, 269.24) has no label, wire, or no_connect.",
+      "#PWR086 pin 1 'VBUS' (power_in) at (285.75, 238.76) has no label, wire, or no_connect.",
+      "#PWR0106 pin 1 'GND' (power_in) at (381.0, 245.11) has no label, wire, or no_connect.",
+      "TP7 pin 1 '1' (passive) at (237.49, 256.54) has no label, wire, or no_connect.",
+      "R24 pin 1 '~' (passive) at (236.22, 86.36) has no label, wire, or no_connect.",
+      "R24 pin 2 '~' (passive) at (236.22, 93.98) has no label, wire, or no_connect.",
+      "TP25 pin 1 '1' (passive) at (264.16, 269.24) has no label, wire, or no_connect.",
+      "Q6 pin 1 'G' (input) at (139.70000000000002, 110.49) has no label, wire, or no_connect."
+    ]
+  }
+]
+

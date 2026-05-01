@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 27,
+    "errors_design": 27,
+    "warnings_total": 252,
+    "warnings_design": 252,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/PCIe3_Hub/verify-out/ASM2806_Breakout-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 159,
+    "high": 22,
+    "details": [
+      "R12 pin 1 '~' (passive) at (293.37, 133.35) has no label, wire, or no_connect.",
+      "C15 pin 1 '~' (passive) at (167.64, 116.84) has no label, wire, or no_connect.",
+      "C15 pin 2 '~' (passive) at (167.64, 124.46000000000001) has no label, wire, or no_connect.",
+      "C19 pin 1 '~' (passive) at (167.64, 172.72) has no label, wire, or no_connect.",
+      "C19 pin 2 '~' (passive) at (167.64, 180.34) has no label, wire, or no_connect.",
+      "#PWR0156 pin 1 'GND' (power_in) at (482.6, 120.65) has no label, wire, or no_connect.",
+      "JP2 pin 1 'A' (passive) at (339.09, 109.22) has no label, wire, or no_connect.",
+      "JP2 pin 2 'C' (passive) at (345.44, 113.03) has no label, wire, or no_connect.",
+      "JP2 pin 3 'B' (passive) at (351.79, 109.22) has no label, wire, or no_connect.",
+      "FB1 pin 1 '~' (passive) at (361.95, 219.71) has no label, wire, or no_connect."
+    ]
+  }
+]
+

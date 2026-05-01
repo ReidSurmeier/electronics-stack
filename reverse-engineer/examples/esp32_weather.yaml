@@ -1,0 +1,68 @@
+# esp32_weather.yaml — ESP32 weather station example.
+# USB-C 5V → 3V3 LDO → ESP32 + BME280 (I2C) + SSD1306 OLED (I2C).
+
+project: ESP32Weather
+title: ESP32 Weather Station
+rev: A
+
+blocks:
+  u_pwr:
+    type: usb_c_input_5v
+    opts: { currentRating: "3A", bulkCapUf: 22 }
+  u_reg:
+    type: buck_3v3
+    opts: { regType: ldo, maxCurrent: "1A" }
+  u_mcu:
+    type: mcu_esp32_wroom
+    opts: { uart: cp2102 }
+  u_oled:
+    type: i2c_oled_ssd1306
+    opts: { addr: 0x3C, hasPullups: true }
+  u_bme:
+    type: bme280_i2c
+    opts: { addr: 0x76 }
+
+nets:
+  - net: VBUS_5V
+    conns:
+      - u_pwr.5V
+      - u_reg.VIN
+      - u_reg.EN
+  - net: P3V3
+    conns:
+      - u_reg.3V3
+      - u_mcu.VCC
+      - u_mcu.EN
+      - u_oled.VCC
+      - u_bme.VCC
+  - net: GND
+    conns:
+      - u_pwr.GND
+      - u_reg.GND_IN
+      - u_reg.GND
+      - u_mcu.GND
+      - u_oled.GND
+      - u_bme.GND
+  - net: USB_DP
+    conns:
+      - u_pwr.DP
+      - u_mcu.USB_DP
+  - net: USB_DM
+    conns:
+      - u_pwr.DM
+      - u_mcu.USB_DM
+  - net: I2C_SDA
+    conns:
+      - u_mcu.SDA
+      - u_oled.SDA
+      - u_bme.SDA
+  - net: I2C_SCL
+    conns:
+      - u_mcu.SCL
+      - u_oled.SCL
+      - u_bme.SCL
+
+notes: |
+  Single 3.3V rail powers MCU + sensors. ESP32 WiFi TX peak is ~350mA — verify
+  AMS1117 thermal margin at sustained loads. For long-running outdoor units
+  with frequent TX, switch u_reg to regType=buck.

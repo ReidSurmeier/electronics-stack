@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 7,
+    "errors_design": 7,
+    "warnings_total": 222,
+    "warnings_design": 222,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/ergo-snm-keyboard/ErgoSNM_Keyboard/rev1/verify-out/ErgoSNM_keyboard-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 156,
+    "high": 16,
+    "details": [
+      "#PWR09 pin 1 'GND' (power_in) at (69.85, 27.94) has no label, wire, or no_connect.",
+      "#PWR012 pin 1 '+BATT' (power_in) at (81.28, 99.06) has no label, wire, or no_connect.",
+      "KEY34 pin 2 '2' (passive) at (260.35, 95.25) has no label, wire, or no_connect.",
+      "KEY25 pin 2 '2' (passive) at (224.79, 114.30000000000001) has no label, wire, or no_connect.",
+      "D14 pin 1 'K' (passive) at (185.42, 99.06) has no label, wire, or no_connect.",
+      "D14 pin 2 'A' (passive) at (193.04, 99.06) has no label, wire, or no_connect.",
+      "#PWR020 pin 1 'VCC' (power_in) at (106.68, 160.02) has no label, wire, or no_connect.",
+      "D25 pin 1 'K' (passive) at (220.98, 118.11) has no label, wire, or no_connect.",
+      "D25 pin 2 'A' (passive) at (228.6, 118.11) has no label, wire, or no_connect.",
+      "KEY9 pin 2 '2' (passive) at (171.45, 95.25) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 7,
+    "errors_design": 7,
+    "warnings_total": 232,
+    "warnings_design": 232,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/MR-ESC-MCXA-AM32/verify-out/MR-ESC-MCXA-AM32-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 100,
+    "high": 31,
+    "details": [
+      "#PWR047 pin 1 '~' (power_in) at (44.45, 260.35) has no label, wire, or no_connect.",
+      "TP13 pin 1 '1' (passive) at (214.63, 254.0) has no label, wire, or no_connect.",
+      "#PWR025 pin 1 '~' (power_in) at (330.2, 144.78) has no label, wire, or no_connect.",
+      "#PWR033 pin 1 '~' (power_in) at (330.2, 160.02) has no label, wire, or no_connect.",
+      "#PWR045 pin 1 '~' (power_in) at (157.48, 257.81) has no label, wire, or no_connect.",
+      "#PWR030 pin 1 '~' (power_in) at (43.18, 152.4) has no label, wire, or no_connect.",
+      "U4 pin 3 'NC' (no_connect) at (35.56, 147.32000000000002) has no label, wire, or no_connect.",
+      "U4 pin 4 'NC' (no_connect) at (50.8, 147.32000000000002) has no label, wire, or no_connect.",
+      "U4 pin 2 'GND' (passive) at (43.18, 152.4) has no label, wire, or no_connect.",
+      "R11 pin 1 '~' (passive) at (323.85, 214.63) has no label, wire, or no_connect."
+    ]
+  }
+]
+

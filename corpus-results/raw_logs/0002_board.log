@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 255,
+    "warnings_design": 255,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/Micronova/hardware/board/verify-out/board-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 72,
+    "high": 32,
+    "details": [
+      "#PWR0121 pin 1 '+VDC' (power_in) at (67.31, 40.005) has no label, wire, or no_connect.",
+      "#PWR0124 pin 1 'GND' (power_in) at (35.56, 59.69) has no label, wire, or no_connect.",
+      "#PWR0125 pin 1 '-12V' (power_in) at (188.595, 120.015) has no label, wire, or no_connect.",
+      "#PWR0111 pin 1 '-12V' (power_in) at (222.25, 132.715) has no label, wire, or no_connect.",
+      "D3 pin 1 'K' (passive) at (231.775, 54.61) has no label, wire, or no_connect.",
+      "D3 pin 2 'A' (passive) at (239.395, 54.61) has no label, wire, or no_connect.",
+      "D4 pin 1 'K' (passive) at (245.10999999999999, 41.91) has no label, wire, or no_connect.",
+      "D4 pin 2 'A' (passive) at (252.73, 41.91) has no label, wire, or no_connect.",
+      "R4 pin 2 '~' (passive) at (205.74, 58.42) has no label, wire, or no_connect.",
+      "#PWR09 pin 1 '+5V' (power_in) at (234.95, 116.205) has no label, wire, or no_connect."
+    ]
+  }
+]
+

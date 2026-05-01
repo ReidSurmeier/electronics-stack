@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 5,
+    "errors_design": 5,
+    "warnings_total": 380,
+    "warnings_design": 380,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/keyboards/osprey/osprey_rev_a/verify-out/osprey_rev_a-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 47,
+    "high": 17,
+    "details": [
+      "#PWR08 pin 1 'GND' (power_in) at (246.38, 69.85) has no label, wire, or no_connect.",
+      "#PWR01 pin 1 '+5V' (power_in) at (80.01, 25.4) has no label, wire, or no_connect.",
+      "#PWR04 pin 1 'GND' (power_in) at (204.47, 49.53) has no label, wire, or no_connect.",
+      "H4 pin 1 '1' (input) at (279.4, 38.1) has no label, wire, or no_connect.",
+      "#PWR06 pin 1 'GND' (power_in) at (209.55, 57.15) has no label, wire, or no_connect.",
+      "C6 pin 1 '~' (passive) at (34.29, 88.89999999999999) has no label, wire, or no_connect.",
+      "C6 pin 2 '~' (passive) at (34.29, 93.98) has no label, wire, or no_connect.",
+      "L4 pin 1 '~' (passive) at (143.51, 152.4) has no label, wire, or no_connect.",
+      "L4 pin 2 '~' (passive) at (143.51, 157.48) has no label, wire, or no_connect.",
+      "#PWR09 pin 1 'GND' (power_in) at (147.32, 80.01) has no label, wire, or no_connect."
+    ]
+  }
+]
+

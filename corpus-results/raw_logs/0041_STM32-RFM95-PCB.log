@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 80,
+    "warnings_design": 80,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/STM32-RFM95-PCB/verify-out/AVR-LORA-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 59,
+    "high": 21,
+    "details": [
+      "U2 pin 9 'ANA' (passive) at (119.38, 80.00999999999999) has no label, wire, or no_connect.",
+      "U2 pin 1 'GND' (power_in) at (130.81, 105.41) has no label, wire, or no_connect.",
+      "U2 pin 8 'GND' (power_in) at (133.35, 105.41) has no label, wire, or no_connect.",
+      "U2 pin 10 'GND' (power_in) at (135.89, 105.41) has no label, wire, or no_connect.",
+      "#PWR018 pin 1 '~' (power_in) at (130.81, 105.41) has no label, wire, or no_connect.",
+      "#PWR019 pin 1 '~' (power_in) at (133.35, 105.41) has no label, wire, or no_connect.",
+      "#PWR020 pin 1 '~' (power_in) at (135.89, 105.41) has no label, wire, or no_connect.",
+      "R5 pin 1 '~' (passive) at (210.82, 73.66) has no label, wire, or no_connect.",
+      "R5 pin 2 '~' (passive) at (210.82, 81.28) has no label, wire, or no_connect.",
+      "R4 pin 1 '~' (passive) at (203.2, 73.66) has no label, wire, or no_connect."
+    ]
+  }
+]
+

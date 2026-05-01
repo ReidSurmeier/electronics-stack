@@ -1,0 +1,76 @@
+# pi_audio_oled.yaml — smoke-test spec.
+# Raspberry Pi Zero 2 W carrier + WM8960 audio codec + I2C OLED status display.
+# Models a minimal "Phone_Project" subset.
+
+project: PiAudioOLED
+title: Pi Zero 2 W + WM8960 + OLED
+rev: A
+comments:
+  - "Smoke test for reverse-engineer compile.js"
+  - "Pi Zero 2 W + WM8960 + I2C OLED 0x3C"
+
+blocks:
+  u_pi:
+    type: pi_zero_2w_header
+    opts: { variant: zero2w }
+  u_codec:
+    type: audio_codec_wm8960_hat
+    opts: { masterMode: false, spkAmp: true }
+  u_oled:
+    type: i2c_oled_ssd1306
+    opts: { addr: 0x3C, hasPullups: true }
+  u_dec:
+    type: decap_caps
+    opts: { rail: "3V3", count: 4, bulkUf: 10 }
+
+nets:
+  # Power: Pi 3V3 feeds codec + OLED, Pi 5V is reserved for the codec speaker amp.
+  - net: P3V3
+    conns:
+      - u_pi.3V3
+      - u_codec.VCC
+      - u_codec.DVCC
+      - u_oled.VCC
+      - u_dec.VCC
+  - net: GND
+    conns:
+      - u_pi.GND
+      - u_codec.GND
+      - u_oled.GND
+      - u_dec.GND
+
+  # I2C bus shared by codec (control) and OLED.
+  - net: I2C_SDA
+    conns:
+      - u_pi.SDA
+      - u_codec.SDA
+      - u_oled.SDA
+  - net: I2C_SCL
+    conns:
+      - u_pi.SCL
+      - u_codec.SCL
+      - u_oled.SCL
+
+  # I2S bus to codec.
+  - net: I2S_BCLK
+    conns:
+      - u_pi.I2S_BCLK
+      - u_codec.BCLK
+  - net: I2S_LRCLK
+    conns:
+      - u_pi.I2S_LRCLK
+      - u_codec.LRCLK
+  - net: I2S_PI_TO_CODEC
+    conns:
+      - u_pi.I2S_DOUT
+      - u_codec.DIN
+  - net: I2S_CODEC_TO_PI
+    conns:
+      - u_pi.I2S_DIN
+      - u_codec.DOUT
+
+notes: |
+  Pi 3V3 rail is limited (~50mA) — verify codec + OLED + bulk current draw.
+  If load exceeds ~40mA, add an external regulator (use buck_3v3 block) on
+  the Pi 5V rail and feed P3V3 from there instead.
+  Speakers connect directly to u_codec SPK_LP/LN/RP/RN pins (not modeled here).

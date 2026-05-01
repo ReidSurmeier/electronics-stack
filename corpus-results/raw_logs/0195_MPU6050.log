@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 3,
+    "errors_design": 3,
+    "warnings_total": 31,
+    "warnings_design": 31,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/Vespin2Hardware/MPU6050/verify-out/Giroscopio_MPU6050-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 29,
+    "high": 7,
+    "details": [
+      "C401 pin 1 '~' (passive) at (152.4, 50.8) has no label, wire, or no_connect.",
+      "C401 pin 2 '~' (passive) at (152.4, 58.42) has no label, wire, or no_connect.",
+      "J403 pin 1 'Pin_1' (passive) at (44.45, 90.17) has no label, wire, or no_connect.",
+      "J402 pin 1 'Pin_1' (passive) at (44.45, 80.01) has no label, wire, or no_connect.",
+      "J401 pin 1 'Pin_1' (passive) at (44.45, 76.2) has no label, wire, or no_connect.",
+      "#PWR0105 pin 1 'GND' (power_in) at (148.59, 54.61) has no label, wire, or no_connect.",
+      "J405 pin 1 'Pin_1' (passive) at (44.45, 109.22) has no label, wire, or no_connect.",
+      "#PWR0402 pin 1 'GND' (power_in) at (54.61, 99.06) has no label, wire, or no_connect.",
+      "C403 pin 2 '~' (passive) at (177.8, 99.06) has no label, wire, or no_connect.",
+      "#PWR0101 pin 1 'GND' (power_in) at (177.8, 99.06) has no label, wire, or no_connect."
+    ]
+  }
+]
+

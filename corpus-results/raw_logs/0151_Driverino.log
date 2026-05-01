@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 28,
+    "errors_design": 28,
+    "warnings_total": 503,
+    "warnings_design": 503,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/motor/Driverino/verify-out/Driverino-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=0
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 90,
+    "warnings_design": 90,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/robotics/NoahFC/hardware/verify-out/NoahFC-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 38,
+    "high": 0,
+    "details": [
+      "U2 pin 2 'NC' (no_connect) at (40.64, 153.67000000000002) has no label, wire, or no_connect.",
+      "U2 pin 3 'NC' (no_connect) at (40.64, 156.21) has no label, wire, or no_connect.",
+      "U2 pin 4 'NC' (no_connect) at (40.64, 166.37) has no label, wire, or no_connect.",
+      "U2 pin 5 'NC' (no_connect) at (40.64, 168.91) has no label, wire, or no_connect.",
+      "U2 pin 14 'NC' (no_connect) at (40.64, 176.53) has no label, wire, or no_connect.",
+      "U2 pin 15 'NC' (no_connect) at (66.04, 153.67000000000002) has no label, wire, or no_connect.",
+      "U2 pin 16 'NC' (no_connect) at (66.04, 156.21) has no label, wire, or no_connect.",
+      "U2 pin 17 'NC' (no_connect) at (66.04, 161.29) has no label, wire, or no_connect.",
+      "U2 pin 21 'RESV' (no_connect) at (66.04, 168.91) has no label, wire, or no_connect.",
+      "U2 pin 19 'RESV' (no_connect) at (66.04, 176.53) has no label, wire, or no_connect."
+    ]
+  }
+]
+

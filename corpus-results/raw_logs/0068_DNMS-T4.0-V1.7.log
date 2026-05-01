@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "pass",
+    "errors_total": 0,
+    "errors_design": 0,
+    "warnings_total": 60,
+    "warnings_design": 60,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/hats/DNMS/PCBs/DNMS-T4.0/DNMS-T4.0-V1.7/verify-out/DNMS-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 24,
+    "high": 11,
+    "details": [
+      "U2 pin 1 'N.C._2' (no_connect) at (186.69, 39.37) has no label, wire, or no_connect.",
+      "U2 pin 5 'N.C.' (no_connect) at (186.69, 41.91) has no label, wire, or no_connect.",
+      "C2 pin 1 '~' (passive) at (256.54, 68.58) has no label, wire, or no_connect.",
+      "C2 pin 2 '~' (passive) at (256.54, 76.2) has no label, wire, or no_connect.",
+      "#PWR0110 pin 1 'GND' (power_in) at (256.54, 76.2) has no label, wire, or no_connect.",
+      "#PWR0113 pin 1 '+3V3' (power_in) at (256.54, 68.58) has no label, wire, or no_connect.",
+      "C3 pin 1 '~' (passive) at (133.35, 177.8) has no label, wire, or no_connect.",
+      "C3 pin 2 '~' (passive) at (133.35, 185.42000000000002) has no label, wire, or no_connect.",
+      "#PWR0104 pin 1 'GND' (power_in) at (133.35, 185.42) has no label, wire, or no_connect.",
+      "#PWR0106 pin 1 '+5V' (power_in) at (133.35, 177.8) has no label, wire, or no_connect."
+    ]
+  }
+]
+

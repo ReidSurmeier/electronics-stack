@@ -1,0 +1,23 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 19,
+    "errors_design": 19,
+    "warnings_total": 284,
+    "warnings_design": 284,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/rf/tallytime-hardware/verify-out/tallytime-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 0,
+    "high": 0,
+    "details": []
+  }
+]
+

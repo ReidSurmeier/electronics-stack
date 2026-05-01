@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 5,
+    "errors_design": 5,
+    "warnings_total": 50,
+    "warnings_design": 50,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/devboards/ESP32_mini_8Port_WLED/verify-out/ESP32_mini_8Port_WLED-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "pass",
+    "findings": 34,
+    "high": 0,
+    "details": [
+      "K1 pin 4 '~' (passive) at (67.31, 72.39) has no label, wire, or no_connect.",
+      "D9 pin 1 'K' (passive) at (48.26, 80.01) has no label, wire, or no_connect.",
+      "D9 pin 2 'A' (passive) at (55.88, 80.01) has no label, wire, or no_connect.",
+      "J3 pin 1 'Pin_1' (passive) at (218.44000000000003, 72.39) has no label, wire, or no_connect.",
+      "J3 pin 2 'Pin_2' (passive) at (218.44000000000003, 74.93) has no label, wire, or no_connect.",
+      "J2 pin 1 'Pin_1' (passive) at (156.20999999999998, 6.350000000000001) has no label, wire, or no_connect.",
+      "J2 pin 10 'Pin_10' (passive) at (156.20999999999998, 29.21) has no label, wire, or no_connect.",
+      "J2 pin 11 'Pin_11' (passive) at (156.20999999999998, 31.75) has no label, wire, or no_connect.",
+      "J2 pin 12 'Pin_12' (passive) at (156.20999999999998, 34.29) has no label, wire, or no_connect.",
+      "J2 pin 2 'Pin_2' (passive) at (156.20999999999998, 8.89) has no label, wire, or no_connect."
+    ]
+  }
+]
+

@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 2,
+    "errors_design": 2,
+    "warnings_total": 194,
+    "warnings_design": 194,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/audio/thatmicpre/desktop/verify-out/thatmicpre_v1-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 135,
+    "high": 29,
+    "details": [
+      "U1 pin 4 'V-' (power_in) at (165.1, 132.07999999999998) has no label, wire, or no_connect.",
+      "C4 pin 1 '~' (passive) at (93.98, 118.11) has no label, wire, or no_connect.",
+      "C4 pin 2 '~' (passive) at (93.98, 125.73) has no label, wire, or no_connect.",
+      "C5 pin 1 '~' (passive) at (93.98, 123.19) has no label, wire, or no_connect.",
+      "C5 pin 2 '~' (passive) at (93.98, 130.81) has no label, wire, or no_connect.",
+      "R4 pin 1 '~' (passive) at (106.68, 123.19) has no label, wire, or no_connect.",
+      "R4 pin 2 '~' (passive) at (106.68, 130.81) has no label, wire, or no_connect.",
+      "R3 pin 1 '~' (passive) at (106.68, 118.11) has no label, wire, or no_connect.",
+      "R3 pin 2 '~' (passive) at (106.68, 125.73) has no label, wire, or no_connect.",
+      "D1 pin 1 'K' (passive) at (110.49, 134.62) has no label, wire, or no_connect."
+    ]
+  }
+]
+

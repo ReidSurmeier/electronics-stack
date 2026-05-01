@@ -1,0 +1,34 @@
+# rc=1
+# stderr:
+
+# stdout:
+[
+  {
+    "check": "kicad-cli ERC",
+    "status": "fail",
+    "errors_total": 6,
+    "errors_design": 6,
+    "warnings_total": 219,
+    "warnings_design": 219,
+    "report": "/home/reidsurmeier/electronics-stack/test-corpus/motor/nsumo_hardware/verify-out/nsumo-erc.rpt"
+  },
+  {
+    "check": "Connectivity audit (passive-pin floats)",
+    "status": "fail",
+    "findings": 154,
+    "high": 53,
+    "details": [
+      "D6 pin 1 'K' (passive) at (162.56, 68.58) has no label, wire, or no_connect.",
+      "D6 pin 2 'A' (passive) at (170.18, 68.58) has no label, wire, or no_connect.",
+      "#PWR042 pin 1 'GND' (power_in) at (166.37, 72.39) has no label, wire, or no_connect.",
+      "J5 pin 2 'Pin_2' (passive) at (20.32, 44.449999999999996) has no label, wire, or no_connect.",
+      "C6 pin 2 '~' (passive) at (142.24, 90.17) has no label, wire, or no_connect.",
+      "C8 pin 2 '~' (passive) at (132.08, 90.17) has no label, wire, or no_connect.",
+      "J4 pin 1 'Pin_1' (passive) at (27.940000000000005, 102.87) has no label, wire, or no_connect.",
+      "J4 pin 2 'Pin_2' (passive) at (27.940000000000005, 105.41) has no label, wire, or no_connect.",
+      "J4 pin 3 'Pin_3' (passive) at (27.940000000000005, 107.95) has no label, wire, or no_connect.",
+      "J4 pin 4 'Pin_4' (passive) at (27.940000000000005, 110.49000000000001) has no label, wire, or no_connect."
+    ]
+  }
+]
+
