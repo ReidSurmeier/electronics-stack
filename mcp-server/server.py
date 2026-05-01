@@ -20,6 +20,7 @@ Tools:
     - run_kikit_fab         : generate JLCPCB fab package via KiKit
     - run_kikit_present     : generate KiKit project presentation webpage
     - generate_schematic_skidl : generate a KiCad netlist/schematic from a declarative parts+nets spec
+    - render_interactive_bom : generate interactive HTML BOM from a .kicad_pcb
 
 Run:
     python3 ~/electronics-stack/mcp-server/server.py
@@ -301,6 +302,23 @@ async def list_tools() -> list[Tool]:
                 "required": ["parts", "nets", "out_dir"],
             },
         ),
+        Tool(
+            name="render_interactive_bom",
+            description="Generate an interactive HTML BOM from a .kicad_pcb file using InteractiveHtmlBom. Runs headless (DISPLAY='').",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "pcb_path": {"type": "string", "description": "Absolute path to the .kicad_pcb file"},
+                    "out_dir": {"type": "string", "description": "Output directory for the generated HTML BOM"},
+                    "extra_args": {
+                        "type": "array",
+                        "items": {"type": "string"},
+                        "description": "Optional extra CLI args (e.g. ['--dark-mode'])",
+                    },
+                },
+                "required": ["pcb_path"],
+            },
+        ),
     ]
 
 
@@ -467,6 +485,14 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                 nets=arguments["nets"],
                 out_dir=arguments["out_dir"],
             )
+            return [TextContent(type="text", text=json.dumps(result, indent=2))]
+
+        if name == "render_interactive_bom":
+            from ibom_wrapper import IbomWrapper
+            pcb = arguments["pcb_path"]
+            out = arguments.get("out_dir") or str(Path(pcb).parent / "ibom-out")
+            extra = arguments.get("extra_args") or []
+            result = IbomWrapper.from_env().render_interactive_bom(pcb, out, extra)
             return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
