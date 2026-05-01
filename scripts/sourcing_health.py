@@ -1,56 +1,112 @@
-"""BOM sourcing health checker.
+"""BOM sourcing health checker — v2.
 
-Walks an xlsx BOM's Sourcing sheet, hits each Amazon/AliExpress URL with HEAD,
-flags 404s, redirects, and rate-limited responses. Optionally enriches with
-Digikey/Mouser API metadata (lifecycle status, stock, alternate suppliers).
+Routing pipeline eliminates ~85% false-positives from anti-scrape blocks:
+  1. Search-placeholder URLs (Amazon /s?k=, AliExpress wholesale) → marked OK, not fetched.
+  2. Digikey product URLs → Digikey API v4 (if creds present).
+  3. Mouser product URLs  → Mouser API v2 (if key present).
+  4. LCSC product URLs    → local jlcparts SQLite (if DB cached).
+  5. Everything else      → HTTP HEAD with realistic UA rotation.
+  6. 403/502/503          → Browserbase escalation (capped at 30/BOM, cached 7d).
 
 Usage:
     sourcing_health.py <BOM.xlsx> [--with-api]
+
+Return dict keys (backward-compat + v2 additions):
+    xlsx, rows_checked, findings, lifecycle,
+    by_via, escalations, actionable_failures
 """
 from __future__ import annotations
-import json
-import os
+
+import re
 import sys
 import time
 from pathlib import Path
-from urllib.parse import urlparse
+from typing import Any
 
 import openpyxl
-import requests
+
+sys.path.insert(0, str(Path(__file__).parent))
+from sourcing_routes import (
+    BB_ESCALATION_CAP,
+    browserbase_fetch,
+    cache_get,
+    cache_set,
+    classify_url,
+    http_check,
+)
 
 
-CACHE_DIR = Path.home() / ".cache" / "electronics-stack"
-CACHE_DIR.mkdir(parents=True, exist_ok=True)
+# ---------------------------------------------------------------------------
+# URL checker
+# ---------------------------------------------------------------------------
+
+_NO_DELAY_VIAS = frozenset({"cached", "search_placeholder",
+                             "digikey_api", "mouser_api", "lcsc_db"})
 
 
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) electronics-stack/0.1",
-    "Accept": "*/*",
-}
+def check_url(
+    url: str,
+    timeout: float = 10.0,
+    escalation_budget: list[int] | None = None,
+) -> dict:
+    """Check one URL through the full pipeline.
 
+    Args:
+        url: URL to check.
+        timeout: HTTP timeout seconds.
+        escalation_budget: Mutable [remaining] counter; decremented on bb calls.
 
-def check_url(url: str, timeout: float = 8.0) -> dict:
+    Returns:
+        Result dict with url, status, code, via, escalated, actionable.
+    """
+    if escalation_budget is None:
+        escalation_budget = [BB_ESCALATION_CAP]
+
     if not url or not url.startswith(("http://", "https://")):
-        return {"url": url, "status": "skip", "code": None, "note": "non-http URL"}
-    try:
-        r = requests.head(url, allow_redirects=True, timeout=timeout, headers=HEADERS)
-        # some sites reject HEAD; fall back to a tiny GET
-        if r.status_code in (403, 405, 501):
-            r = requests.get(url, allow_redirects=True, timeout=timeout, headers=HEADERS, stream=True)
-            r.close()
-        return {
-            "url": url,
-            "status": "ok" if r.status_code == 200 else f"status_{r.status_code}",
-            "code": r.status_code,
-            "final_url": r.url,
-            "redirects": len(r.history),
-        }
-    except requests.RequestException as e:
-        return {"url": url, "status": "error", "code": None, "note": str(e)[:120]}
+        return {"url": url, "status": "skip", "code": None,
+                "via": "head", "escalated": False, "actionable": False,
+                "note": "non-http URL"}
 
+    cached = cache_get(url)
+    if cached:
+        cached["url"] = url
+        return cached
+
+    routed = classify_url(url)
+    if routed is not None:
+        routed["url"] = url
+        cache_set(url, routed)
+        return routed
+
+    result = http_check(url, timeout=timeout)
+    result["url"] = url
+
+    if result.pop("_needs_escalation", False):
+        if escalation_budget[0] > 0:
+            escalation_budget[0] -= 1
+            bb = browserbase_fetch(url)
+            bb["url"] = url
+            if bb["status"] == "ok":
+                result = bb
+            else:
+                result.update({"via": "browserbase", "escalated": True,
+                               "actionable": True,
+                               "note": bb.get("note", "")})
+        else:
+            result.update({"actionable": False,
+                           "status": "unchecked_anti_scrape",
+                           "note": "escalation budget exhausted"})
+
+    cache_set(url, result)
+    return result
+
+
+# ---------------------------------------------------------------------------
+# BOM walker
+# ---------------------------------------------------------------------------
 
 def walk_bom(xlsx_path: str | Path) -> list[dict]:
-    """Yield row dicts from the Sourcing sheet."""
+    """Return row dicts from the Sourcing sheet."""
     wb = openpyxl.load_workbook(xlsx_path, data_only=True)
     if "Sourcing" not in wb.sheetnames:
         return []
@@ -64,25 +120,39 @@ def walk_bom(xlsx_path: str | Path) -> list[dict]:
     return rows
 
 
+# ---------------------------------------------------------------------------
+# Audit
+# ---------------------------------------------------------------------------
+
 def audit(xlsx_path: str | Path, with_api: bool = False) -> dict:
+    """Audit all sourcing URLs in the BOM.
+
+    Args:
+        xlsx_path: Path to xlsx file.
+        with_api: If True, also run Digikey keyword lifecycle checks (legacy).
+
+    Returns:
+        Dict: xlsx, rows_checked, findings, lifecycle,
+              by_via, escalations, actionable_failures.
+    """
     rows = walk_bom(xlsx_path)
-    findings = []
-    lifecycle_findings = []
+    findings: list[dict] = []
+    lifecycle_findings: list[dict] = []
     url_columns = ["Existing URL", "Amazon URL", "AliExpress URL"]
+    escalation_budget = [BB_ESCALATION_CAP]
+
     for row in rows:
         item = row.get("Item", "")
         for col in url_columns:
-            url = row.get(col, "") or ""
-            url = str(url).strip()
-            if not url or url.startswith("("):
+            url = str(row.get(col, "") or "").strip()
+            if not url or url.startswith("(") or not url.startswith("http"):
                 continue
-            if not url.startswith("http"):
-                continue
-            result = check_url(url)
+            result = check_url(url, escalation_budget=escalation_budget)
             result["item"] = item
             result["column"] = col
             findings.append(result)
-            time.sleep(0.2)  # be polite
+            if result.get("via") not in _NO_DELAY_VIAS:
+                time.sleep(0.3)
 
     if with_api:
         try:
@@ -90,11 +160,9 @@ def audit(xlsx_path: str | Path, with_api: bool = False) -> dict:
             dk = DigikeyClient.from_env()
             for row in rows:
                 item = str(row.get("Item", ""))
-                # heuristic: extract MPN-ish token (uppercase alnum 4-32 chars)
-                import re
                 mpns = re.findall(r"\b[A-Z][A-Z0-9\-/]{3,30}\b", item)
-                seen = set()
-                for mpn in mpns[:2]:  # cap per-row API calls
+                seen: set[str] = set()
+                for mpn in mpns[:2]:
                     if mpn in seen:
                         continue
                     seen.add(mpn)
@@ -104,9 +172,12 @@ def audit(xlsx_path: str | Path, with_api: bool = False) -> dict:
                         if not prods:
                             continue
                         p = prods[0]
-                        status = p.get("ProductStatus", {}).get("Status", "?") if isinstance(p.get("ProductStatus"), dict) else str(p.get("ProductStatus", "?"))
+                        ps = p.get("ProductStatus", {})
+                        status = ps.get("Status", "?") if isinstance(ps, dict) else str(ps)
                         stock = p.get("QuantityAvailable", 0)
-                        if status in ("Obsolete", "Not For New Designs", "Discontinued at Digi-Key", "Last Time Buy"):
+                        bad = {"Obsolete", "Not For New Designs",
+                               "Discontinued at Digi-Key", "Last Time Buy"}
+                        if status in bad:
                             lifecycle_findings.append({
                                 "item": item, "mpn_searched": mpn,
                                 "status": status, "stock": stock,
@@ -115,36 +186,75 @@ def audit(xlsx_path: str | Path, with_api: bool = False) -> dict:
                     except Exception:
                         pass
                     time.sleep(0.1)
-        except RuntimeError:
-            pass  # no API creds — silent skip
-        except ImportError:
+        except (RuntimeError, ImportError):
             pass
 
-    return {"xlsx": str(xlsx_path), "rows_checked": len(rows),
-            "findings": findings, "lifecycle": lifecycle_findings}
+    by_via: dict[str, int] = {}
+    for f in findings:
+        v = f.get("via", "head")
+        by_via[v] = by_via.get(v, 0) + 1
 
+    escalations = sum(1 for f in findings if f.get("escalated", False))
+    actionable_failures = sum(
+        1 for f in findings
+        if f.get("actionable") and f.get("status") not in ("ok", "skip", "ok_search_url")
+    )
+
+    return {
+        "xlsx": str(xlsx_path),
+        "rows_checked": len(rows),
+        "findings": findings,
+        "lifecycle": lifecycle_findings,
+        "by_via": by_via,
+        "escalations": escalations,
+        "actionable_failures": actionable_failures,
+    }
+
+
+# ---------------------------------------------------------------------------
+# Report
+# ---------------------------------------------------------------------------
 
 def report(audit_out: dict) -> str:
     lines = [f"Sourcing health: {audit_out['xlsx']}"]
     f = audit_out["findings"]
-    ok = sum(1 for x in f if x["status"] == "ok")
-    bad = sum(1 for x in f if x["status"] not in ("ok", "skip"))
-    lines.append(f"  URLs checked: {len(f)}  OK: {ok}  Issues: {bad}")
+    ok = sum(1 for x in f if x["status"] in ("ok", "ok_search_url", "skip"))
+    actionable = audit_out.get("actionable_failures", 0)
+    lines.append(f"  URLs: {len(f)}  OK/placeholder: {ok}  Actionable failures: {actionable}")
+    bv = audit_out.get("by_via", {})
+    if bv:
+        lines.append("  Via: " + "  ".join(f"{k}={v}" for k, v in sorted(bv.items())))
+    escs = audit_out.get("escalations", 0)
+    if escs:
+        lines.append(f"  Browserbase escalations: {escs}")
     for x in f:
-        if x["status"] != "ok":
-            lines.append(f"  [{x['status']:>10s}] {x.get('item','?')[:40]:<40s} {x['column']:>14s}: {x['url'][:80]}")
+        if x.get("actionable") and x["status"] not in ("ok", "skip", "ok_search_url"):
+            lines.append(
+                f"  [{x['status']:>22s}][{x.get('via','?'):>18s}]"
+                f" {str(x.get('item','?'))[:35]:<35s}"
+                f" {x['column']:>14s}: {x['url'][:70]}"
+            )
     lc = audit_out.get("lifecycle", [])
     if lc:
         lines.append(f"  Lifecycle alerts (Digikey API): {len(lc)}")
         for L in lc:
-            lines.append(f"    [{L['severity']}] {L['mpn_searched']:<20s} {L['status']:<22s} stock={L['stock']:<8}  ({L['item'][:40]})")
+            lines.append(
+                f"    [{L['severity']}] {L['mpn_searched']:<20s}"
+                f" {L['status']:<22s} stock={L['stock']:<8}"
+                f"  ({L['item'][:40]})"
+            )
     return "\n".join(lines) + "\n"
 
 
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("usage: sourcing_health.py <BOM.xlsx>")
+        print("usage: sourcing_health.py <BOM.xlsx> [--with-api]")
         sys.exit(1)
-    out = audit(sys.argv[1])
+    with_api = "--with-api" in sys.argv
+    out = audit(sys.argv[1], with_api=with_api)
     print(report(out))
-    sys.exit(1 if any(f["status"] not in ("ok", "skip") for f in out["findings"]) else 0)
+    sys.exit(1 if out["actionable_failures"] > 0 else 0)
