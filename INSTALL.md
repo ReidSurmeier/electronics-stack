@@ -1,94 +1,76 @@
-# Electronics Stack — Install Status
+# Electronics Stack installation
 
-Host: Linux Ubuntu 24.04, Python 3.12.3, KiCad 9.0.8 (PPA).
-Last updated: 2026-04-30.
+## Current workstation evidence
 
-## Tool Status
+Audit date: 2026-07-31.
 
-- **KiBot** 1.8.5: installed (pip --user, reinstalled with `--no-compile` to fix macros plugin loader) — verify: `kibot --version`
-- **KiAuto** 2.3.7: installed (pip --user) — verify: `python3 -c "import kiauto"` (no `__version__` attr; package present)
-- **KiBot apt deps**: installed — `xvfb`, `imagemagick` 6.9.12, `poppler-utils` 24.02.0, `ghostscript` 10.02.1, `pandoc` 3.1.3
-- **InteractiveHtmlBom** 2.11.1: installed (pip --user, CLI: `generate_interactive_bom`) — verify: `xvfb-run generate_interactive_bom --help` (needs DISPLAY, use xvfb-run)
-- **Kiri**: cloned at `~/electronics-stack/tools/kiri` — SKIPPED auto-install. `install_dependencies.sh` installs apt+opam+kicad-via-apt and could conflict with the PPA KiCad. Manual install steps:
-  ```
-  sudo apt-get install -y build-essential libgtk-3-dev libgmp-dev pkg-config opam zenity librsvg2-bin imagemagick xdotool rename
-  bash -c "INSTALL_KIRI_REMOTELLY=1; $(curl -fsSL https://raw.githubusercontent.com/leoheck/kiri/main/install_kiri.sh)"
-  # Add to ~/.bashrc:
-  #   eval $(opam env)
-  #   export KIRI_HOME=$HOME/.local/share/kiri
-  #   export PATH=$KIRI_HOME/submodules/KiCad-Diff/bin:$KIRI_HOME/bin:$PATH
-  ```
-  Skip reason: opam install pulls a multi-hundred-MB OCaml toolchain; user should opt in.
-- **kicad-happy**: NOT auto-installable from sub-agent. Run inside Claude Code session: `/plugin marketplace add aklofas/kicad-happy`
-- **Docling** 2.92.0: installed (pip --user, ~500MB IBM models will download on first use) — verify: `docling --version`
-- **Ki-nTree** 1.2.1: installed via clone at `~/electronics-stack/tools/Ki-nTree` (PyPI publishes only Python 3.9–3.11 wheels; we ran `pip install .` from source which works on 3.12) — verify: `kintree --help` (DB server required for actual use)
-- **PySpice** 1.5: installed (pip --user) — verify: `python3 -c "import PySpice; print(PySpice.__version__)"`
-- **ngspice**: pre-installed (apt) — verify: `ngspice --version`
-- **ERCheck**: SKIPPED — does not exist as a public project. KiCad's built-in ERC + KiBot's `erc` preflight (uses `kicad-cli sch erc`) covers this.
-- **Nexar Design Render Demo** (`NexarDeveloper/nexar-design-render-demo`): cloned at `tools/nexar-design-render-demo` — `.NET 6 / WinForms / OpenTK`, **Windows-only**, NOT runnable on Linux (`dotnet` not installed; `net6.0-windows` target). The reusable bits — GraphQL queries (`Nexar.Client/Resources/Queries.graphql`) and the OAuth flow against `identity.nexar.com` — were ported into `scripts/nexar_render.py` (Python 3, headless CLI, talks straight to `api.nexar.com/graphql`). The full demo lives on disk only as a reference for the schema and the line-inflation/tessellation algorithms, in case 2D primitive rendering is ever wanted.
+The current WSL host did not expose the following executables on `PATH`:
 
-### Nexar Design API setup
+- `kicad-cli`
+- `kibot`
+- `kikit`
+- `generate_interactive_bom`
+- `ngspice`
+- `kintree`
+- `docling`
 
-`scripts/nexar_render.py` uses the same `NEXAR_CLIENT_ID` / `NEXAR_CLIENT_SECRET`
-as `octopart_client.py`, but requires a **different OAuth scope**:
+The system Python also lacked the repository's declared test dependencies,
+including MCP, OpenPyXL, pdfplumber, RapidFuzz, ReportLab, sexpdata, and SKiDL.
+This means a clean environment must be installed before the historical
+pipeline results can be revalidated on this host.
 
-  - `octopart_client.py` -> scope `supply.domain` (Digikey/Mouser/Octopart parts)
-  - `nexar_render.py`    -> scope `design.domain` (Altium 365 PCB primitives + 3D mesh)
+## Python environment
 
-If the existing Nexar app at portal.nexar.com only has Supply, you must:
+Create an isolated environment:
 
-1. Sign in to https://portal.nexar.com
-2. Open your app's **Permissions** tab
-3. Add the `design.domain` scope and accept the developer agreement
-4. (No code change — the token cache will refresh on next call)
-
-The two clients keep separate token files
-(`~/.cache/electronics-stack/octopart/token.json` vs
-`~/.cache/electronics-stack/nexar_design/token.json`) so the same app can hold
-both scopes simultaneously.
-
-**Nexar Design API caveat:** the API operates on **Altium 365 cloud workspaces**
-exclusively. KiCad project uploads are not accepted. For pure-KiCad rendering,
-use `kicad-cli pcb export step|glb` instead — that path is independent of Nexar.
-
-Verify (will cleanly error if creds/scope are missing):
-```
-python3 ~/electronics-stack/scripts/nexar_render.py workspaces
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -e '.[test,design]'
+.venv/bin/python -m pytest -q
 ```
 
-## KiBot Smoke Test
+The base dependencies cover the deterministic Python checks and MCP adapter.
+The `design` extra installs SKiDL. KiCad, KiBot, KiKit, InteractiveHtmlBom,
+ngspice, and other system integrations remain optional and must report an
+explicit unavailable or skipped result when absent.
 
-Config: `~/electronics-stack/kibot/sample.kibot.yaml` (schematic-only safe; uses kicad-cli-driven outputs).
+## External tools
 
-Stock KiCad demo (`/usr/share/doc/ngspice/examples/osdi/hicuml0/KiCad`):
-```
-cd /tmp/kicad-demo
-kibot -c ~/electronics-stack/kibot/sample.kibot.yaml --skip-pre erc -d /tmp/kibot-test
-```
-Result: PASS — produced `docs/ECL-OR-schematic.pdf` (70 KB) + `docs/ECL-OR-schematic.svg` (247 KB).
+External repositories are not committed as orphan Git links. Install or clone
+them explicitly when their integration is needed:
 
-User's `Phone_Project`:
-```
-cd /home/reidsurmeier/KiCad/projects/Phone_Project
-kibot -c ~/electronics-stack/kibot/sample.kibot.yaml -e Phone_Project.kicad_sch --skip-pre erc -d /tmp/kibot-test
-```
-Result: FAIL with `Missing argument 2 in 'pin name'`. KiBot's strict internal SCH parser rejects KiCad 9 multi-line pin syntax `(name "X") (number "Y")` without `(effects ...)` child elements (used in custom symbols `Phone_Project.kicad_sym`, `RASPBERRY_PI_ZERO_2_W.kicad_sym`, etc.). This is a kibot parser limitation, not an install issue. Workaround: rewrite custom symbols with full `(name "X" (effects (font (size 1.27 1.27))))` form, or upstream-report.
+| Tool | Purpose | Upstream |
+| --- | --- | --- |
+| KiCad | Canonical ERC and board tooling | <https://www.kicad.org/> |
+| KiBot | KiCad output automation | <https://github.com/INTI-CMNB/KiBot> |
+| KiKit | Panelization and fabrication output | <https://github.com/yaqwsx/KiKit> |
+| InteractiveHtmlBom | Assembly visualization | <https://github.com/openscopeproject/InteractiveHtmlBom> |
+| Ki-nTree | Part and inventory integration | <https://github.com/sparkmicro/Ki-nTree> |
+| Kiri | Visual KiCad history comparison | <https://github.com/leoheck/kiri> |
+| Nexar render demo | Design API reference implementation | <https://github.com/NexarDeveloper/nexar-design-render-demo> |
 
-## Notes / Action Items
+## Provider configuration
 
-- KiCad 9 PPA install is missing `/usr/share/kicad/symbols/` and a default system `sym-lib-table` — kibot/kiauto warn at runtime but workarounds via `KICAD9_SYMBOL_DIR` env var or manual table creation. Look into `kicad-symbols` apt package if needed.
-- For real ERC on user projects, run `kicad-cli sch erc Phone_Project.kicad_sch -o erc.json` directly — bypasses kibot's strict parser entirely.
-- Plugin install (`/plugin marketplace add aklofas/kicad-happy`) is user-action.
-- IBOM CLI requires X (`xvfb-run generate_interactive_bom ...`).
+Provider credentials belong in host configuration with mode `0600`, never in
+the repository. Network validation is opt-in because provider quotas and
+access conditions vary. `--with-api` permits distributor API calls, while
+`--with-browserbase` independently permits managed-browser escalation. The
+default sourcing command can still issue ordinary HTTP requests to URLs in the
+BOM; it does not use either provider mechanism. See ADR 0002.
 
-## Tooling Layout
+The LCSC client is offline during normal construction. Populate or refresh its
+jlcparts database only through the explicit refresh operation documented by
+`scripts/lcsc_client.py`; importing the client never downloads data.
 
-```
-~/electronics-stack/
-  INSTALL.md                  # this file
-  kibot/sample.kibot.yaml     # smoke-test config
-  tools/
-    kiri/                     # cloned, NOT installed (manual opam toolchain needed)
-    Ki-nTree/                 # cloned, installed via `pip install .`
-    InteractiveHtmlBom/       # not cloned, pip-installed system-wide
-```
+Nexar Supply and Design APIs use different OAuth scopes and separate caches.
+The Design API operates on Altium 365 projects; it does not accept KiCad
+uploads. Pure-KiCad rendering must use KiCad's own export tools.
+
+## Historical note
+
+The previous version of this document recorded successful installs on
+2026-04-30, including KiCad 9.0.8, KiBot, KiKit, InteractiveHtmlBom, Docling,
+Ki-nTree, PySpice, and ngspice. Those observations describe an earlier
+environment and are not current-host verification. Recover that revision from
+Git history when exact historical commands or failure text are needed.

@@ -3,7 +3,7 @@
 No API key needed — uses the jlcparts community-maintained SQLite database
 (https://github.com/yaqwsx/jlcparts), downloaded from GitHub Pages.
 
-Auto-refresh: if cache is older than 7 days, re-downloads all split parts.
+Refresh is explicit. Normal construction never performs network I/O.
 
 Usage:
     from lcsc_client import LcscClient
@@ -43,9 +43,10 @@ PARTS_BASE = "https://yaqwsx.github.io/jlcparts/data"
 REFRESH_SECONDS = 7 * 24 * 3600  # 7 days
 
 
-def _download_db() -> None:
+def _download_db(db_path: Path = DB_PATH) -> None:
     """Download all split-zip parts and extract cache.sqlite3."""
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    cache_dir = db_path.parent
+    cache_dir.mkdir(parents=True, exist_ok=True)
     # Find how many parts exist
     import urllib.request
 
@@ -65,8 +66,8 @@ def _download_db() -> None:
 
     # Download all parts + main zip
     all_urls: list[tuple[str, Path]] = [
-        (f"{PARTS_BASE}/cache.z{i:02d}", CACHE_DIR / f"cache.z{i:02d}") for i in parts
-    ] + [(f"{PARTS_BASE}/cache.zip", CACHE_DIR / "cache.zip")]
+        (f"{PARTS_BASE}/cache.z{i:02d}", cache_dir / f"cache.z{i:02d}") for i in parts
+    ] + [(f"{PARTS_BASE}/cache.zip", cache_dir / "cache.zip")]
 
     # Sequential download (no external deps)
     import urllib.request
@@ -78,22 +79,22 @@ def _download_db() -> None:
             dest.write_bytes(resp.read())
 
     # Extract using 7z (installed via p7zip package)
-    if DB_PATH.exists():
-        DB_PATH.unlink()
+    if db_path.exists():
+        db_path.unlink()
     subprocess.run(
-        ["7z", "x", str(CACHE_DIR / "cache.zip"), f"-o{CACHE_DIR}/", "-y"],
+        ["7z", "x", str(cache_dir / "cache.zip"), f"-o{cache_dir}/", "-y"],
         check=True,
         capture_output=True,
     )
 
 
-def _ensure_db() -> None:
+def _ensure_db(db_path: Path = DB_PATH) -> None:
     """Ensure DB exists and is fresh (<7 days old)."""
-    if DB_PATH.exists():
-        age = time.time() - DB_PATH.stat().st_mtime
+    if db_path.exists():
+        age = time.time() - db_path.stat().st_mtime
         if age < REFRESH_SECONDS:
             return
-    _download_db()
+    _download_db(db_path)
 
 
 def _parse_price_tiers(raw: str | None) -> list[dict[str, Any]]:
@@ -169,11 +170,12 @@ class LcscClient:
         lookup_lcsc_id(c_code)     -> PartRecord | None
 
     Error modes:
-        RuntimeError if DB missing and cannot be downloaded.
+        RuntimeError if the local DB is missing.
         Returns [] / None (not raises) for no-match queries.
 
     Invariants:
-        DB refresh happens at most once per 7 days.
+        Normal construction performs no network I/O.
+        Refresh is an explicit caller action.
         All SQL is read-only (no writes to the cache).
     """
 
@@ -182,15 +184,33 @@ class LcscClient:
         self._conn: sqlite3.Connection | None = None
 
     @classmethod
-    def from_env(cls) -> "LcscClient":
-        """Construct client; ensures DB is present and fresh."""
-        _ensure_db()
-        if not DB_PATH.exists():
+    def from_env(
+        cls,
+        *,
+        db_path: Path | None = None,
+        refresh: bool = False,
+    ) -> "LcscClient":
+        """Construct an offline client, optionally refreshing the local cache."""
+        configured_path = os.environ.get("ELECTRONICS_LCSC_DB")
+        resolved_path = Path(db_path or configured_path or DB_PATH).expanduser()
+        if refresh:
+            _ensure_db(resolved_path)
+        if not resolved_path.is_file():
             raise RuntimeError(
-                f"jlcparts cache not found at {DB_PATH}. "
-                "Run LcscClient._download_db() manually."
+                f"jlcparts cache not found at {resolved_path}. "
+                "Run LcscClient.refresh() explicitly before lookup."
             )
-        return cls(DB_PATH)
+        return cls(resolved_path)
+
+    @classmethod
+    def refresh(cls, *, db_path: Path | None = None) -> Path:
+        """Refresh a stale or missing cache and return its database path."""
+        configured_path = os.environ.get("ELECTRONICS_LCSC_DB")
+        resolved_path = Path(db_path or configured_path or DB_PATH).expanduser()
+        _ensure_db(resolved_path)
+        if not resolved_path.is_file():
+            raise RuntimeError(f"jlcparts refresh did not create {resolved_path}")
+        return resolved_path
 
     def _get_conn(self) -> sqlite3.Connection:
         if self._conn is None:

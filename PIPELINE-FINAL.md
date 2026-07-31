@@ -1,5 +1,10 @@
 # PIPELINE-FINAL.md
 
+> Historical snapshot: this report records the 2026-05-01 pipeline run and its
+> then-current PR state. See `PROJECT.md` for current repository and runtime
+> status. The report contains three unresolved infrastructure failures and is
+> not an all-projects-pass claim.
+
 **Date:** 2026-05-01
 **Phases completed:** 1, 2, 3, 4, 5, 6, 7
 **Iterations in fix-loop:** 1 / 6 (early exit — no remaining GENUINE_BUGs)

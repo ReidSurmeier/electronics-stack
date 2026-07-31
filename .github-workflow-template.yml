@@ -26,7 +26,7 @@ jobs:
       - name: Run verify on each project
         run: |
           for proj in projects/*/; do
-            python3 ~/electronics-stack/scripts/verify.py "$proj" --erc --conn --power --pi
+            python3 "$GITHUB_WORKSPACE/scripts/verify.py" "$proj" --erc --conn --power --pi
           done
 
       - name: Run KiBot pipeline

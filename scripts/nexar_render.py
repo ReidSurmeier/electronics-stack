@@ -48,7 +48,6 @@ import requests
 
 CONFIG_DIR = Path.home() / ".config" / "electronics-stack"
 CACHE_DIR = Path.home() / ".cache" / "electronics-stack" / "nexar_design"
-CACHE_DIR.mkdir(parents=True, exist_ok=True)
 ENV_FILE = CONFIG_DIR / ".env"
 TOKEN_FILE = CACHE_DIR / "token.json"
 
@@ -127,6 +126,7 @@ class NexarDesignClient:
         body["expires_at"] = time.time() + int(body.get("expires_in", 1800))
         body["scope"] = DESIGN_SCOPE
         self._token = body
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
         TOKEN_FILE.write_text(json.dumps(body))
         try:
             TOKEN_FILE.chmod(0o600)

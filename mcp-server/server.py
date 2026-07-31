@@ -117,12 +117,13 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="audit_sourcing",
-            description="Walk a BOM xlsx Sourcing sheet, hit each URL, flag 404s. Optionally enrich with Digikey/Mouser API metadata.",
+            description="Audit BOM sourcing URLs. Provider APIs and Browserbase are independent, explicit opt-ins.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "xlsx_path": {"type": "string"},
-                    "with_api": {"type": "boolean", "default": False}
+                    "with_api": {"type": "boolean", "default": False},
+                    "with_browserbase": {"type": "boolean", "default": False}
                 },
                 "required": ["xlsx_path"]
             }
@@ -138,15 +139,32 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="lookup_part",
-            description="Search Digikey, Mouser, and/or Octopart for an MPN. Returns availability, lifecycle status, pricing, datasheet URL.",
+            description=(
+                "Search selected component providers for an MPN. "
+                "Defaults to the offline local LCSC cache; network providers "
+                "must be selected explicitly."
+            ),
             inputSchema={
                 "type": "object",
                 "properties": {
                     "mpn": {"type": "string"},
                     "providers": {
                         "type": "array",
-                        "items": {"type": "string", "enum": ["digikey", "mouser", "octopart"]},
-                        "default": ["digikey", "mouser", "octopart"]
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "digikey",
+                                "mouser",
+                                "octopart",
+                                "lcsc",
+                                "farnell",
+                            ],
+                        },
+                        "default": ["lcsc"],
+                        "description": (
+                            "Providers to query. Network providers are opt-in; "
+                            "LCSC uses the local jlcparts cache."
+                        ),
                     }
                 },
                 "required": ["mpn"]
@@ -404,7 +422,11 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             return [TextContent(type="text", text=json.dumps(findings, indent=2))]
 
         if name == "audit_sourcing":
-            out = sourcing_health.audit(arguments["xlsx_path"])
+            out = sourcing_health.audit(
+                arguments["xlsx_path"],
+                with_api=bool(arguments.get("with_api", False)),
+                with_browserbase=bool(arguments.get("with_browserbase", False)),
+            )
             return [TextContent(type="text", text=json.dumps(out, indent=2))]
 
         if name == "validate_pi_manifest":
@@ -414,7 +436,7 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
 
         if name == "lookup_part":
             mpn = arguments["mpn"]
-            providers = arguments.get("providers") or ["digikey", "mouser", "octopart"]
+            providers = arguments.get("providers") or ["lcsc"]
             results = {}
             if "digikey" in providers:
                 try:
@@ -434,6 +456,18 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
                     results["octopart"] = OctopartClient.from_env().search_mpn(mpn, limit=3)
                 except Exception as e:
                     results["octopart"] = {"error": str(e)}
+            if "lcsc" in providers:
+                try:
+                    from lcsc_client import LcscClient
+                    results["lcsc"] = LcscClient.from_env().keyword_search(mpn, limit=3)
+                except Exception as e:
+                    results["lcsc"] = {"error": str(e)}
+            if "farnell" in providers:
+                try:
+                    from farnell_client import FarnellClient
+                    results["farnell"] = FarnellClient.from_env().keyword_search(mpn, limit=3)
+                except Exception as e:
+                    results["farnell"] = {"error": str(e)}
             return [TextContent(type="text", text=json.dumps(results, indent=2)[:8000])]
 
         if name == "pin_match_datasheet":
@@ -557,9 +591,13 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             return [TextContent(type="text", text=json.dumps(result, indent=2))]
 
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
-    except Exception as e:
-        import traceback
-        return [TextContent(type="text", text=f"ERROR in {name}: {e}\n{traceback.format_exc()}")]
+    except Exception as error:
+        failure = {
+            "tool": name,
+            "error": type(error).__name__,
+            "message": str(error)[:1000],
+        }
+        return [TextContent(type="text", text=json.dumps(failure, indent=2))]
 
 
 async def main():

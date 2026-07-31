@@ -169,3 +169,31 @@ def test_design_creates_out_dir(tmp_path):
     out = tmp_path / "deep" / "nested" / "dir"
     result = pipeline.design(BLINKER_SPEC, out)
     assert Path(result["out_dir"]).exists()
+
+
+def test_design_failure_does_not_mutate_repository(tmp_path):
+    from design_pipeline import DesignPipeline
+
+    root = Path(__file__).resolve().parent.parent
+    limitations_doc = root / "docs" / "known-limitations.md"
+    before_root_artifacts = {
+        path.name
+        for path in root.iterdir()
+        if path.name.startswith("tmp") or path.name.startswith("test_skidl_wrapper")
+    }
+
+    pipeline = DesignPipeline(
+        providers=["offline-fixture"],
+        cache_dir=tmp_path / "cache",
+    )
+    result = pipeline.design(BLINKER_SPEC, tmp_path / "out")
+
+    after_root_artifacts = {
+        path.name
+        for path in root.iterdir()
+        if path.name.startswith("tmp") or path.name.startswith("test_skidl_wrapper")
+    }
+    assert after_root_artifacts == before_root_artifacts
+    assert not limitations_doc.exists()
+    assert all("/home/" not in item for item in result["known_limitations"])
+    assert all("Traceback" not in item for item in result["known_limitations"])

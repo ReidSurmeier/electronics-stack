@@ -8,9 +8,25 @@ side effects from the kikit Python API.
 """
 from __future__ import annotations
 
-import os
 import subprocess
 from pathlib import Path
+from typing import Sequence
+
+
+def _run_kikit(command: Sequence[str]) -> tuple[int, str]:
+    """Run KiKit with bounded, sanitized failure semantics."""
+    try:
+        result = subprocess.run(
+            list(command),
+            capture_output=True,
+            text=True,
+            timeout=300,
+        )
+    except FileNotFoundError:
+        return 127, "KiKit executable is not available on PATH"
+    except subprocess.TimeoutExpired:
+        return 124, "KiKit timed out after 300 seconds"
+    return result.returncode, (result.stderr or "")[:2000]
 
 
 class KikitWrapper:
@@ -50,17 +66,20 @@ class KikitWrapper:
         out.mkdir(parents=True, exist_ok=True)
         out_path = out / f"{board.stem}-panel.kicad_pcb"
 
-        r = subprocess.run(
-            ["kikit", "panelize", "--preset", preset, str(board), str(out_path)],
-            capture_output=True,
-            text=True,
-            timeout=300,
-            env={**os.environ},
+        if not board.is_file():
+            return {
+                "output": str(out_path),
+                "rc": 2,
+                "stderr": f"board does not exist: {board}",
+            }
+
+        rc, stderr = _run_kikit(
+            ["kikit", "panelize", "--preset", preset, str(board), str(out_path)]
         )
         return {
             "output": str(out_path),
-            "rc": r.returncode,
-            "stderr": r.stderr[:2000],
+            "rc": rc,
+            "stderr": stderr,
         }
 
     def fab_jlcpcb(
@@ -85,23 +104,25 @@ class KikitWrapper:
         """
         out = Path(out_dir)
         out.mkdir(parents=True, exist_ok=True)
+        board = Path(board_path)
+
+        if not board.is_file():
+            return {
+                "output": str(out),
+                "rc": 2,
+                "stderr": f"board does not exist: {board}",
+            }
 
         cmd = ["kikit", "fab", "jlcpcb"]
         if no_drc:
             cmd.append("--no-drc")
-        cmd += [str(board_path), str(out)]
+        cmd += [str(board), str(out)]
 
-        r = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            timeout=300,
-            env={**os.environ},
-        )
+        rc, stderr = _run_kikit(cmd)
         return {
             "output": str(out),
-            "rc": r.returncode,
-            "stderr": r.stderr[:2000],
+            "rc": rc,
+            "stderr": stderr,
         }
 
     def present(
@@ -126,22 +147,36 @@ class KikitWrapper:
         """
         out = Path(out_dir)
         out.mkdir(parents=True, exist_ok=True)
+        board = Path(board_path)
+        note = (
+            "kikit present requires X display for PCB renders; "
+            "headless may produce empty renders"
+        )
 
-        r = subprocess.run(
+        if not board.is_file():
+            return {
+                "output": str(out),
+                "rc": 2,
+                "stderr": f"board does not exist: {board}",
+                "note": note,
+            }
+
+        rc, stderr = _run_kikit(
             [
-                "kikit", "present", "boardpage",
-                "-b", str(board_path),
-                "-d", description,
-                "-o", str(out),
-            ],
-            capture_output=True,
-            text=True,
-            timeout=300,
-            env={**os.environ},
+                "kikit",
+                "present",
+                "boardpage",
+                "-b",
+                str(board),
+                "-d",
+                description,
+                "-o",
+                str(out),
+            ]
         )
         return {
             "output": str(out),
-            "rc": r.returncode,
-            "stderr": r.stderr[:2000],
-            "note": "kikit present requires X display for PCB renders; headless may produce empty renders",
+            "rc": rc,
+            "stderr": stderr,
+            "note": note,
         }
