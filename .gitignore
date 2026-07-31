@@ -20,6 +20,7 @@ verify-out/
 node_modules/
 # Large artifacts and corpus runs
 test-corpus/*/
+test-corpus/download.log
 corpus-results/raw_logs/
 *.glb
 *.pcb.json

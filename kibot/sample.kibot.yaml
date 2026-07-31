@@ -4,7 +4,7 @@
 # DRC + gerbers + 3D need a PCB — omitted.
 # Usage:
 #   cd <project-dir>
-#   kibot -c ~/electronics-stack/kibot/sample.kibot.yaml -d /tmp/kibot-test
+#   kibot -c kibot/sample.kibot.yaml -d /tmp/kibot-test
 
 kibot:
   version: 1
@@ -22,4 +22,3 @@ outputs:
     comment: "Schematic SVG via kicad-cli"
     type: svg_sch_print
     dir: docs
-

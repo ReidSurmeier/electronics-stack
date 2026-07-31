@@ -1,5 +1,9 @@
 # PIPELINE-STATE.md
 
+> Historical snapshot: this dispatch table was last updated on 2026-05-01 and
+> is not current execution state. See `PIPELINE-FINAL.md` for that run's result
+> and `PROJECT.md` for current work.
+
 Updated: 2026-05-01
 
 ## Phase Status

@@ -269,9 +269,10 @@ def render_skidl(parts: list[PartRequest], topology: str) -> str:
         "import warnings, os",
         "warnings.filterwarnings('ignore', message='.*KICAD.*SYMBOL.*DIR.*')",
         "os.environ.setdefault('KICAD9_SYMBOL_DIR', '/usr/share/kicad/symbols')",
-        "from skidl.logger import SkidlLogger as _SL",
+        "from skidl.logger import SkidlLogger as _SL, stop_log_file_output as _stop_logs",
         "import logging; logging.setLoggerClass(_SL)",
         "import skidl",
+        "_stop_logs()",
         "skidl.reset()",
         "",
         _TOPOLOGY_COMMENT.get(topology, ""),
@@ -429,19 +430,18 @@ def _write_stub_schematic(parts: list[PartRequest], path: Path, reason: str) -> 
     path.write_text("".join(lines))
 
 
-def _record_known_limitation(reason: str) -> None:
-    docs = Path(__file__).resolve().parent.parent / "docs"
-    docs.mkdir(exist_ok=True)
-    lim_file = docs / "known-limitations.md"
-    existing = lim_file.read_text() if lim_file.exists() else "# Known Limitations\n\n"
-    entry = f"- **skidl KiCad 9 symbol resolution**: {reason}\n"
-    if entry not in existing:
-        lim_file.write_text(existing + entry)
-
-
 # ---------------------------------------------------------------------------
 # skidl execution (subprocess with timeout — prevents hangs)
 # ---------------------------------------------------------------------------
+
+def _summarize_skidl_error(output: str) -> str:
+    """Return a stable final error without host paths or a traceback."""
+    lines = [line.strip() for line in output.splitlines() if line.strip()]
+    for line in reversed(lines):
+        if line.startswith(("FileNotFoundError:", "RuntimeError:", "ERROR:")):
+            return line[:500]
+    return (lines[-1] if lines else "skidl exited non-zero")[:500]
+
 
 def _exec_skidl(skidl_src: str, sch_path: Path, timeout: int = 60) -> tuple[bool, str]:
     """Write skidl script to a temp file and run it in a subprocess.
@@ -459,10 +459,12 @@ def _exec_skidl(skidl_src: str, sch_path: Path, timeout: int = 60) -> tuple[bool
         r = subprocess.run(
             [sys.executable, tmp_path],
             capture_output=True, text=True, timeout=timeout,
-            env={**os.environ, "KICAD9_SYMBOL_DIR": "/usr/share/kicad/symbols"},
+            cwd=sch_path.parent,
         )
         if r.returncode != 0:
-            err = (r.stderr or r.stdout or "skidl exited non-zero").strip()
+            err = _summarize_skidl_error(
+                r.stderr or r.stdout or "skidl exited non-zero"
+            )
             return False, err
         if not sch_path.exists():
             return False, "skidl ran but produced no .kicad_sch file"
@@ -533,7 +535,6 @@ class DesignPipeline:
 
         if not skidl_success:
             known_limitations.append(f"skidl schematic generation failed: {skidl_error}")
-            _record_known_limitation(skidl_error)
             _write_stub_schematic(requests, sch_path, skidl_error)
 
         # 6. Run ERC on whatever schematic exists

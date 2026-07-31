@@ -15,6 +15,7 @@ from __future__ import annotations
 import logging
 import os
 import warnings
+from contextlib import chdir
 from pathlib import Path
 
 # Silence KICAD dir warnings before any skidl import
@@ -23,10 +24,14 @@ os.environ.setdefault("KICAD9_SYMBOL_DIR", "/usr/share/kicad/symbols")
 
 # Must set SkidlLogger class BEFORE importing the skidl package so that
 # _create_logger() creates a proper SkidlLogger (not a plain Logger).
-from skidl.logger import SkidlLogger as _SkidlLogger  # noqa: E402
+from skidl.logger import (  # noqa: E402
+    SkidlLogger as _SkidlLogger,
+    stop_log_file_output as _stop_log_file_output,
+)
 logging.setLoggerClass(_SkidlLogger)
 
 import skidl  # noqa: E402  (must come after setLoggerClass)
+_stop_log_file_output()
 
 
 class SkidlWrapper:
@@ -83,8 +88,9 @@ class SkidlWrapper:
             On success: ``{"netlist_path": str, "rc": 0, "warnings": list[str]}``
             On failure: ``{"rc": 1, "error": str}``
         """
-        Path(out_dir).mkdir(parents=True, exist_ok=True)
-        netlist_path = str(Path(out_dir) / "netlist.net")
+        output_dir = Path(out_dir).resolve()
+        output_dir.mkdir(parents=True, exist_ok=True)
+        netlist_path = str(output_dir / "netlist.net")
         captured: list[str] = []
 
         try:
@@ -112,7 +118,8 @@ class SkidlWrapper:
                         except Exception as ex:
                             captured.append(f"Net {n['name']} {ref}.{pin}: {ex}")
 
-            skidl.generate_netlist(file_=netlist_path)
+            with chdir(output_dir):
+                skidl.generate_netlist(file_=netlist_path)
             return {"netlist_path": netlist_path, "rc": 0, "warnings": captured}
 
         except Exception as exc:
@@ -143,8 +150,9 @@ class SkidlWrapper:
             ``{"schematic_path": str|None, "netlist_path": str|None,
                "rc": int, "warnings": list[str], "notes": str}``
         """
-        Path(out_dir).mkdir(parents=True, exist_ok=True)
-        sch_path = str(Path(out_dir) / "schematic.kicad_sch")
+        output_dir = Path(out_dir).resolve()
+        output_dir.mkdir(parents=True, exist_ok=True)
+        sch_path = str(output_dir / "schematic.kicad_sch")
 
         # Always generate netlist first (reliable baseline)
         nl_result = self.generate_netlist(parts, nets, out_dir)
@@ -184,7 +192,8 @@ class SkidlWrapper:
                             part_map[ref][pin] += net
                         except Exception:
                             pass
-            skidl.generate_schematic(file_=sch_path)
+            with chdir(output_dir):
+                skidl.generate_schematic(file_=sch_path)
             if Path(sch_path).exists():
                 sch_out = sch_path
                 notes = "generate_schematic succeeded"
