@@ -26,8 +26,6 @@ import requests
 
 CONFIG_DIR = Path.home() / ".config" / "electronics-stack"
 CACHE_DIR = Path.home() / ".cache" / "electronics-stack" / "digikey"
-CACHE_DIR.mkdir(parents=True, exist_ok=True)
-CONFIG_DIR.mkdir(parents=True, exist_ok=True)
 ENV_FILE = CONFIG_DIR / ".env"
 TOKEN_FILE = CACHE_DIR / "token.json"
 
@@ -81,6 +79,7 @@ class DigikeyClient:
 
     def _save_token(self):
         if self._token:
+            CACHE_DIR.mkdir(parents=True, exist_ok=True)
             TOKEN_FILE.write_text(json.dumps(self._token))
             try:
                 TOKEN_FILE.chmod(0o600)
@@ -126,6 +125,7 @@ class DigikeyClient:
         return None
 
     def _cache_set(self, key: str, value: Any):
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
         (CACHE_DIR / f"{key}.json").write_text(json.dumps(value))
 
     def keyword_search(self, keyword: str, limit: int = 10) -> dict:

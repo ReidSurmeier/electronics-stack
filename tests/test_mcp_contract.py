@@ -66,3 +66,41 @@ def test_adapter_errors_are_structured_without_tracebacks(tmp_path: Path) -> Non
     assert result["error"]
     assert "Traceback" not in text
     assert "environ" not in text
+
+
+def test_audit_sourcing_schema_and_dispatch_require_explicit_network_opt_in(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    module = _load_server_module()
+    tools = asyncio.run(module.list_tools())
+    audit_tool = next(tool for tool in tools if tool.name == "audit_sourcing")
+
+    properties = audit_tool.inputSchema["properties"]
+    assert properties["with_api"]["default"] is False
+    assert properties["with_browserbase"]["default"] is False
+
+    calls: list[tuple[str, bool, bool]] = []
+
+    def fake_audit(
+        xlsx_path: str,
+        *,
+        with_api: bool = False,
+        with_browserbase: bool = False,
+    ) -> dict:
+        calls.append((xlsx_path, with_api, with_browserbase))
+        return {"rows_checked": 0, "findings": []}
+
+    monkeypatch.setattr(module.sourcing_health, "audit", fake_audit)
+    content = asyncio.run(
+        module.call_tool(
+            "audit_sourcing",
+            {
+                "xlsx_path": "fixtures/BOM.xlsx",
+                "with_api": True,
+                "with_browserbase": True,
+            },
+        )
+    )
+
+    assert calls == [("fixtures/BOM.xlsx", True, True)]
+    assert json.loads(content[0].text)["rows_checked"] == 0

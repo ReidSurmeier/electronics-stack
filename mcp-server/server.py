@@ -117,12 +117,13 @@ async def list_tools() -> list[Tool]:
         ),
         Tool(
             name="audit_sourcing",
-            description="Walk a BOM xlsx Sourcing sheet, hit each URL, flag 404s. Optionally enrich with Digikey/Mouser API metadata.",
+            description="Audit BOM sourcing URLs. Provider APIs and Browserbase are independent, explicit opt-ins.",
             inputSchema={
                 "type": "object",
                 "properties": {
                     "xlsx_path": {"type": "string"},
-                    "with_api": {"type": "boolean", "default": False}
+                    "with_api": {"type": "boolean", "default": False},
+                    "with_browserbase": {"type": "boolean", "default": False}
                 },
                 "required": ["xlsx_path"]
             }
@@ -421,7 +422,11 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
             return [TextContent(type="text", text=json.dumps(findings, indent=2))]
 
         if name == "audit_sourcing":
-            out = sourcing_health.audit(arguments["xlsx_path"])
+            out = sourcing_health.audit(
+                arguments["xlsx_path"],
+                with_api=bool(arguments.get("with_api", False)),
+                with_browserbase=bool(arguments.get("with_browserbase", False)),
+            )
             return [TextContent(type="text", text=json.dumps(out, indent=2))]
 
         if name == "validate_pi_manifest":

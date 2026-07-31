@@ -44,7 +44,6 @@ import requests
 CONFIG_DIR = Path.home() / ".config" / "electronics-stack"
 CACHE_DIR = Path.home() / ".cache" / "electronics-stack" / "farnell"
 ENV_FILE = CONFIG_DIR / ".env"
-CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 API_BASE = "https://api.element14.com/catalog/products"
 STORE_ID = "us.farnell.com"
@@ -79,6 +78,7 @@ def _cache_get(key: str) -> Any | None:
 
 
 def _cache_set(key: str, val: Any) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
     (CACHE_DIR / f"{key}.json").write_text(json.dumps(val))
 
 

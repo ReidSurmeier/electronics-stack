@@ -15,7 +15,6 @@ import requests
 
 CONFIG_DIR = Path.home() / ".config" / "electronics-stack"
 CACHE_DIR = Path.home() / ".cache" / "electronics-stack" / "mouser"
-CACHE_DIR.mkdir(parents=True, exist_ok=True)
 ENV_FILE = CONFIG_DIR / ".env"
 
 
@@ -55,6 +54,7 @@ class MouserClient:
         return None
 
     def _cache_set(self, key: str, val):
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
         (CACHE_DIR / f"{key}.json").write_text(json.dumps(val))
 
     def keyword_search(self, keyword: str, records: int = 10) -> dict:

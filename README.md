@@ -93,6 +93,24 @@ The local jlcparts SQLite cache is the quota-free LCSC path. Digikey, Mouser,
 Farnell, and Nexar/Octopart require their respective access configuration.
 See [ADR 0002](docs/adr/0002-quota-safe-provider-access.md).
 
+A sourcing audit uses local classification and ordinary HTTP checks by
+default. Distributor APIs and managed-browser escalation are independent:
+
+```bash
+# No distributor API or Browserbase calls
+.venv/bin/python scripts/sourcing_health.py BOM.xlsx
+
+# Permit DigiKey/Mouser routing and lifecycle queries
+.venv/bin/python scripts/sourcing_health.py BOM.xlsx --with-api
+
+# Separately permit capped Browserbase checks for anti-scrape responses
+.venv/bin/python scripts/sourcing_health.py BOM.xlsx --with-browserbase
+```
+
+Both opt-ins can be supplied together. Importing a provider module never
+creates host cache or configuration directories; those are created only when
+the client writes data.
+
 ## MCP adapter
 
 The MCP adapter is a stdio process spawned by its client; it is not a deployed

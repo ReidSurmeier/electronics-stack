@@ -54,7 +54,14 @@ them explicitly when their integration is needed:
 
 Provider credentials belong in host configuration with mode `0600`, never in
 the repository. Network validation is opt-in because provider quotas and
-access conditions vary. See ADR 0002.
+access conditions vary. `--with-api` permits distributor API calls, while
+`--with-browserbase` independently permits managed-browser escalation. The
+default sourcing command can still issue ordinary HTTP requests to URLs in the
+BOM; it does not use either provider mechanism. See ADR 0002.
+
+The LCSC client is offline during normal construction. Populate or refresh its
+jlcparts database only through the explicit refresh operation documented by
+`scripts/lcsc_client.py`; importing the client never downloads data.
 
 Nexar Supply and Design APIs use different OAuth scopes and separate caches.
 The Design API operates on Altium 365 projects; it does not accept KiCad

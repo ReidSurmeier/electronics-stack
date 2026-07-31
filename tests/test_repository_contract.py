@@ -124,6 +124,18 @@ class RepositoryContractTests(unittest.TestCase):
             text = (ROOT / report).read_text(encoding="utf-8")
             self.assertIn("historical", text.lower(), f"{report} needs a scope marker")
 
+    def test_public_docs_explain_sourcing_network_boundaries(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        adr = (
+            ROOT / "docs" / "adr" / "0002-quota-safe-provider-access.md"
+        ).read_text(encoding="utf-8")
+
+        for marker in ("--with-api", "--with-browserbase"):
+            self.assertIn(marker, readme)
+            self.assertIn(marker, adr)
+        self.assertIn("default", adr.lower())
+        self.assertIn("offline", adr.lower())
+
 
 if __name__ == "__main__":
     unittest.main()

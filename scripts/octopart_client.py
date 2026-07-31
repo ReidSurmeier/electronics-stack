@@ -18,7 +18,6 @@ import requests
 
 CONFIG_DIR = Path.home() / ".config" / "electronics-stack"
 CACHE_DIR = Path.home() / ".cache" / "electronics-stack" / "octopart"
-CACHE_DIR.mkdir(parents=True, exist_ok=True)
 ENV_FILE = CONFIG_DIR / ".env"
 TOKEN_FILE = CACHE_DIR / "token.json"
 
@@ -74,6 +73,7 @@ class OctopartClient:
         body = r.json()
         body["expires_at"] = time.time() + int(body.get("expires_in", 1800))
         self._token = body
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
         TOKEN_FILE.write_text(json.dumps(body))
         try:
             TOKEN_FILE.chmod(0o600)
@@ -97,6 +97,7 @@ class OctopartClient:
                           json={"query": gql, "variables": variables or {}}, timeout=30)
         r.raise_for_status()
         out = r.json()
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
         p.write_text(json.dumps(out))
         return out
 

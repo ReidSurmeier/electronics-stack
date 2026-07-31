@@ -36,12 +36,12 @@ reproduced from a fresh clone until the external corpus is materialized.
 
 ## Active work
 
-- Establish a reproducible Python environment and continuous validation.
-- Remove committed generated dependencies and undeclared corpus Git links.
-- Reconcile the MCP provider list with the already-merged provider clients.
-- Review open pull request #10 as an independent sourcing behavior change.
+- Publish the reproducible baseline and hardened sourcing behavior.
+- Install and verify the optional KiCad toolchain on the active workstation.
 - Re-run the documented 25-project sample before publishing a new capability
   claim.
+- Resolve the two unavailable datasheet fixtures and the SKiDL Timer-library
+  integration gap.
 
 ## Resume
 
