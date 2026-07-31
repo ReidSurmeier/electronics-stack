@@ -44,6 +44,10 @@ class RepositoryContractTests(unittest.TestCase):
             self.assertIn(dependency, text)
         self.assertIn("pytest", text)
 
+    def test_local_virtual_environment_is_ignored(self) -> None:
+        gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+        self.assertIn(".venv", gitignore.splitlines())
+
     def test_ci_runs_repository_contract_and_behavior_tests(self) -> None:
         workflow = ROOT / ".github" / "workflows" / "validate.yml"
         self.assertTrue(workflow.is_file(), "validation workflow is required")
@@ -135,6 +139,13 @@ class RepositoryContractTests(unittest.TestCase):
             self.assertIn(marker, adr)
         self.assertIn("default", adr.lower())
         self.assertIn("offline", adr.lower())
+
+    def test_install_docs_record_current_lcsc_schema_evidence(self) -> None:
+        install = (ROOT / "INSTALL.md").read_text(encoding="utf-8")
+
+        self.assertIn("jlc_components", install)
+        self.assertIn("7-Zip", install)
+        self.assertIn("C8734", install)
 
 
 if __name__ == "__main__":

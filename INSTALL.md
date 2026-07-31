@@ -63,6 +63,25 @@ The LCSC client is offline during normal construction. Populate or refresh its
 jlcparts database only through the explicit refresh operation documented by
 `scripts/lcsc_client.py`; importing the client never downloads data.
 
+### Current LCSC evidence
+
+On 2026-07-31, 7-Zip 23.01 was installed from the Ubuntu package repository.
+The explicit refresh reused the existing 13-part archive and extracted a
+5.6 GB SQLite database. The refreshed upstream schema uses
+`jlc_components`, not the legacy `components`/`manufacturers` tables.
+
+Validation on that database reported:
+
+- SQLite `PRAGMA quick_check`: `ok`
+- 7,157,071 component rows
+- C8734 ID lookup: found
+- exact-MPN keyword lookup: three results at a limit of three
+- C8734 price parsing: six quantity tiers
+
+These counts are dated cache evidence, not a stable upstream invariant. The
+client supports both the current and legacy table layouts through fixture
+tests and fails clearly when it encounters an unknown schema.
+
 Nexar Supply and Design APIs use different OAuth scopes and separate caches.
 The Design API operates on Altium 365 projects; it does not accept KiCad
 uploads. Pure-KiCad rendering must use KiCad's own export tools.
