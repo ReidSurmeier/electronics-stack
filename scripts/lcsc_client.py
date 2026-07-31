@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sqlite3
 import subprocess
 import time
@@ -98,18 +99,39 @@ def _ensure_db(db_path: Path = DB_PATH) -> None:
 
 
 def _parse_price_tiers(raw: str | None) -> list[dict[str, Any]]:
-    """Parse JSON price string -> [{qty, price_usd}]."""
+    """Parse legacy JSON or current jlcparts range-price text."""
     if not raw:
         return []
     try:
         tiers = json.loads(raw)
-        return [
-            {"qty": t.get("qFrom", 1), "price_usd": round(float(t.get("price", 0)), 6)}
-            for t in tiers
-            if isinstance(t, dict)
-        ]
-    except (json.JSONDecodeError, TypeError, ValueError):
-        return []
+    except (json.JSONDecodeError, TypeError):
+        tiers = None
+    if isinstance(tiers, list):
+        try:
+            return [
+                {
+                    "qty": int(t.get("qFrom", 1)),
+                    "price_usd": round(float(t.get("price", 0)), 6),
+                }
+                for t in tiers
+                if isinstance(t, dict)
+            ]
+        except (TypeError, ValueError):
+            return []
+
+    parsed: list[dict[str, Any]] = []
+    for entry in raw.split(","):
+        match = re.fullmatch(
+            r"\s*(\d+)(?:-\d*)?\s*:\s*(\d+(?:\.\d+)?)\s*",
+            entry,
+        )
+        if match is None:
+            return []
+        parsed.append({
+            "qty": int(match.group(1)),
+            "price_usd": round(float(match.group(2)), 6),
+        })
+    return parsed
 
 
 def _row_to_record(row: tuple) -> dict[str, Any]:
@@ -161,6 +183,34 @@ _QUERY_BY_LCSC = """
     WHERE c.lcsc = ?
 """
 
+_CURRENT_QUERY_BY_MFR = """
+    SELECT lcsc, mfr, manufacturer, package,
+           CASE WHEN library_type = 'base' THEN 1 ELSE 0 END AS basic,
+           preferred, stock, price, datasheet
+    FROM jlc_components
+    WHERE present = 1 AND mfr LIKE ?
+    ORDER BY preferred DESC, basic DESC, stock DESC
+    LIMIT ?
+"""
+
+_CURRENT_QUERY_BY_DESC = """
+    SELECT lcsc, mfr, manufacturer, package,
+           CASE WHEN library_type = 'base' THEN 1 ELSE 0 END AS basic,
+           preferred, stock, price, datasheet
+    FROM jlc_components
+    WHERE present = 1 AND (description LIKE ? OR mfr LIKE ?)
+    ORDER BY preferred DESC, basic DESC, stock DESC
+    LIMIT ?
+"""
+
+_CURRENT_QUERY_BY_LCSC = """
+    SELECT lcsc, mfr, manufacturer, package,
+           CASE WHEN library_type = 'base' THEN 1 ELSE 0 END AS basic,
+           preferred, stock, price, datasheet
+    FROM jlc_components
+    WHERE present = 1 AND lcsc = ?
+"""
+
 
 class LcscClient:
     """LCSC component lookup backed by a local jlcparts SQLite cache.
@@ -182,6 +232,7 @@ class LcscClient:
     def __init__(self, db_path: Path = DB_PATH) -> None:
         self._db_path = db_path
         self._conn: sqlite3.Connection | None = None
+        self._schema: str | None = None
 
     @classmethod
     def from_env(
@@ -216,7 +267,76 @@ class LcscClient:
         if self._conn is None:
             self._conn = sqlite3.connect(str(self._db_path))
             self._conn.row_factory = sqlite3.Row
+            self._conn.execute("PRAGMA query_only = ON")
         return self._conn
+
+    def _get_schema(self) -> str:
+        if self._schema is not None:
+            return self._schema
+        connection = self._get_conn()
+        tables = {
+            str(row[0])
+            for row in connection.execute(
+                "SELECT name FROM sqlite_master WHERE type = 'table'"
+            )
+        }
+        if "jlc_components" in tables:
+            columns = {
+                str(row[1])
+                for row in connection.execute(
+                    "PRAGMA table_info(jlc_components)"
+                )
+            }
+            required = {
+                "lcsc",
+                "mfr",
+                "manufacturer",
+                "package",
+                "library_type",
+                "preferred",
+                "present",
+                "description",
+                "stock",
+                "price",
+                "datasheet",
+            }
+            if required <= columns:
+                self._schema = "current"
+        elif {"components", "manufacturers"} <= tables:
+            component_columns = {
+                str(row[1])
+                for row in connection.execute("PRAGMA table_info(components)")
+            }
+            manufacturer_columns = {
+                str(row[1])
+                for row in connection.execute(
+                    "PRAGMA table_info(manufacturers)"
+                )
+            }
+            required_components = {
+                "lcsc",
+                "mfr",
+                "manufacturer_id",
+                "package",
+                "basic",
+                "preferred",
+                "description",
+                "stock",
+                "price",
+                "datasheet",
+            }
+            if (
+                required_components <= component_columns
+                and {"id", "name"} <= manufacturer_columns
+            ):
+                self._schema = "legacy"
+        if self._schema is None:
+            raise RuntimeError(
+                "unsupported jlcparts schema: expected jlc_components or "
+                "legacy components/manufacturers tables; refresh the cache "
+                "or update Electronics Stack"
+            )
+        return self._schema
 
     def keyword_search(self, mpn: str, limit: int = 5) -> list[dict[str, Any]]:
         """Search by MPN / keyword. Returns up to `limit` PartRecord dicts.
@@ -226,10 +346,20 @@ class LcscClient:
         """
         conn = self._get_conn()
         pattern = f"%{mpn}%"
+        schema = self._get_schema()
+        query_by_mfr = (
+            _CURRENT_QUERY_BY_MFR if schema == "current" else _QUERY_BY_MFR
+        )
+        query_by_desc = (
+            _CURRENT_QUERY_BY_DESC if schema == "current" else _QUERY_BY_DESC
+        )
         # Try exact mfr first
-        rows = conn.execute(_QUERY_BY_MFR, (pattern, limit)).fetchall()
+        rows = conn.execute(query_by_mfr, (pattern, limit)).fetchall()
         if not rows:
-            rows = conn.execute(_QUERY_BY_DESC, (pattern, pattern, limit)).fetchall()
+            rows = conn.execute(
+                query_by_desc,
+                (pattern, pattern, limit),
+            ).fetchall()
         return [_row_to_record(tuple(r)) for r in rows]
 
     def lookup_lcsc_id(self, c_code: str) -> dict[str, Any] | None:
@@ -243,7 +373,12 @@ class LcscClient:
         except ValueError:
             return None
         conn = self._get_conn()
-        row = conn.execute(_QUERY_BY_LCSC, (lcsc_int,)).fetchone()
+        query = (
+            _CURRENT_QUERY_BY_LCSC
+            if self._get_schema() == "current"
+            else _QUERY_BY_LCSC
+        )
+        row = conn.execute(query, (lcsc_int,)).fetchone()
         if row is None:
             return None
         return _row_to_record(tuple(row))

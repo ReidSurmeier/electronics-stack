@@ -52,6 +52,57 @@ def _create_fixture_database(path: Path) -> None:
     connection.close()
 
 
+def _create_current_fixture_database(path: Path) -> None:
+    connection = sqlite3.connect(path)
+    connection.executescript(
+        """
+        CREATE TABLE jlc_components (
+            lcsc INTEGER PRIMARY KEY NOT NULL,
+            fetched_at INTEGER NOT NULL,
+            present INTEGER NOT NULL,
+            sync_seen INTEGER NOT NULL DEFAULT 0,
+            category TEXT NOT NULL,
+            subcategory TEXT NOT NULL,
+            mfr TEXT NOT NULL,
+            package TEXT NOT NULL,
+            joints INTEGER NOT NULL,
+            manufacturer TEXT NOT NULL,
+            library_type TEXT NOT NULL,
+            preferred INTEGER NOT NULL,
+            last_on_stock INTEGER NOT NULL,
+            description TEXT NOT NULL,
+            datasheet TEXT NOT NULL,
+            stock INTEGER NOT NULL,
+            price TEXT NOT NULL,
+            attributes TEXT NOT NULL,
+            rohs INTEGER,
+            eccn TEXT NOT NULL,
+            assembly INTEGER,
+            assembly_process TEXT,
+            assembly_mode TEXT,
+            website_component_id TEXT,
+            attrition TEXT NOT NULL
+        );
+        INSERT INTO jlc_components (
+            lcsc, fetched_at, present, sync_seen, category, subcategory,
+            mfr, package, joints, manufacturer, library_type, preferred,
+            last_on_stock, description, datasheet, stock, price, attributes,
+            rohs, eccn, assembly, assembly_process, assembly_mode,
+            website_component_id, attrition
+        ) VALUES (
+            8734, 0, 1, 1, 'Integrated Circuits', 'MCU',
+            'STM32F103C8T6', 'LQFP-48', 48, 'STMicroelectronics',
+            'expand', 1, 0, 'MCU',
+            'https://example.invalid/datasheet.pdf', 270767,
+            '1-9:1.4415,10-29:1.2527,1000-:0.9192', '{}',
+            1, '', 1, NULL, NULL, 'fixture', ''
+        );
+        """
+    )
+    connection.commit()
+    connection.close()
+
+
 def test_missing_cache_fails_without_network(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
@@ -81,3 +132,39 @@ def test_local_database_supports_keyword_and_id_lookup(tmp_path: Path) -> None:
     assert matches[0]["stock"] == 42
     assert matches[0]["price_tiers"] == [{"qty": 1, "price_usd": 2.5}]
     assert by_id == matches[0]
+
+
+def test_current_jlcparts_schema_supports_keyword_and_id_lookup(
+    tmp_path: Path,
+) -> None:
+    database = tmp_path / "cache.sqlite3"
+    _create_current_fixture_database(database)
+
+    with LcscClient.from_env(db_path=database) as client:
+        matches = client.keyword_search("STM32F103", limit=3)
+        by_id = client.lookup_lcsc_id("C8734")
+
+    assert by_id == matches[0]
+    assert by_id["mpn"] == "STM32F103C8T6"
+    assert by_id["manufacturer"] == "STMicroelectronics"
+    assert by_id["basic_extended"] == "Preferred"
+    assert by_id["stock"] == 270767
+    assert by_id["price_tiers"] == [
+        {"qty": 1, "price_usd": 1.4415},
+        {"qty": 10, "price_usd": 1.2527},
+        {"qty": 1000, "price_usd": 0.9192},
+    ]
+
+
+def test_unknown_jlcparts_schema_fails_with_actionable_message(
+    tmp_path: Path,
+) -> None:
+    database = tmp_path / "cache.sqlite3"
+    connection = sqlite3.connect(database)
+    connection.execute("CREATE TABLE jlc_components (lcsc INTEGER PRIMARY KEY)")
+    connection.commit()
+    connection.close()
+
+    with LcscClient.from_env(db_path=database) as client:
+        with pytest.raises(RuntimeError, match="unsupported jlcparts schema"):
+            client.lookup_lcsc_id("C8734")
